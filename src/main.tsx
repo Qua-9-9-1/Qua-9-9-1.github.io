@@ -1,10 +1,13 @@
-import React from 'react'
-import ReactDOM from 'react-dom/client'
-import App from './App'
-import './style.css'
+import React from "react";
+import ReactDOM from "react-dom/client";
+import App from "./App";
+import "./style.css";
+import { LanguageProvider } from "./context/LanguageContext";
 
-ReactDOM.createRoot(document.getElementById('root')!).render(
+ReactDOM.createRoot(document.getElementById("root")!).render(
   <React.StrictMode>
-    <App />
+    <LanguageProvider>
+      <App />
+    </LanguageProvider>
   </React.StrictMode>,
-)
+);
