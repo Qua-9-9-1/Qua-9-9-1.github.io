@@ -1,15 +1,10 @@
-import { Outlet, Link } from "react-router-dom";
-import { useLanguage } from "../../context/LanguageContext";
+import { Outlet } from "react-router-dom";
+import Navbar from "./Navbar";
 
 export default function RootLayout() {
-  const { t } = useLanguage();
-
   return (
     <div>
-      <nav style={{ padding: '1rem', borderBottom: '1px solid #ddd', display: 'flex', gap: '20px' }}>
-        <Link to="/">{"Accueil"}</Link> 
-        <Link to="/projects">{t.projects.title}</Link>
-      </nav>
+      <Navbar />
 
       <main style={{ padding: '2rem' }}>
         <Outlet />

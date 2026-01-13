@@ -5,7 +5,14 @@ export const en: Translations = {
     title: "Welcome to my Portfolio",
     subtitle: "Testing english subtitles",
   },
+  nav: {
+    projects: "Projects",
+    contact: "Contact",
+  },
   projects: {
     title: "My Projects",
+  },
+  contact: {
+    title: "Contact Me",
   },
 };
