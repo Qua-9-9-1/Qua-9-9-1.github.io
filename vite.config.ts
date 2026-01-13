@@ -1,6 +1,5 @@
 import { defineConfig } from "vite";
 import react from "@vitejs/plugin-react";
-import { comma } from "postcss/lib/list";
 
 // https://vite.dev/config/
 export default defineConfig(({ command }) => {
