@@ -10,7 +10,15 @@ export const en: Translations = {
     contact: "Contact",
   },
   projects: {
+    loading: "Loading projects...",
+    loadingError: "Trouble loading projects: ",
     title: "My Projects",
+    NoDescription: "No description available.",
+    codeLink: "View Code",
+    completed: "Completed",
+    wip: "Work in Progress",
+    archived: "Archived",
+    unknown: "Unknown Status",
   },
   contact: {
     title: "Contact Me",
