@@ -7,6 +7,15 @@ export const fr = {
     projects: "Projets",
     contact: "Contact",
   },
+  theme: {
+    modalTitle: "Apparence",
+    modeLabel: "Luminosité",
+    bgLabel: "Fond",
+    duoLabel: "Couleur",
+    presetsLabel: "Presets",
+    modeLight: "Clair",
+    modeDark: "Sombre",
+  },
   projects: {
     loading: "Chargement des projets...",
     loadingError: "Erreur lors du chargement : ",
