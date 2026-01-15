@@ -1,5 +1,5 @@
-import { Outlet } from "react-router-dom";
-import Navbar from "./Navbar";
+import { Outlet } from 'react-router-dom';
+import Navbar from './Navbar';
 
 export default function RootLayout() {
   return (
@@ -9,9 +9,8 @@ export default function RootLayout() {
       <main style={{ padding: '2rem' }}>
         <Outlet />
       </main>
-      
-      <footer>
-      </footer>
+
+      <footer></footer>
     </div>
   );
 }

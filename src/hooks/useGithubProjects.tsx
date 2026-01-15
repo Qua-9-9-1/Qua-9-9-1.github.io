@@ -13,7 +13,7 @@ export const useProjects = () => {
         const data = await fetchGitHubProjects();
         setProjects(data);
       } catch (err) {
-        setError("Impossible to load projects from GitHub.");
+        setError('Impossible to load projects from GitHub.');
         console.error(err);
       } finally {
         setLoading(false);

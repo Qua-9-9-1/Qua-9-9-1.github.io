@@ -7,7 +7,12 @@ export default function ProjectsPage() {
   const { t } = useLanguage();
 
   if (loading) return <div>{t.projects.loading}</div>;
-  if (error) return <div>{t.projects.loadingError} {error}</div>;
+  if (error)
+    return (
+      <div>
+        {t.projects.loadingError} {error}
+      </div>
+    );
 
   return <ProjectList projects={projects} />;
 }

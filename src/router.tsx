@@ -1,26 +1,26 @@
-import { createHashRouter } from "react-router-dom";
-import RootLayout from "./components/layout/RootLayout";
-import Home from "./pages/Home";
-import Projects from "./pages/Projects";
-import Contact from "./pages/Contact";
+import { createHashRouter } from 'react-router-dom';
+import RootLayout from './components/layout/RootLayout';
+import Home from './pages/Home';
+import Projects from './pages/Projects';
+import Contact from './pages/Contact';
 
 export const router = createHashRouter([
   {
-    path: "/",
+    path: '/',
     element: <RootLayout />,
     children: [
       {
-        path: "",
+        path: '',
         element: <Home />,
       },
       {
-        path: "projects",
+        path: 'projects',
         element: <Projects />,
       },
       {
-        path : "contact",
+        path: 'contact',
         element: <Contact />,
-      }
+      },
     ],
   },
 ]);

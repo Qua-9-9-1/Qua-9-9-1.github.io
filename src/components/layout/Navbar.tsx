@@ -1,15 +1,15 @@
-import { Link } from "react-router-dom";
-import { useState } from "react";
-import { useLanguage } from "../../context/LanguageContext";
-import ThemeModal from "../theme/ThemeModal";
-import "../../styles/components/layout/navbar.css";
+import { Link } from 'react-router-dom';
+import { useState } from 'react';
+import { useLanguage } from '../../context/LanguageContext';
+import ThemeModal from '../theme/ThemeModal';
+import '../../styles/components/layout/navbar.css';
 
 export default function Navbar() {
   const { t, language, setLanguage } = useLanguage();
   const [isThemeModalOpen, setIsThemeModalOpen] = useState(false);
 
   const toggleLanguage = () => {
-    setLanguage(language === "fr" ? "en" : "fr");
+    setLanguage(language === 'fr' ? 'en' : 'fr');
   };
 
   return (
@@ -38,11 +38,8 @@ export default function Navbar() {
               Color theme
             </button>
 
-            <button
-              onClick={toggleLanguage}
-              className="language-button"
-            >
-              {language === "fr" ? "🇫🇷 FR" : "🇺🇸 EN"}
+            <button onClick={toggleLanguage} className="language-button">
+              {language === 'fr' ? '🇫🇷 FR' : '🇺🇸 EN'}
             </button>
           </div>
         </div>
