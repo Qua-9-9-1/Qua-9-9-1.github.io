@@ -9,7 +9,7 @@ interface ThemeModalProps {
 }
 
 export default function ThemeModal({ isOpen, onClose }: ThemeModalProps) {
-    const { t } = useLanguage();
+  const { t } = useLanguage();
   const { theme, setMode, setBg, setDuo, applyPreset } = useTheme();
 
   if (!isOpen) return null;
@@ -19,7 +19,9 @@ export default function ThemeModal({ isOpen, onClose }: ThemeModalProps) {
       <div className="modal-content" onClick={(e) => e.stopPropagation()}>
         <div className="modal-header">
           <h2>{t.theme.modalTitle}</h2>
-          <button onClick={onClose} className="close-button">&times;</button>
+          <button onClick={onClose} className="close-button">
+            &times;
+          </button>
         </div>
 
         <section className="modal-section">
@@ -41,18 +43,24 @@ export default function ThemeModal({ isOpen, onClose }: ThemeModalProps) {
           <p className="modal-label">{t.theme.bgLabel}</p>
           <div className="bg-options">
             {BG_OPTIONS.map((option) => (
-            <button
+              <button
                 key={option.value}
                 onClick={() => setBg(option.value)}
                 className={`bg-circle ${theme.bg === option.value ? 'active' : ''}`}
                 title={option.label}
                 style={{
-                backgroundColor: theme.mode === 'light' ? option.lightColor : option.darkColor,
-                borderColor: theme.bg === option.value ? 'var(--text-main)' : 'transparent'
+                  backgroundColor:
+                    theme.mode === 'light'
+                      ? option.lightColor
+                      : option.darkColor,
+                  borderColor:
+                    theme.bg === option.value
+                      ? 'var(--text-main)'
+                      : 'transparent',
                 }}
-            />
-            ))} 
-        </div>
+              />
+            ))}
+          </div>
         </section>
 
         <section className="modal-section">
@@ -65,7 +73,7 @@ export default function ThemeModal({ isOpen, onClose }: ThemeModalProps) {
                 className={`duo-circle ${theme.duo.id === d.id ? 'active' : ''}`}
                 title={d.label}
                 style={{
-                    background: `linear-gradient(135deg, ${d.primary} 50%, ${d.secondary} 50%)`,
+                  background: `linear-gradient(135deg, ${d.primary} 50%, ${d.secondary} 50%)`,
                 }}
               />
             ))}

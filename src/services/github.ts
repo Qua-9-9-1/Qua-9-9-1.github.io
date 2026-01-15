@@ -1,6 +1,6 @@
-import type { Project, ProjectStatus } from "../types/project";
+import type { Project, ProjectStatus } from '../types/project';
 
-const USERNAME = "Qua-9-9-1";
+const USERNAME = 'Qua-9-9-1';
 
 interface GitHubRepo {
   id: number;
@@ -14,8 +14,10 @@ interface GitHubRepo {
 }
 
 export const fetchGitHubProjects = async (): Promise<Project[]> => {
-  const response = await fetch(`https://api.github.com/users/${USERNAME}/repos?sort=updated&per_page=100`);
-  
+  const response = await fetch(
+    `https://api.github.com/users/${USERNAME}/repos?sort=updated&per_page=100`
+  );
+
   if (!response.ok) {
     throw new Error('Error fetching GitHub repositories');
   }
@@ -23,8 +25,8 @@ export const fetchGitHubProjects = async (): Promise<Project[]> => {
   const data: GitHubRepo[] = await response.json();
 
   return data
-    .filter(repo => repo.topics.includes('portfolio'))
-    .map(repo => {
+    .filter((repo) => repo.topics.includes('portfolio'))
+    .map((repo) => {
       let status: ProjectStatus = 'unknown';
       if (repo.topics.includes('completed')) {
         status = 'completed';
@@ -42,7 +44,13 @@ export const fetchGitHubProjects = async (): Promise<Project[]> => {
         description: repo.description,
         url: repo.html_url,
         homepageUrl: repo.homepage_url,
-        topics: repo.topics.filter(t => t !== 'portfolio' && t !== 'completed' && t !== 'wip' && t !== 'archived'),
+        topics: repo.topics.filter(
+          (t) =>
+            t !== 'portfolio' &&
+            t !== 'completed' &&
+            t !== 'wip' &&
+            t !== 'archived'
+        ),
         status,
         imageUrl,
       };

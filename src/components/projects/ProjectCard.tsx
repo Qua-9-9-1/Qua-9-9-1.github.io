@@ -1,35 +1,35 @@
 import type { Project } from '../../types/project';
 import { useLanguage } from '../../context/LanguageContext';
-import "../../styles/projects/projectCard.css";
+import '../../styles/projects/projectCard.css';
 
 export default function ProjectCard({ project }: { project: Project }) {
-    const { t } = useLanguage();
+  const { t } = useLanguage();
 
-    const getStatusBackgroundColor = (status: Project['status']): string => {
+  const getStatusBackgroundColor = (status: Project['status']): string => {
     switch (status) {
-        case 'completed':
-            return '#90ee90';
-        case 'wip':
+      case 'completed':
+        return '#90ee90';
+      case 'wip':
         return '#ffd700';
-        case 'archived':
+      case 'archived':
         return '#e68443ff';
-        default:
+      default:
         return '#ccc';
     }
-    };
+  };
 
-    const getStatusLabel = (status: Project['status']): string => {
+  const getStatusLabel = (status: Project['status']): string => {
     switch (status) {
-        case 'completed':
-            return '✅ ' + t.projects.completed;
-        case 'wip':
+      case 'completed':
+        return '✅ ' + t.projects.completed;
+      case 'wip':
         return '🚧 ' + t.projects.wip;
-        case 'archived':
+      case 'archived':
         return '📦 ' + t.projects.archived;
-        default:
+      default:
         return '❓ ' + t.projects.unknown;
     }
-    };
+  };
 
   return (
     <article className="project-card">
@@ -38,7 +38,8 @@ export default function ProjectCard({ project }: { project: Project }) {
           src={project.imageUrl}
           alt={project.name}
           onError={(e) => {
-            (e.target as HTMLImageElement).src = 'https://placehold.co/600x400?text=No+Image';
+            (e.target as HTMLImageElement).src =
+              'https://placehold.co/600x400?text=No+Image';
           }}
         />
       </div>
@@ -69,7 +70,12 @@ export default function ProjectCard({ project }: { project: Project }) {
             {t.projects.codeLink}
           </a>
           {project.homepageUrl && (
-            <a href={project.homepageUrl} target="_blank" rel="noreferrer" className="project-card__homepage">
+            <a
+              href={project.homepageUrl}
+              target="_blank"
+              rel="noreferrer"
+              className="project-card__homepage"
+            >
               Voir le site
             </a>
           )}
