@@ -9,6 +9,15 @@ export const en: Translations = {
     projects: "Projects",
     contact: "Contact",
   },
+  theme: {
+    modalTitle: "Appearance",
+    modeLabel: "Brightness",
+    bgLabel: "Background",
+    duoLabel: "Color",
+    presetsLabel: "Presets",
+    modeLight: "Light",
+    modeDark: "Dark",
+  },
   projects: {
     loading: "Loading projects...",
     loadingError: "Trouble loading projects: ",

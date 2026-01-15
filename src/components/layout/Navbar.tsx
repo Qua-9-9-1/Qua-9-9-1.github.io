@@ -1,53 +1,56 @@
 import { Link } from "react-router-dom";
+import { useState } from "react";
 import { useLanguage } from "../../context/LanguageContext";
+import ThemeModal from "../theme/ThemeModal";
+import "../../styles/components/layout/navbar.css";
 
 export default function Navbar() {
   const { t, language, setLanguage } = useLanguage();
+  const [isThemeModalOpen, setIsThemeModalOpen] = useState(false);
 
   const toggleLanguage = () => {
-    setLanguage(language === 'fr' ? 'en' : 'fr');
+    setLanguage(language === "fr" ? "en" : "fr");
   };
 
   return (
-    <nav style={{ 
-      display: 'flex', 
-      justifyContent: 'space-between', 
-      alignItems: 'center',
-      padding: '1.5rem 2rem',
-      background: 'rgba(255, 255, 255, 0.8)', // Un peu de transparence
-      backdropFilter: 'blur(10px)', // Effet verre dépoli (moderne)
-      position: 'sticky',
-      top: 0,
-      zIndex: 10
-    }}>
-      {/* Logo ou Nom */}
-      <div style={{ fontWeight: 'bold', fontSize: '1.2rem' }}>
-        <Link to="/" style={{ textDecoration: 'none', color: 'inherit' }}>
-          MonPortfolio
-        </Link>
-      </div>
+    <>
+      <nav className="navbar">
+        <div className="navbar-logo">
+          <Link to="/" className="navbar-link">
+            Qua-9-9-1
+          </Link>
+        </div>
 
-      {/* Liens + Switch */}
-      <div style={{ display: 'flex', gap: '2rem', alignItems: 'center' }}>
-        <Link to="/projects">{t.nav.projects}</Link>
-        <Link to="/contact">{t.nav.contact}</Link>
-        
-        {/* Le Switcher Stylé */}
-        <button 
-          onClick={toggleLanguage}
-          style={{
-            background: 'none',
-            border: '1px solid #ccc',
-            borderRadius: '20px',
-            padding: '5px 12px',
-            cursor: 'pointer',
-            transition: 'all 0.2s',
-            fontSize: '0.9rem'
-          }}
-        >
-          {language === 'fr' ? '🇫🇷 FR' : '🇺🇸 EN'}
-        </button>
-      </div>
-    </nav>
+        <div className="navbar-links">
+          <Link to="/projects" className="navbar-link">
+            {t.nav.projects}
+          </Link>
+          <Link to="/contact" className="navbar-link">
+            {t.nav.contact}
+          </Link>
+
+          <div className="navbar-switchers">
+            <button
+              onClick={() => setIsThemeModalOpen(true)}
+              aria-label="Changer le thème"
+              className="theme-button"
+            >
+              Color theme
+            </button>
+
+            <button
+              onClick={toggleLanguage}
+              className="language-button"
+            >
+              {language === "fr" ? "🇫🇷 FR" : "🇺🇸 EN"}
+            </button>
+          </div>
+        </div>
+      </nav>
+      <ThemeModal
+        isOpen={isThemeModalOpen}
+        onClose={() => setIsThemeModalOpen(false)}
+      />
+    </>
   );
 }
