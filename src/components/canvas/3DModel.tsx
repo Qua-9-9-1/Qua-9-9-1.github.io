@@ -35,19 +35,19 @@ export default function Model3D({
       }
     });
     if (gpuInfo?.isLowEnd == true) {
-        console.log("Low-end GPU detected, applying optimizations.");
+      console.log('Low-end GPU detected, applying optimizations.');
     } else {
-        console.log("GPU is sufficient, no optimizations applied.");
+      console.log('GPU is sufficient, no optimizations applied.');
     }
   }, [scene, wireframe, gpuInfo]);
 
   return (
     <>
-    <primitive
-      object={scene}
-      position={position}
-      rotation={rotation}
-      scale={scale}
+      <primitive
+        object={scene}
+        position={position}
+        rotation={rotation}
+        scale={scale}
       />
       {/* <div style={{ position: 'absolute', top: 100, left: 100, background: '#fff8f2', padding: 8, borderRadius: 8 }}>
         <div>
@@ -78,6 +78,6 @@ export default function Model3D({
         <div style={{ marginTop: 8 }}>
           <strong>Auto-rotation Y (scene):</strong> {(autoRotationY * 180 / Math.PI).toFixed(1)}°
         </div> */}
-      </>
+    </>
   );
 }

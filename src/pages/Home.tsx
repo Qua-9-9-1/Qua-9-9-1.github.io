@@ -24,12 +24,11 @@ export default function Home() {
           },
           {
             url: '/assets/models/laptop/scene.gltf',
-            position: [3.20, -2.40, 0],
+            position: [3.2, -2.4, 0],
             rotation: [0.4, 3.1, 0.2],
             scale: 6.1,
-          }
+          },
         ]}
-        
       />
     </main>
   );
