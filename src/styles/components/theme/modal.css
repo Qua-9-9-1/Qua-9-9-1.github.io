@@ -106,7 +106,7 @@
   cursor: pointer;
   border: 2px solid transparent;
   transition: transform 0.2s, border-color 0.2s;
-  background: linear-gradient(135deg, var(--primary-main) 50%, var(--secondary-main) 50%); /* Couleurs dynamiques */
+  background: linear-gradient(135deg, var(--primary-main) 50%, var(--secondary-main) 50%);
 }
 
 .duo-circle.active {

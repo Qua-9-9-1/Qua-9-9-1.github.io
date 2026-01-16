@@ -1,7 +1,13 @@
 import { useTheme } from '../../context/ThemeContext';
-import { DUOS, BG_OPTIONS, PRESETS } from '../../styles/themeOptions';
-import '../../styles/components/theme/modal.css';
 import { useLanguage } from '../../context/LanguageContext';
+import { DUOS, BG_OPTIONS, PRESETS } from '../../data/themeOptions';
+import { Button } from '../../components/ui/button';
+import {
+  Dialog,
+  DialogContent,
+  DialogHeader,
+  DialogTitle,
+} from '../../components/ui/dialog';
 
 interface ThemeModalProps {
   isOpen: boolean;
@@ -12,89 +18,97 @@ export default function ThemeModal({ isOpen, onClose }: ThemeModalProps) {
   const { t } = useLanguage();
   const { theme, setMode, setBg, setDuo, applyPreset } = useTheme();
 
-  if (!isOpen) return null;
-
   return (
-    <div className="modal-overlay" onClick={onClose}>
-      <div className="modal-content" onClick={(e) => e.stopPropagation()}>
-        <div className="modal-header">
-          <h2>{t.theme.modalTitle}</h2>
-          <button onClick={onClose} className="close-button">
-            &times;
-          </button>
+    // Le composant Dialog gère lui-même l'overlay, l'animation et le clic extérieur
+    <Dialog open={isOpen} onOpenChange={(open) => !open && onClose()}>
+      <DialogContent className="sm:max-w-[425px] bg-surface text-foreground border-border">
+        
+        <DialogHeader>
+          <DialogTitle className="text-xl font-bold">{t.theme.modalTitle}</DialogTitle>
+        </DialogHeader>
+
+        <div className="grid gap-6 py-4">
+          
+          {/* --- 1. MODE (Clair / Sombre) --- */}
+          <div className="space-y-3">
+            <h4 className="text-sm font-medium leading-none opacity-70">{t.theme.modeLabel}</h4>
+            <div className="flex gap-2">
+              {['light', 'dark'].map((mode) => (
+                <Button
+                  key={mode}
+                  variant={theme.mode === mode ? "default" : "outline"}
+                  onClick={() => setMode(mode as any)}
+                  className={`w-full justify-start font-normal capitalize ${
+                    mode === "light" ? "bg-background text-foreground" : "bg-foreground text-background"
+                  }`}
+                >
+                  {mode === 'light' ? t.theme.lightLabel : t.theme.darkLabel}
+                </Button>
+              ))}
+            </div>
+          </div>
+
+          {/* --- 2. AMBIANCE (Fond) --- */}
+          <div className="space-y-3">
+            <h4 className="text-sm font-medium leading-none opacity-70">{t.theme.bgLabel}</h4>
+            <div className="flex gap-3">
+              {BG_OPTIONS.map((option) => {
+                const bgColor = theme.mode === 'dark' ? option.darkColor : option.lightColor;
+                const isActive = theme.bg === option.value;
+                return (
+                  <button
+                    key={option.value}
+                    onClick={() => setBg(option.value)}
+                    title={option.label}
+                    style={{ background: bgColor }}
+                    className={`h-8 w-8 rounded-full border-2 transition-all hover:scale-110 focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2 ${
+                      isActive ? 'border-foreground ring-2 ring-primary' : 'border-transparent'
+                    }`}
+                  />
+                );
+              })}
+            </div>
+          </div>
+
+          {/* --- 3. ACCENTS (Duos) --- */}
+          <div className="space-y-3">
+            <h4 className="text-sm font-medium leading-none opacity-70">{t.theme.duoLabel}</h4>
+            <div className="flex flex-wrap gap-3">
+              {DUOS.map((d) => (
+                <button
+                  key={d.id}
+                  onClick={() => setDuo(d.id)}
+                  title={d.label}
+                  style={{ background: `linear-gradient(135deg, ${d.primary} 50%, ${d.secondary} 50%)` }}
+                  className={`
+                    h-10 w-10 rounded-full border-2 transition-all hover:scale-110 focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2
+                    ${theme.duo.id === d.id ? 'border-foreground ring-2 ring-primary' : 'border-transparent'}
+                  `}
+                />
+              ))}
+            </div>
+          </div>
+
+          {/* --- 4. PRESETS --- */}
+          <div className="space-y-3 pt-4 border-t border-border">
+            <h4 className="text-sm font-medium leading-none opacity-70">{t.theme.presetsLabel}</h4>
+            <div className="flex flex-wrap gap-2">
+              {Object.keys(PRESETS).map((preset) => (
+                <Button
+                  key={preset}
+                  variant="secondary" // Utilise le style "secondaire" de ton thème
+                  size="sm"
+                  onClick={() => applyPreset(preset as any)}
+                  className="text-xs h-7"
+                >
+                  {preset}
+                </Button>
+              ))}
+            </div>
+          </div>
+          
         </div>
-
-        <section className="modal-section">
-          <p className="modal-label">{t.theme.modeLabel}</p>
-          <div className="mode-switch">
-            {['light', 'dark'].map((m) => (
-              <button
-                key={m}
-                onClick={() => setMode(m as any)}
-                className={`mode-button ${theme.mode === m ? 'active' : ''}`}
-              >
-                {m === 'light' ? t.theme.modeLight : t.theme.modeDark}
-              </button>
-            ))}
-          </div>
-        </section>
-
-        <section className="modal-section">
-          <p className="modal-label">{t.theme.bgLabel}</p>
-          <div className="bg-options">
-            {BG_OPTIONS.map((option) => (
-              <button
-                key={option.value}
-                onClick={() => setBg(option.value)}
-                className={`bg-circle ${theme.bg === option.value ? 'active' : ''}`}
-                title={option.label}
-                style={{
-                  backgroundColor:
-                    theme.mode === 'light'
-                      ? option.lightColor
-                      : option.darkColor,
-                  borderColor:
-                    theme.bg === option.value
-                      ? 'var(--text-main)'
-                      : 'transparent',
-                }}
-              />
-            ))}
-          </div>
-        </section>
-
-        <section className="modal-section">
-          <p className="modal-label">{t.theme.duoLabel}</p>
-          <div className="duo-options">
-            {DUOS.map((d) => (
-              <button
-                key={d.id}
-                onClick={() => setDuo(d.id)}
-                className={`duo-circle ${theme.duo.id === d.id ? 'active' : ''}`}
-                title={d.label}
-                style={{
-                  background: `linear-gradient(135deg, ${d.primary} 50%, ${d.secondary} 50%)`,
-                }}
-              />
-            ))}
-          </div>
-        </section>
-
-        <section className="modal-section">
-          <p className="modal-label">{t.theme.presetsLabel}</p>
-          <div className="preset-options">
-            {Object.keys(PRESETS).map((presetName) => (
-              <button
-                key={presetName}
-                onClick={() => applyPreset(presetName as keyof typeof PRESETS)}
-                className="preset-button"
-              >
-                {presetName}
-              </button>
-            ))}
-          </div>
-        </section>
-      </div>
-    </div>
+      </DialogContent>
+    </Dialog>
   );
 }

@@ -1,7 +1,7 @@
 import { createContext, useContext, useEffect, useState } from 'react';
 import type { ReactNode } from 'react';
-import type { ThemeMode, BgColorName, ColorDuo } from '../styles/themeOptions';
-import { DUOS, PRESETS } from '../styles/themeOptions';
+import type { ThemeMode, BgColorName, ColorDuo } from '../data/themeOptions';
+import { DUOS, PRESETS } from '../data/themeOptions';
 import { generatePalette } from '../utils/ColorUtils';
 
 interface ThemeState {
@@ -20,6 +20,34 @@ interface ThemeContextType {
 
 const ThemeContext = createContext<ThemeContextType | undefined>(undefined);
 
+const THEME_CSS_MAP: Record<BgColorName, string> = {
+  neutral: new URL('../styles/themes/neutral.css', import.meta.url).href,
+  stone:   new URL('../styles/themes/stone.css', import.meta.url).href,
+  zinc:    new URL('../styles/themes/zinc.css', import.meta.url).href,
+  gray:    new URL('../styles/themes/gray.css', import.meta.url).href,
+  slate:   new URL('../styles/themes/slate.css', import.meta.url).href,
+};
+
+function applyThemeCss(bg: BgColorName) {
+  const href = THEME_CSS_MAP[bg];
+  const id = 'theme-file';
+  let link = document.getElementById(id) as HTMLLinkElement | null;
+
+  if (href) {
+    if (!link) {
+      link = document.createElement('link');
+      link.id = id;
+      link.rel = 'stylesheet';
+      document.head.appendChild(link);
+    }
+    // Mettre à jour en dernier pour que ce fichier prenne la priorité dans la cascade.
+    link.href = href;
+  } else {
+    // Pas de fichier pour ce bg → on enlève l’override si existant.
+    if (link) link.remove();
+  }
+}
+
 export const ThemeProvider = ({ children }: { children: ReactNode }) => {
   const [theme, setTheme] = useState<ThemeState>(() => {
     const saved = localStorage.getItem('portfolio-theme-params');
@@ -27,29 +55,35 @@ export const ThemeProvider = ({ children }: { children: ReactNode }) => {
       ? JSON.parse(saved)
       : {
           mode: 'dark',
-          bg: 'gray-light',
+          bg: 'neutral',
           duo: DUOS[0],
         };
   });
 
-  useEffect(() => {
-    const root = document.documentElement;
-    const primaryPal = generatePalette(theme.duo.primary);
-    const secondaryPal = generatePalette(theme.duo.secondary);
+useEffect(() => {
+  const root = document.documentElement;
+  const primaryPal = generatePalette(theme.duo.primary);
+  const secondaryPal = generatePalette(theme.duo.secondary);
 
-    root.setAttribute('data-theme', theme.mode);
-    root.setAttribute('data-bg', theme.bg);
+  root.setAttribute('data-theme', theme.mode);
+  root.setAttribute('data-bg', theme.bg);
 
-    root.style.setProperty('--primary-main', primaryPal.main);
-    root.style.setProperty('--primary-light', primaryPal.light);
-    root.style.setProperty('--primary-dark', primaryPal.dark);
+  // Active les variables du bloc .dark {...} shadcn si mode sombre
+  root.classList.toggle('dark', theme.mode === 'dark');
 
-    root.style.setProperty('--secondary-main', secondaryPal.main);
-    root.style.setProperty('--secondary-light', secondaryPal.light);
-    root.style.setProperty('--secondary-dark', secondaryPal.dark);
+  // Charge le fichier CSS de thème correspondant au bg
+  applyThemeCss(theme.bg);
 
-    localStorage.setItem('portfolio-theme-params', JSON.stringify(theme));
-  }, [theme]);
+  root.style.setProperty('--primary-main', primaryPal.main);
+  root.style.setProperty('--primary-light', primaryPal.light);
+  root.style.setProperty('--primary-dark', primaryPal.dark);
+
+  root.style.setProperty('--secondary-main', secondaryPal.main);
+  root.style.setProperty('--secondary-light', secondaryPal.light);
+  root.style.setProperty('--secondary-dark', secondaryPal.dark);
+
+  localStorage.setItem('portfolio-theme-params', JSON.stringify(theme));
+}, [theme]);
 
   const setMode = (mode: ThemeMode) => setTheme((prev) => ({ ...prev, mode }));
   const setBg = (bg: BgColorName) => setTheme((prev) => ({ ...prev, bg }));
@@ -62,7 +96,11 @@ export const ThemeProvider = ({ children }: { children: ReactNode }) => {
   const applyPreset = (name: keyof typeof PRESETS) => {
     const preset = PRESETS[name];
     const duo = DUOS.find((d) => d.id === preset.duoId) || DUOS[0];
-    setTheme({ mode: preset.mode, bg: preset.bg, duo });
+    setTheme({
+      mode: preset.mode,
+      bg: preset.bg,
+      duo
+    });
   };
 
   return (
