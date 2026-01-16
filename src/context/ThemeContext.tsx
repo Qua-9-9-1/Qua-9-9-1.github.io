@@ -22,10 +22,10 @@ const ThemeContext = createContext<ThemeContextType | undefined>(undefined);
 
 const THEME_CSS_MAP: Record<BgColorName, string> = {
   neutral: new URL('../styles/themes/neutral.css', import.meta.url).href,
-  stone:   new URL('../styles/themes/stone.css', import.meta.url).href,
-  zinc:    new URL('../styles/themes/zinc.css', import.meta.url).href,
-  gray:    new URL('../styles/themes/gray.css', import.meta.url).href,
-  slate:   new URL('../styles/themes/slate.css', import.meta.url).href,
+  stone: new URL('../styles/themes/stone.css', import.meta.url).href,
+  zinc: new URL('../styles/themes/zinc.css', import.meta.url).href,
+  gray: new URL('../styles/themes/gray.css', import.meta.url).href,
+  slate: new URL('../styles/themes/slate.css', import.meta.url).href,
 };
 
 function applyThemeCss(bg: BgColorName) {
@@ -60,30 +60,30 @@ export const ThemeProvider = ({ children }: { children: ReactNode }) => {
         };
   });
 
-useEffect(() => {
-  const root = document.documentElement;
-  const primaryPal = generatePalette(theme.duo.primary);
-  const secondaryPal = generatePalette(theme.duo.secondary);
+  useEffect(() => {
+    const root = document.documentElement;
+    const primaryPal = generatePalette(theme.duo.primary);
+    const secondaryPal = generatePalette(theme.duo.secondary);
 
-  root.setAttribute('data-theme', theme.mode);
-  root.setAttribute('data-bg', theme.bg);
+    root.setAttribute('data-theme', theme.mode);
+    root.setAttribute('data-bg', theme.bg);
 
-  // Active les variables du bloc .dark {...} shadcn si mode sombre
-  root.classList.toggle('dark', theme.mode === 'dark');
+    // Active les variables du bloc .dark {...} shadcn si mode sombre
+    root.classList.toggle('dark', theme.mode === 'dark');
 
-  // Charge le fichier CSS de thème correspondant au bg
-  applyThemeCss(theme.bg);
+    // Charge le fichier CSS de thème correspondant au bg
+    applyThemeCss(theme.bg);
 
-  root.style.setProperty('--primary-main', primaryPal.main);
-  root.style.setProperty('--primary-light', primaryPal.light);
-  root.style.setProperty('--primary-dark', primaryPal.dark);
+    root.style.setProperty('--primary-main', primaryPal.main);
+    root.style.setProperty('--primary-light', primaryPal.light);
+    root.style.setProperty('--primary-dark', primaryPal.dark);
 
-  root.style.setProperty('--secondary-main', secondaryPal.main);
-  root.style.setProperty('--secondary-light', secondaryPal.light);
-  root.style.setProperty('--secondary-dark', secondaryPal.dark);
+    root.style.setProperty('--secondary-main', secondaryPal.main);
+    root.style.setProperty('--secondary-light', secondaryPal.light);
+    root.style.setProperty('--secondary-dark', secondaryPal.dark);
 
-  localStorage.setItem('portfolio-theme-params', JSON.stringify(theme));
-}, [theme]);
+    localStorage.setItem('portfolio-theme-params', JSON.stringify(theme));
+  }, [theme]);
 
   const setMode = (mode: ThemeMode) => setTheme((prev) => ({ ...prev, mode }));
   const setBg = (bg: BgColorName) => setTheme((prev) => ({ ...prev, bg }));
@@ -99,7 +99,7 @@ useEffect(() => {
     setTheme({
       mode: preset.mode,
       bg: preset.bg,
-      duo
+      duo,
     });
   };
 
