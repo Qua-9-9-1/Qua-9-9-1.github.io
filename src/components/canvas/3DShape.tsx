@@ -5,7 +5,7 @@ import * as THREE from 'three';
 type ShapeType = 'sphere' | 'cube';
 
 type Shape3DProps = JSX.IntrinsicElements['mesh'] & {
-  type: ShapeType;
+  type?: ShapeType;
   color?: string;
   wireframe?: boolean;
   size?: number;
@@ -23,20 +23,25 @@ export default function Shape3D({
   textureUrl,
   ...rest
 }: Shape3DProps) {
-  const geometry =
-    type === 'sphere'
-      ? <sphereGeometry args={[size, 32, 32]} />
-      : <boxGeometry args={[size, size, size]} />;
+  let geometry;
 
-      const texture = textureUrl ? useLoader(THREE.TextureLoader, textureUrl) : undefined;
+  switch (type) {
+    case 'sphere':
+      geometry = <sphereGeometry args={[size, 32, 32]} />;
+      break;
+    case 'cube':
+      geometry = <boxGeometry args={[size, size, size]} />;
+      break;
+    default:
+      geometry = <boxGeometry args={[size, size, size]} />;
+  }
+
+  const texture = textureUrl
+    ? useLoader(THREE.TextureLoader, textureUrl)
+    : undefined;
 
   return (
-    <mesh
-      position={position}
-      rotation={rotation}
-      scale={scale}
-      {...rest}
-    >
+    <mesh position={position} rotation={rotation} scale={scale} {...rest}>
       {geometry}
       <meshStandardMaterial color={color} wireframe={wireframe} map={texture} />
     </mesh>

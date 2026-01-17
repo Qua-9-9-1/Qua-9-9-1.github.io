@@ -1,7 +1,5 @@
 import { useLanguage } from '../context/LanguageContext';
 import Scene3D from '../components/canvas/3DScene';
-import { Wireframe } from '@react-three/drei';
-import { texture } from 'three/tsl';
 
 export default function Home() {
   const { t } = useLanguage();
@@ -18,25 +16,28 @@ export default function Home() {
       {/* <Scene3D modelUrl="/assets/models/graphic_tablet/scene.gltf" position={[0, 0, 0]} rotation={[11.3, 0, 0]} scale={1.2} /> */}
       {/* <Scene3D modelUrl="/assets/models/video_camera/scene.gltf" position={[0, 0, 0]} rotation={[0, 0, 0]} scale={1} centered={true} /> */}
       <Scene3D
-        models={[
-          {
-            url: '/assets/models/multimeter/scene.gltf',
-            position: [0, 0, 0],
-            rotation: [1.18, 0.79, 0],
-            scale: 0.15,
-          },
-          {
-            url: '/assets/models/laptop/scene.gltf',
-            position: [3.2, -2.4, 0],
-            rotation: [0.4, 3.1, 0.2],
-            scale: 6.1,
-          },
+  //       models={[
+  //         {
+  //           url: '/assets/models/multimeter/scene.gltf',
+  //           position: [0, 0, 0],
+  //           rotation: [1.18, 0.79, 0],
+  //           scale: 0.15,
+  //         },
+  //         {
+  //           url: '/assets/models/laptop/scene.gltf',
+  //           position: [3.2, -2.4, 0],
+  //           rotation: [0.4, 3.1, 0.2],
+  //           scale: 6.1,
+  //         },
+  //       ]}
+  //         shapes={[
+  //   { type: 'sphere', position: [2, 0, 0], color: 'red', wireframe: true, size: 1.2 },
+  //   { type: 'cube', position: [-2, 0, 0], color: 'blue', size: 1, textureUrl: '/assets/techs/c_logo.png' },
+  //   { type: 'cube', position: [0, 2, 0], color: 'green', wireframe: true, size: 1.5}
+  // ]}
+        psychicCubes={[
+          { position: [0, 0, 0], rotation: [0, 0, 0], size: 1 },
         ]}
-          shapes={[
-    { type: 'sphere', position: [2, 0, 0], color: 'red', wireframe: true, size: 1.2 },
-    { type: 'cube', position: [-2, 0, 0], color: 'blue', size: 1, textureUrl: '/assets/techs/c_logo.png' },
-    { type: 'cube', position: [0, 2, 0], color: 'green', wireframe: true, size: 1.5}
-  ]}
       />
     </main>
   );
