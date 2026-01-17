@@ -46,8 +46,13 @@ export const fr = {
     },
   },
   nav: {
-    projects: 'Projets',
-    contact: 'Contact',
+    menu: {
+      pages: 'Pages',
+      options: 'Options',
+      home: 'Accueil',
+      projects: 'Projets',
+      contact: 'Contact',
+    },
   },
   loading: "Chargement...",
   theme: {

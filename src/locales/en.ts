@@ -1,4 +1,3 @@
-import { label } from 'three/tsl';
 import type { Translations } from './fr';
 
 export const en: Translations = {
@@ -49,8 +48,13 @@ export const en: Translations = {
     },
   },
   nav: {
-    projects: 'Projects',
-    contact: 'Contact',
+    menu: {
+      pages: 'Pages',
+      options: 'Options',
+      home: 'Home',
+      projects: 'Projects',
+      contact: 'Contact',
+    }
   },
   loading: "Loading...",
   theme: {
