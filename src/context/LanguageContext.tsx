@@ -17,7 +17,12 @@ const LanguageContext = createContext<LanguageContextType | undefined>(
 );
 
 export const LanguageProvider = ({ children }: { children: ReactNode }) => {
-  const [language, setLanguage] = useState<Language>('fr');
+  const getDefaultLanguage = (): Language => {
+    const navLang = navigator.language || navigator.languages[0] || 'en';
+    return navLang.startsWith('en') ? 'en' : 'fr';
+  };
+
+  const [language, setLanguage] = useState<Language>(getDefaultLanguage());
   const t = language === 'fr' ? fr : en;
 
   return (
