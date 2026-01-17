@@ -1,5 +1,7 @@
 import { useLanguage } from '../context/LanguageContext';
 import Scene3D from '../components/canvas/3DScene';
+import { Wireframe } from '@react-three/drei';
+import { texture } from 'three/tsl';
 
 export default function Home() {
   const { t } = useLanguage();
@@ -8,6 +10,7 @@ export default function Home() {
     <main className="p-8 text-center bg-background text-foreground">
       <h1>{t.home.title}</h1>
       <p>{t.home.subtitle}</p>
+
       {/* <Scene3D modelUrl="/assets/models/multimeter/scene.gltf" position={[0, 0, 0]} rotation={[67.5, 45, 0]} scale={0.15} /> */}
       {/* <Scene3D modelUrl="/assets/models/laptop/scene.gltf" position={[3.20, -2.40, 0]} rotation={[0.4, 3.1, 0.2]} scale={6.1} /> */}
       {/* <Scene3D modelUrl="/assets/models/controller/scene.gltf" position={[0, 0, -1.10]} rotation={[-11.3, -45.0, 0]} scale={0.09} /> */}
@@ -29,6 +32,11 @@ export default function Home() {
             scale: 6.1,
           },
         ]}
+          shapes={[
+    { type: 'sphere', position: [2, 0, 0], color: 'red', wireframe: true, size: 1.2 },
+    { type: 'cube', position: [-2, 0, 0], color: 'blue', size: 1, textureUrl: '/assets/techs/c_logo.png' },
+    { type: 'cube', position: [0, 2, 0], color: 'green', wireframe: true, size: 1.5}
+  ]}
       />
     </main>
   );
