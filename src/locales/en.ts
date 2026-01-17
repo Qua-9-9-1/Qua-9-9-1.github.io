@@ -52,6 +52,7 @@ export const en: Translations = {
     projects: 'Projects',
     contact: 'Contact',
   },
+  loading: "Loading...",
   theme: {
     modalTitle: 'Appearance',
     modeLabel: 'Brightness',

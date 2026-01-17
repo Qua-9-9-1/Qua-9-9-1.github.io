@@ -5,6 +5,13 @@
 
 @custom-variant dark (&:is(.dark *));
 
+.text-primary {
+  color: var(--primary-main) !important;
+}
+.text-secondary {
+  color: var(--secondary-main) !important;
+}
+
 :root {
   font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
   line-height: 1.5;
