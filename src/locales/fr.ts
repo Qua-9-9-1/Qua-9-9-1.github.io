@@ -49,6 +49,7 @@ export const fr = {
     projects: 'Projets',
     contact: 'Contact',
   },
+  loading: "Chargement...",
   theme: {
     modalTitle: 'Apparence',
     modeLabel: 'Luminosité',
