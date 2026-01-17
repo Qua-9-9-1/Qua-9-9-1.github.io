@@ -148,3 +148,15 @@ body {
     @apply bg-background text-foreground;
   }
 }
+
+@media (min-width: 1921px) {
+  html {
+    font-size: 133%;
+  }
+}
+
+@media (min-width: 3000px) {
+  html {
+    font-size: 200%;
+  }
+}
