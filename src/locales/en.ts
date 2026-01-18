@@ -17,6 +17,11 @@ export const en: Translations = {
       looking_for_job: 'Looking for a job',
       freelance_available: 'Available for freelance',
     },
+    skills: {
+      title: 'Technical Skills',
+      description:
+        'Here is an overview of the technologies and skills I have acquired through my professional and personal experiences.',
+    },
     hobbies: {
       title: 'My Hobbies',
       description:

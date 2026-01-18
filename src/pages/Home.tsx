@@ -21,7 +21,17 @@ export default function Home() {
       <PresentationCard />
 
       <div className="max-w-7xl mx-auto px-4 py-8">
-        <Separator className="mb-8" />
+        <Separator className="mb-8 bg-primary" />
+        <h3 className="text-2xl font-bold text-center mt-8 mb-4">
+          {t.home.skills.title}
+        </h3>
+        <p className="text-center text-muted-foreground mb-8">
+          {t.home.skills.description}
+        </p>
+      </div>
+
+      <div className="max-w-7xl mx-auto px-4 py-8">
+        <Separator className="mb-8 bg-primary" />
         <h3 className="text-2xl font-bold text-center mb-4">
           {t.home.hobbies.title}
         </h3>

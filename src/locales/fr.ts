@@ -21,6 +21,11 @@ export const fr = {
       looking_for_job: "À la recherche d'un emploi",
       freelance_available: 'Disponible pour du freelance',
     },
+    skills: {
+      title: 'Compétences Techniques',
+      description:
+        "Voici un aperçu des technologies et compétences que j'ai acquises au fil de mes expériences professionnelles et personnelles.",
+    },
     hobbies: {
       title: 'Mes Hobbies',
       description:
