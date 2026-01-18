@@ -2,6 +2,9 @@ import { useGLTF } from '@react-three/drei';
 import { useEffect } from 'react';
 import * as THREE from 'three';
 import { useGpuTier } from '../../hooks/useGpuQuery';
+import { Button } from '../ui/button';
+import * as React from 'react';
+import { RadiansToDegrees } from '../../utils/maths';
 
 type Model3DProps = {
   url: string;
@@ -20,6 +23,21 @@ export default function Model3D({
 }: Model3DProps) {
   const { scene } = useGLTF(url);
   const gpuInfo = useGpuTier();
+  const [_position, setPosition] = React.useState<[number, number, number]>(
+    position || [0, 0, 0]
+  );
+  const [_rotation, setRotation] = React.useState<[number, number, number]>(
+    rotation
+      ? [
+          (rotation[0] * Math.PI) / 180,
+          (rotation[1] * Math.PI) / 180,
+          (rotation[2] * Math.PI) / 180,
+        ]
+      : [0, 0, 0]
+  );
+  const [_scale, setScale] = React.useState<number | [number, number, number]>(
+    scale || 1
+  );
 
   useEffect(() => {
     scene.traverse((child) => {
@@ -51,7 +69,7 @@ export default function Model3D({
       />
       {/* <div style={{ position: 'absolute', top: 100, left: 100, background: '#fff8f2', padding: 8, borderRadius: 8 }}>
         <div>
-          <strong>Position:</strong> {_position.map((v) => v.toFixed(2)).join(', ')}
+          <p>Position:</p> {_position.map((v) => v.toFixed(2)).join(', ')}
         </div>
         <Button onClick={() => setPosition(([x, y, z]) => [x, y + 0.1, z])}>Up Y</Button>
         <Button onClick={() => setPosition(([x, y, z]) => [x, y - 0.1, z])}>Down Y</Button>
@@ -60,9 +78,9 @@ export default function Model3D({
         <Button onClick={() => setPosition(([x, y, z]) => [x + 0.1, y, z])}>Right X</Button>
         <Button onClick={() => setPosition(([x, y, z]) => [x - 0.1, y, z])}>Left X</Button>
         <div style={{ marginTop: 8 }}>
-          <strong>Rotation X:</strong> {(_rotation[0]).toFixed(1)}°
-          <strong>Rotation Y:</strong> {(_rotation[1]).toFixed(1)}°
-          <strong>Rotation Z:</strong> {(_rotation[2]).toFixed(1)}°
+          <p>Rotation X:</p> {(_rotation[0]).toFixed(1)}°
+          <p>Rotation Y:</p> {(_rotation[1]).toFixed(1)}°
+          <p>Rotation Z:</p> {(_rotation[2]).toFixed(1)}°
         </div>
         <Button onClick={() => setRotation(([x, y, z]) => [x + RadiansToDegrees(Math.PI / 16), y, z])}>Rotate +X</Button>
         <Button onClick={() => setRotation(([x, y, z]) => [x - RadiansToDegrees(Math.PI / 16), y, z])}>Rotate -X</Button>
@@ -71,12 +89,10 @@ export default function Model3D({
         <Button onClick={() => setRotation(([x, y, z]) => [x, y, z + RadiansToDegrees(Math.PI / 16)])}>Rotate +Z</Button>
         <Button onClick={() => setRotation(([x, y, z]) => [x, y, z - RadiansToDegrees(Math.PI / 16)])}>Rotate -Z</Button>
         <div style={{ marginTop: 8 }}>
-          <strong>Scale:</strong> {Array.isArray(_scale) ? _scale.map((v) => v.toFixed(2)).join(', ') : _scale.toFixed(2)}
+          <p>Scale:</p> {Array.isArray(_scale) ? _scale.map((v) => v.toFixed(2)).join(', ') : _scale.toFixed(2)}
         </div>
         <Button onClick={() => setScale((s) => (Array.isArray(s) ? s.map((v) => v + 0.001) : s + 0.001))}>Increase Scale</Button>
         <Button onClick={() => setScale((s) => (Array.isArray(s) ? s.map((v) => Math.max(0.001, v - 0.001)) : Math.max(0.001, s - 0.001)))}>Decrease Scale</Button>
-        <div style={{ marginTop: 8 }}>
-          <strong>Auto-rotation Y (scene):</strong> {(autoRotationY * 180 / Math.PI).toFixed(1)}°
         </div> */}
     </>
   );

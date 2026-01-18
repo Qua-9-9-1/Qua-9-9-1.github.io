@@ -3,7 +3,20 @@ import type { Translations } from './fr';
 export const en: Translations = {
   home: {
     title: 'Welcome to my Portfolio',
-    subtitle: 'Testing english subtitles',
+    pro_title: 'C++ / Devops Developer',
+    about: {
+      title: 'About Me',
+      description:
+        'Hello, I am Quentin, currently a 4th-year student at EPITECH Montpellier. Passionate about low-level development (C++ / Rust) and electronics / hardware in general. I am naturally autonomous through my personal projects and accustomed to teamwork thanks to my experiences in companies and at school. I am naturally very curious and particularly enjoy learning through practice.',
+    },
+    working_status: {
+      title: 'Professional Status',
+      stage: 'Internship',
+      looking_for_internship: 'Looking for an internship',
+      employed: 'Employed',
+      looking_for_job: 'Looking for a job',
+      freelance_available: 'Available for freelance',
+    },
     hobbies: {
       title: 'My Hobbies',
       description:
@@ -20,7 +33,7 @@ export const en: Translations = {
             'Tinkering with circuits and building electronic devices. That’s directly related to my interest in hardware and embedded systems.',
         },
         {
-          label: 'Gaming',
+          label: 'Gaming & Retro Gaming',
           description:
             'Playing video games to relax and challenge myself. It has inspired me a lot to create my own games.',
         },
@@ -54,9 +67,9 @@ export const en: Translations = {
       home: 'Home',
       projects: 'Projects',
       contact: 'Contact',
-    }
+    },
   },
-  loading: "Loading...",
+  loading: 'Loading...',
   theme: {
     modalTitle: 'Appearance',
     modeLabel: 'Brightness',

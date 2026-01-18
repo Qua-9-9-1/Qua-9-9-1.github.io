@@ -1,7 +1,7 @@
 import { useProjects } from '../hooks/useGithubProjects';
 import { useLanguage } from '../context/LanguageContext';
 import ProjectList from '../components/projects/ProjectList';
-import LoadingContent from '../components/layout/LoadingContent';
+import LoadingContent from '../components/home/LoadingContent';
 
 export default function ProjectsPage() {
   const { projects, loading, error } = useProjects();
