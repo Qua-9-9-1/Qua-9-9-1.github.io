@@ -3,7 +3,7 @@
   justify-content: space-between;
   align-items: center;
   padding: 1.5rem 2rem;
-  background: linear-gradient(180deg, var(--bg-layer-1) 50%, var(--primary-main) 100%);
+  background: linear-gradient(180deg, var(--bg-color) 80%, var(--primary-main) 100%);
   color: var(--text-main);
   backdrop-filter: blur(10px);
   position: sticky;

@@ -1,42 +1,35 @@
 import { useLanguage } from '../context/LanguageContext';
-import Scene3D from '../components/canvas/3DScene';
+import { Separator } from '../components/ui/separator';
+import PresentationCard from '../components/home/PresentationCard';
+import HobbiesCarousel from '../components/home/HobbiesCarousel';
 
 export default function Home() {
   const { t } = useLanguage();
 
   return (
-    <main className="p-8 text-center bg-background text-foreground">
-      <h1>{t.home.title}</h1>
-      <p>{t.home.subtitle}</p>
+    <main className="min-h-screen bg-background text-foreground">
+      <div className="py-12 px-4 text-center">
+        <h1 className="text-4xl md:text-6xl font-bold bg-gradient-to-r from-primary to-primary/60 bg-clip-text text-transparent mb-2">
+          {t.home.title}
+        </h1>
+        <Separator className="my-6 mx-auto w-96 bg-primary" />
+      </div>
 
-      {/* <Scene3D modelUrl="/assets/models/multimeter/scene.gltf" position={[0, 0, 0]} rotation={[67.5, 45, 0]} scale={0.15} /> */}
-      {/* <Scene3D modelUrl="/assets/models/laptop/scene.gltf" position={[3.20, -2.40, 0]} rotation={[0.4, 3.1, 0.2]} scale={6.1} /> */}
-      {/* <Scene3D modelUrl="/assets/models/controller/scene.gltf" position={[0, 0, -1.10]} rotation={[-11.3, -45.0, 0]} scale={0.09} /> */}
-      {/* <Scene3D modelUrl="/assets/models/MIDI_keyboard/scene.gltf" position={[0, 0, 0]} rotation={[-11.3, 11.3, 0]} scale={0.006} /> */}
-      {/* <Scene3D modelUrl="/assets/models/graphic_tablet/scene.gltf" position={[0, 0, 0]} rotation={[11.3, 0, 0]} scale={1.2} /> */}
-      {/* <Scene3D modelUrl="/assets/models/video_camera/scene.gltf" position={[0, 0, 0]} rotation={[0, 0, 0]} scale={1} centered={true} /> */}
-      <Scene3D
-        //       models={[
-        //         {
-        //           url: '/assets/models/multimeter/scene.gltf',
-        //           position: [0, 0, 0],
-        //           rotation: [1.18, 0.79, 0],
-        //           scale: 0.15,
-        //         },
-        //         {
-        //           url: '/assets/models/laptop/scene.gltf',
-        //           position: [3.2, -2.4, 0],
-        //           rotation: [0.4, 3.1, 0.2],
-        //           scale: 6.1,
-        //         },
-        //       ]}
-        //         shapes={[
-        //   { type: 'sphere', position: [2, 0, 0], color: 'red', wireframe: true, size: 1.2 },
-        //   { type: 'cube', position: [-2, 0, 0], color: 'blue', size: 1, textureUrl: '/assets/techs/c_logo.png' },
-        //   { type: 'cube', position: [0, 2, 0], color: 'green', wireframe: true, size: 1.5}
-        // ]}
-        psychicCubes={[{ position: [0, 0, 0], rotation: [0, 0, 0], size: 1 }]}
-      />
+      <h3 className="text-2xl font-bold text-center mb-4">
+        {t.home.about.title}
+      </h3>
+      <PresentationCard />
+
+      <div className="max-w-7xl mx-auto px-4 py-8">
+        <Separator className="mb-8" />
+        <h3 className="text-2xl font-bold text-center mb-4">
+          {t.home.hobbies.title}
+        </h3>
+        <p className="text-center text-muted-foreground mb-8">
+          {t.home.hobbies.description}
+        </p>
+        <HobbiesCarousel />
+      </div>
     </main>
   );
 }
