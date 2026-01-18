@@ -8,6 +8,7 @@ import {
   DialogHeader,
   DialogTitle,
 } from '../../components/ui/dialog';
+import { Switch } from '../ui/switch';
 
 interface ThemeModalProps {
   isOpen: boolean;
@@ -19,9 +20,8 @@ export default function ThemeModal({ isOpen, onClose }: ThemeModalProps) {
   const { theme, setMode, setBg, setDuo, applyPreset } = useTheme();
 
   return (
-    // Le composant Dialog gère lui-même l'overlay, l'animation et le clic extérieur
     <Dialog open={isOpen} onOpenChange={(open) => !open && onClose()}>
-      <DialogContent className="sm:max-w-[425px] bg-surface text-foreground border-border">
+      <DialogContent className="sm:max-w-[425px] card text-foreground border-border">
         <DialogHeader>
           <DialogTitle className="text-xl font-bold">
             {t.theme.modalTitle}
@@ -29,32 +29,24 @@ export default function ThemeModal({ isOpen, onClose }: ThemeModalProps) {
         </DialogHeader>
 
         <div className="grid gap-6 py-4">
-          {/* --- 1. MODE (Clair / Sombre) --- */}
           <div className="space-y-3">
-            <h4 className="text-sm font-medium leading-none opacity-70">
+            <h4 className="text-sm font-medium leading-none opacity-70 text-secondary">
               {t.theme.modeLabel}
             </h4>
-            <div className="flex gap-2">
-              {['light', 'dark'].map((mode) => (
-                <Button
-                  key={mode}
-                  variant={theme.mode === mode ? 'default' : 'outline'}
-                  onClick={() => setMode(mode as any)}
-                  className={`w-full justify-start font-normal capitalize ${
-                    mode === 'light'
-                      ? 'bg-background text-foreground'
-                      : 'bg-foreground text-background'
-                  }`}
-                >
-                  {mode === 'light' ? t.theme.lightLabel : t.theme.darkLabel}
-                </Button>
-              ))}
+              <div className="gap-4">
+              <Switch
+                checked={theme.mode === 'dark'}
+                onCheckedChange={(checked) =>
+                  setMode(checked ? 'dark' : 'light')
+                }
+                className="ml-auto"
+              />
+              <span>{theme.mode === 'dark' ? t.theme.darkLabel : t.theme.lightLabel}</span>
             </div>
           </div>
 
-          {/* --- 2. AMBIANCE (Fond) --- */}
           <div className="space-y-3">
-            <h4 className="text-sm font-medium leading-none opacity-70">
+            <h4 className="text-sm font-medium leading-none opacity-70 text-secondary">
               {t.theme.bgLabel}
             </h4>
             <div className="flex gap-3">
@@ -79,9 +71,8 @@ export default function ThemeModal({ isOpen, onClose }: ThemeModalProps) {
             </div>
           </div>
 
-          {/* --- 3. ACCENTS (Duos) --- */}
           <div className="space-y-3">
-            <h4 className="text-sm font-medium leading-none opacity-70">
+            <h4 className="text-sm font-medium leading-none opacity-70 text-secondary">
               {t.theme.duoLabel}
             </h4>
             <div className="flex flex-wrap gap-3">
@@ -102,16 +93,15 @@ export default function ThemeModal({ isOpen, onClose }: ThemeModalProps) {
             </div>
           </div>
 
-          {/* --- 4. PRESETS --- */}
           <div className="space-y-3 pt-4 border-t border-border">
-            <h4 className="text-sm font-medium leading-none opacity-70">
+            <h4 className="text-sm font-medium leading-none opacity-70 text-secondary">
               {t.theme.presetsLabel}
             </h4>
             <div className="flex flex-wrap gap-2">
               {Object.keys(PRESETS).map((preset) => (
                 <Button
                   key={preset}
-                  variant="secondary" // Utilise le style "secondaire" de ton thème
+                  variant="secondary"
                   size="sm"
                   onClick={() => applyPreset(preset as any)}
                   className="text-xs h-7"
