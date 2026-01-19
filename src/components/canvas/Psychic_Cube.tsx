@@ -2,6 +2,7 @@ import { shaderMaterial } from '@react-three/drei';
 import { extend } from '@react-three/fiber';
 import { useFrame } from '@react-three/fiber';
 import { useRef } from 'react';
+import * as THREE from 'three';
 
 // Vertex shader
 const vertexShader = `
@@ -99,7 +100,7 @@ export default function Psychic_Cube3D({
   scale,
   size = 1,
 }: GLSLShape3DProps) {
-  const materialRef = useRef();
+  const materialRef = useRef<THREE.ShaderMaterial | null>(null);
 
   useFrame(({ clock }) => {
     if (materialRef.current) {
