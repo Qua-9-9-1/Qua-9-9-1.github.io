@@ -20,7 +20,15 @@ export const en: Translations = {
     skills: {
       title: 'Technical Skills',
       description:
-        'Here is an overview of the technologies and skills I have acquired through my professional and personal experiences.',
+        'Here is an overview of the technologies and skills I have acquired through my professional and personal experiences and that I have been able to use in ',
+      categories: {
+        programming: 'Languages',
+        web: 'Web',
+        devops: 'DevOps',
+        tools: 'Tools',
+        others: 'Others',
+      },
+      my_projects: 'my projects',
     },
     hobbies: {
       title: 'My Hobbies',
@@ -64,11 +72,13 @@ export const en: Translations = {
         },
       ],
     },
+    contact: "My Contacts"
   },
   nav: {
     menu: {
       pages: 'Pages',
       options: 'Options',
+      theme: 'Theme',
       home: 'Home',
       projects: 'Projects',
       contact: 'Contact',
@@ -78,9 +88,30 @@ export const en: Translations = {
   theme: {
     modalTitle: 'Appearance',
     modeLabel: 'Brightness',
-    bgLabel: 'Background',
-    duoLabel: 'Color',
-    presetsLabel: 'Presets',
+    bg: {
+      label: 'Background',
+      neutral: 'Neutral',
+      stone: 'Stone',
+      slate: 'Slate',
+      zinc: 'Zinc',
+      gray: 'Gray',
+    },
+    duo: {
+      label: 'Color',
+      azure: 'Azure',
+      mint: 'Mint',
+      roses: 'Roses',
+      saffron: 'Saffron',
+      coral: 'Coral',
+      lilac: 'Lilac',
+      gray: 'Gray',
+    },
+    presets: {
+      label: 'Presets',
+      Minimalist: 'Minimalist',
+      Midnight: 'Midnight',
+      Vampire: 'Vampire',
+    },
     lightLabel: 'Light',
     darkLabel: 'Dark',
   },
@@ -88,12 +119,30 @@ export const en: Translations = {
     loading: 'Loading projects...',
     loadingError: 'Trouble loading projects: ',
     title: 'My Projects',
+    ballsInstructions: 'Drag the balls here to filter projects by category',
+    categories: {
+      all: 'All projects',
+      filter: 'Projects that contains:',
+      lowlevel: 'Low-level',
+      highlevel: 'High-level',
+      devops: 'DevOps',
+      web: 'Web',
+      embedded: 'Embedded',
+      graphic: 'Graphic',
+      game: 'Game Dev',
+      ai: 'AI',
+      mobile: 'Mobile',
+      database: 'Database',
+    },
     NoDescription: 'No description available.',
     codeLink: 'View Code',
-    completed: 'Completed',
-    wip: 'Work in Progress',
-    archived: 'Archived',
-    unknown: 'Unknown Status',
+    homepageLink: 'Visit Homepage',
+    status: {
+      completed: 'Completed',
+      wip: 'Work in Progress',
+      archived: 'Archived',
+      unknown: 'Unknown Status'
+    }
   },
   contact: {
     title: 'Contact Me',
