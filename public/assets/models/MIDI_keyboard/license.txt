@@ -1,11 +1,11 @@
 Model Information:
-* title:	Akai Mpk Mini Model Fbx Textured Full
-* source:	https://sketchfab.com/3d-models/akai-mpk-mini-model-fbx-textured-full-84abd9434e2348c1a3b24bcfe4727037
-* author:	bobymonsuta (https://sketchfab.com/bobymonsuta)
+* title:	AKAI MPK Mini
+* source:	https://sketchfab.com/3d-models/akai-mpk-mini-f7a837c9b469472084940ab3d6609eb2
+* author:	cooper (https://sketchfab.com/cooper)
 
 Model License:
 * license type:	CC-BY-4.0 (http://creativecommons.org/licenses/by/4.0/)
 * requirements:	Author must be credited. Commercial use is allowed.
 
 If you use this 3D model in your project be sure to copy paste this credit wherever you share it:
-This work is based on "Akai Mpk Mini Model Fbx Textured Full" (https://sketchfab.com/3d-models/akai-mpk-mini-model-fbx-textured-full-84abd9434e2348c1a3b24bcfe4727037) by bobymonsuta (https://sketchfab.com/bobymonsuta) licensed under CC-BY-4.0 (http://creativecommons.org/licenses/by/4.0/)
+This work is based on "AKAI MPK Mini" (https://sketchfab.com/3d-models/akai-mpk-mini-f7a837c9b469472084940ab3d6609eb2) by cooper (https://sketchfab.com/cooper) licensed under CC-BY-4.0 (http://creativecommons.org/licenses/by/4.0/)
