@@ -133,7 +133,8 @@ export const fr = {
     loading: 'Chargement des projets...',
     loadingError: 'Erreur lors du chargement : ',
     title: 'Mes projets',
-    ballsInstructions: 'Glissez les boules ici pour filtrer les projets par catégorie',
+    ballsInstructions:
+      'Glissez les boules ici pour filtrer les projets par catégorie',
     categories: {
       all: 'Tous les projets',
       filter: 'Projets contenant :',
@@ -155,7 +156,7 @@ export const fr = {
       completed: 'Terminé',
       wip: 'En cours',
       archived: 'Archivé',
-      unknown: 'Statut inconnu'
+      unknown: 'Statut inconnu',
     },
   },
   contact: {

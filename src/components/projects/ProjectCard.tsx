@@ -45,21 +45,26 @@ export default function ProjectCard({ project }: { project: Project }) {
   return (
     <Card>
       <CardHeader>
-        <CardTitle className='text-primary'>{project.name}</CardTitle>
-        <CardDescription className='text-secondary'>{project.description}</CardDescription>
+        <CardTitle className="text-primary">{project.name}</CardTitle>
+        <CardDescription className="text-secondary">
+          {project.description}
+        </CardDescription>
       </CardHeader>
       <CardContent>
         <img
           src={project.imageUrl}
           alt={project.name}
-          className='rounded-md mb-4 w-full h-48 object-cover'
+          className="rounded-md mb-4 w-full h-48 object-cover"
           onError={(e) => {
             (e.target as HTMLImageElement).src =
               'https://placehold.co/600x400?text=No+Image';
           }}
         />
         <Badge
-          className={"center allign-middle mb-4 " + getStatusBackgroundColor(project.status)}
+          className={
+            'center allign-middle mb-4 ' +
+            getStatusBackgroundColor(project.status)
+          }
         >
           {getStatusLabel(project.status)}
         </Badge>
@@ -74,19 +79,19 @@ export default function ProjectCard({ project }: { project: Project }) {
         </div>
         <ButtonGroup>
           {project.url && (
-          <Button className="flex flex-col items-center hover:underline ">
-            <a
-              href={project.url}
-              target="_blank"
-              rel="noreferrer"
-              className="mb-1"
-            >
-              {t.projects.codeLink}
-            </a>
-          </Button>
+            <Button className="flex flex-col items-center hover:underline ">
+              <a
+                href={project.url}
+                target="_blank"
+                rel="noreferrer"
+                className="mb-1"
+              >
+                {t.projects.codeLink}
+              </a>
+            </Button>
           )}
           {project.homepageUrl && (
-          <Button className="flex flex-col items-center hover:underline ">
+            <Button className="flex flex-col items-center hover:underline ">
               <a
                 href={project.homepageUrl}
                 target="_blank"
@@ -95,8 +100,8 @@ export default function ProjectCard({ project }: { project: Project }) {
               >
                 {t.projects.homepageLink}
               </a>
-          </Button>
-            )}
+            </Button>
+          )}
         </ButtonGroup>
       </CardFooter>
     </Card>

@@ -72,7 +72,7 @@ export const en: Translations = {
         },
       ],
     },
-    contact: "My Contacts"
+    contact: 'My Contacts',
   },
   nav: {
     menu: {
@@ -141,8 +141,8 @@ export const en: Translations = {
       completed: 'Completed',
       wip: 'Work in Progress',
       archived: 'Archived',
-      unknown: 'Unknown Status'
-    }
+      unknown: 'Unknown Status',
+    },
   },
   contact: {
     title: 'Contact Me',

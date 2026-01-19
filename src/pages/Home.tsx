@@ -30,7 +30,10 @@ export default function Home() {
         </h3>
         <p className="text-center text-muted-foreground mb-8">
           {t.home.skills.description}
-          <Link to="/projects" className='underline text-secondary hover:text-primary'>
+          <Link
+            to="/projects"
+            className="underline text-secondary hover:text-primary"
+          >
             {t.home.skills.my_projects}
           </Link>
         </p>

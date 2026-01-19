@@ -33,7 +33,7 @@ export default function ThemeModal({ isOpen, onClose }: ThemeModalProps) {
             <h4 className="text-sm font-medium leading-none opacity-70 text-secondary">
               {t.theme.modeLabel}
             </h4>
-              <div className="gap-4">
+            <div className="gap-4">
               <Switch
                 checked={theme.mode === 'dark'}
                 onCheckedChange={(checked) =>
@@ -41,13 +41,15 @@ export default function ThemeModal({ isOpen, onClose }: ThemeModalProps) {
                 }
                 className="ml-auto"
               />
-              <span>{theme.mode === 'dark' ? t.theme.darkLabel : t.theme.lightLabel}</span>
+              <span>
+                {theme.mode === 'dark' ? t.theme.darkLabel : t.theme.lightLabel}
+              </span>
             </div>
           </div>
 
           <div className="space-y-3">
             <h4 className="text-sm font-medium leading-none opacity-70 text-secondary">
-              {t.theme.bgLabel}
+              {t.theme.bg.label}
             </h4>
             <div className="flex gap-3">
               {BG_OPTIONS.map((option) => {
@@ -58,7 +60,7 @@ export default function ThemeModal({ isOpen, onClose }: ThemeModalProps) {
                   <button
                     key={option.value}
                     onClick={() => setBg(option.value)}
-                    title={option.label}
+                    title={t.theme.bg[option.value]}
                     style={{ background: bgColor }}
                     className={`h-8 w-8 rounded-full border-2 transition-all hover:scale-110 focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2 ${
                       isActive
@@ -73,14 +75,14 @@ export default function ThemeModal({ isOpen, onClose }: ThemeModalProps) {
 
           <div className="space-y-3">
             <h4 className="text-sm font-medium leading-none opacity-70 text-secondary">
-              {t.theme.duoLabel}
+              {t.theme.duo.label}
             </h4>
             <div className="flex flex-wrap gap-3">
               {DUOS.map((d) => (
                 <button
                   key={d.id}
                   onClick={() => setDuo(d.id)}
-                  title={d.label}
+                  title={t.theme.duo[d.id]}
                   style={{
                     background: `linear-gradient(135deg, ${d.primary} 50%, ${d.secondary} 50%)`,
                   }}
@@ -95,18 +97,19 @@ export default function ThemeModal({ isOpen, onClose }: ThemeModalProps) {
 
           <div className="space-y-3 pt-4 border-t border-border">
             <h4 className="text-sm font-medium leading-none opacity-70 text-secondary">
-              {t.theme.presetsLabel}
+              {t.theme.presets.label}
             </h4>
             <div className="flex flex-wrap gap-2">
-              {Object.keys(PRESETS).map((preset) => (
+              {PRESETS.map((preset) => (
                 <Button
-                  key={preset}
+                  key={preset.id}
+                  // style={"color: " + }
                   variant="secondary"
                   size="sm"
-                  onClick={() => applyPreset(preset as any)}
+                  onClick={() => applyPreset(preset.id)}
                   className="text-xs h-7"
                 >
-                  {preset}
+                  {t.theme.presets[preset.id]}
                 </Button>
               ))}
             </div>
