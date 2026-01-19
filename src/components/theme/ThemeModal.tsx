@@ -106,7 +106,7 @@ export default function ThemeModal({ isOpen, onClose }: ThemeModalProps) {
                     key={preset.id}
                     size="sm"
                     onClick={() => applyPreset(preset.id)}
-                    className="text-xs h-7 flex items-center justify-between gap-2"
+                    className="text-xs h-7 flex items-center justify-between gap-2 border border-border"
                     style={{
                       background: bgColor,
                       color: textColor,
