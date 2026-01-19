@@ -10,6 +10,8 @@ import {
   CardTitle,
 } from '../ui/card';
 import { Badge } from '../ui/badge';
+import { Button } from '../ui/button';
+import { ButtonGroup } from '../ui/button-group';
 
 export default function ProjectCard({ project }: { project: Project }) {
   const { t } = useLanguage();
@@ -17,47 +19,47 @@ export default function ProjectCard({ project }: { project: Project }) {
   const getStatusBackgroundColor = (status: Project['status']): string => {
     switch (status) {
       case 'completed':
-        return '#90ee90';
+        return 'bg-green-400';
       case 'wip':
-        return '#ffd700';
+        return 'bg-yellow-400';
       case 'archived':
-        return '#e68443ff';
+        return 'bg-orange-400';
       default:
-        return '#ccc';
+        return 'bg-gray-400';
     }
   };
 
   const getStatusLabel = (status: Project['status']): string => {
     switch (status) {
       case 'completed':
-        return '✅ ' + t.projects.completed;
+        return '✅ ' + t.projects.status.completed;
       case 'wip':
-        return '🚧 ' + t.projects.wip;
+        return '🚧 ' + t.projects.status.wip;
       case 'archived':
-        return '📦 ' + t.projects.archived;
+        return '📦 ' + t.projects.status.archived;
       default:
-        return '❓ ' + t.projects.unknown;
+        return '❓ ' + t.projects.status.unknown;
     }
   };
 
   return (
     <Card>
       <CardHeader>
-        <CardTitle>{project.name}</CardTitle>
-        <CardDescription>{project.description}</CardDescription>
+        <CardTitle className='text-primary'>{project.name}</CardTitle>
+        <CardDescription className='text-secondary'>{project.description}</CardDescription>
       </CardHeader>
       <CardContent>
         <img
           src={project.imageUrl}
           alt={project.name}
+          className='rounded-md mb-4 w-full h-48 object-cover'
           onError={(e) => {
             (e.target as HTMLImageElement).src =
               'https://placehold.co/600x400?text=No+Image';
           }}
         />
         <Badge
-          style={{ background: getStatusBackgroundColor(project.status) }}
-          className="mb-2"
+          className={"center allign-middle mb-4 " + getStatusBackgroundColor(project.status)}
         >
           {getStatusLabel(project.status)}
         </Badge>
@@ -70,26 +72,32 @@ export default function ProjectCard({ project }: { project: Project }) {
             </Badge>
           ))}
         </div>
-        <div className="flex flex-col items-center w-full">
-          <a
-            href={project.url}
-            target="_blank"
-            rel="noreferrer"
-            className="mb-1"
-          >
-            {t.projects.codeLink}
-          </a>
-          {project.homepageUrl && (
+        <ButtonGroup>
+          {project.url && (
+          <Button className="flex flex-col items-center hover:underline ">
             <a
-              href={project.homepageUrl}
+              href={project.url}
               target="_blank"
               rel="noreferrer"
-              className="project-card__homepage text-center block mt-1"
+              className="mb-1"
             >
-              Voir le site
+              {t.projects.codeLink}
             </a>
+          </Button>
           )}
-        </div>
+          {project.homepageUrl && (
+          <Button className="flex flex-col items-center hover:underline ">
+              <a
+                href={project.homepageUrl}
+                target="_blank"
+                rel="noreferrer"
+                className="mb-1"
+              >
+                {t.projects.homepageLink}
+              </a>
+          </Button>
+            )}
+        </ButtonGroup>
       </CardFooter>
     </Card>
   );

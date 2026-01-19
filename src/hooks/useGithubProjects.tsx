@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
 import type { Project } from '../types/project';
 import { fetchGitHubProjects } from '../services/github';
+import { ExternalProject } from '../data/externalProjects';
 
 export const useProjects = () => {
   const [projects, setProjects] = useState<Project[]>([]);
@@ -11,7 +12,7 @@ export const useProjects = () => {
     const loadProjects = async () => {
       try {
         const data = await fetchGitHubProjects();
-        setProjects(data);
+        setProjects([...ExternalProject, ...data]);
       } catch (err) {
         setError('Impossible to load projects from GitHub.');
         console.error(err);
