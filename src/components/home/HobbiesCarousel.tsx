@@ -42,7 +42,7 @@ export default function HobbiesCarousel() {
                       url: '/assets/models/laptop/scene.gltf',
                       position: [3.2, -2.4, 0],
                       rotation: [0.4, 3.1, 0.2],
-                      scale: 6.1,
+                      scale: 4.1,
                     },
                   ]}
                 />
@@ -52,10 +52,10 @@ export default function HobbiesCarousel() {
                 <Scene3D
                   models={[
                     {
-                      url: '/assets/models/multimeter/scene.gltf',
+                      url: '/assets/models/multimeter/scene.glb',
                       position: [0, 0, 0],
-                      rotation: [67.5, 45, 0],
-                      scale: 0.15,
+                      rotation: [67.5, 3.3, 0],
+                      scale: 0.25,
                     },
                   ]}
                 />
@@ -81,7 +81,7 @@ export default function HobbiesCarousel() {
                       url: '/assets/models/MIDI_keyboard/scene.gltf',
                       position: [0, 0, 0],
                       rotation: [-11.3, 11.3, 0],
-                      scale: 0.006,
+                      scale: 0.01,
                     },
                   ]}
                 />
