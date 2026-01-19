@@ -2,9 +2,8 @@ import { useGLTF } from '@react-three/drei';
 import { useEffect } from 'react';
 import * as THREE from 'three';
 import { useGpuTier } from '../../hooks/useGpuQuery';
-import { Button } from '../ui/button';
-import * as React from 'react';
-import { RadiansToDegrees } from '../../utils/maths';
+// import { Button } from '../ui/button';
+// import * as React from 'react';
 
 type Model3DProps = {
   url: string;
@@ -23,21 +22,21 @@ export default function Model3D({
 }: Model3DProps) {
   const { scene } = useGLTF(url);
   const gpuInfo = useGpuTier();
-  const [_position, setPosition] = React.useState<[number, number, number]>(
-    position || [0, 0, 0]
-  );
-  const [_rotation, setRotation] = React.useState<[number, number, number]>(
-    rotation
-      ? [
-          (rotation[0] * Math.PI) / 180,
-          (rotation[1] * Math.PI) / 180,
-          (rotation[2] * Math.PI) / 180,
-        ]
-      : [0, 0, 0]
-  );
-  const [_scale, setScale] = React.useState<number | [number, number, number]>(
-    scale || 1
-  );
+  // const [_position, setPosition] = React.useState<[number, number, number]>(
+  //   position || [0, 0, 0]
+  // );
+  // const [_rotation, setRotation] = React.useState<[number, number, number]>(
+  //   rotation
+  //     ? [
+  //         (rotation[0] * Math.PI) / 180,
+  //         (rotation[1] * Math.PI) / 180,
+  //         (rotation[2] * Math.PI) / 180,
+  //       ]
+  //     : [0, 0, 0]
+  // );
+  // const [_scale, setScale] = React.useState<number | [number, number, number]>(
+  //   scale || 1
+  // );
 
   useEffect(() => {
     scene.traverse((child) => {

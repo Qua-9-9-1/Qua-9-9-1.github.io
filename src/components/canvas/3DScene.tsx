@@ -1,7 +1,6 @@
 import { Canvas, useFrame } from '@react-three/fiber';
 import { OrbitControls } from '@react-three/drei';
 import { useRef } from 'react';
-import * as THREE from 'three';
 import Model3D from './3DModel';
 import Shape3D from './3DShape';
 import Psychic_Cube3D from './Psychic_Cube';
@@ -42,7 +41,7 @@ function CameraController({
   rotationSpeed = 0.5,
   target = [0, 0, 0] as [number, number, number],
 }) {
-  const controlsRef = useRef<any>();
+  const controlsRef = useRef<any>(null);
 
   useFrame((state) => {
     if (autoRotate && controlsRef.current) {

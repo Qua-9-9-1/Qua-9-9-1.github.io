@@ -78,7 +78,7 @@ export default function ThemeModal({ isOpen, onClose }: ThemeModalProps) {
                 <button
                   key={d.id}
                   onClick={() => setDuo(d.id)}
-                  title={t.theme.duo[d.id]}
+                  title={t.theme.duo[d.id as keyof typeof t.theme.duo]}
                   style={{
                     background: `linear-gradient(135deg, ${d.primary} 50%, ${d.secondary} 50%)`,
                   }}
@@ -112,7 +112,7 @@ export default function ThemeModal({ isOpen, onClose }: ThemeModalProps) {
                       color: textColor,
                     }}
                   >
-                    {t.theme.presets[preset.id]}
+                    {t.theme.presets[preset.id as keyof typeof t.theme.presets]}
                     <span
                       className="inline-block ml-2 rounded-full"
                       style={{
