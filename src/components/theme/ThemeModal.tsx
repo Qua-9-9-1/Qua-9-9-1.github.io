@@ -30,27 +30,26 @@ export default function ThemeModal({ isOpen, onClose }: ThemeModalProps) {
 
         <div className="grid gap-6 py-4">
           <div className="space-y-3">
-            <h4 className="text-sm font-medium leading-none opacity-70 text-secondary">
+            <p className="text-sm font-medium leading-none opacity-70 text-secondary">
               {t.theme.modeLabel}
-            </h4>
-            <div className="gap-4">
+            </p>
+            <div className="flex items-center gap-2">
               <Switch
                 checked={theme.mode === 'dark'}
                 onCheckedChange={(checked) =>
                   setMode(checked ? 'dark' : 'light')
                 }
-                className="ml-auto"
               />
-              <span>
+              <p>
                 {theme.mode === 'dark' ? t.theme.darkLabel : t.theme.lightLabel}
-              </span>
+              </p>
             </div>
           </div>
 
           <div className="space-y-3">
-            <h4 className="text-sm font-medium leading-none opacity-70 text-secondary">
+            <p className="text-sm font-medium leading-none opacity-70 text-secondary">
               {t.theme.bg.label}
-            </h4>
+            </p>
             <div className="flex gap-3">
               {BG_OPTIONS.map((option) => {
                 const bgColor =
@@ -62,11 +61,8 @@ export default function ThemeModal({ isOpen, onClose }: ThemeModalProps) {
                     onClick={() => setBg(option.value)}
                     title={t.theme.bg[option.value]}
                     style={{ background: bgColor }}
-                    className={`h-8 w-8 rounded-full border-2 transition-all hover:scale-110 focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2 ${
-                      isActive
-                        ? 'border-foreground ring-2 ring-primary'
-                        : 'border-transparent'
-                    }`}
+                    className={`h-8 w-8 rounded-full border transition-all hover:scale-110 focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2
+                      ${isActive ? 'border-2 border-foreground ring-2 ring-primary' : 'border-border'}`}
                   />
                 );
               })}
@@ -74,9 +70,9 @@ export default function ThemeModal({ isOpen, onClose }: ThemeModalProps) {
           </div>
 
           <div className="space-y-3">
-            <h4 className="text-sm font-medium leading-none opacity-70 text-secondary">
+            <p className="text-sm font-medium leading-none opacity-70 text-secondary">
               {t.theme.duo.label}
-            </h4>
+            </p>
             <div className="flex flex-wrap gap-3">
               {DUOS.map((d) => (
                 <button
@@ -87,8 +83,8 @@ export default function ThemeModal({ isOpen, onClose }: ThemeModalProps) {
                     background: `linear-gradient(135deg, ${d.primary} 50%, ${d.secondary} 50%)`,
                   }}
                   className={`
-                    h-10 w-10 rounded-full border-2 transition-all hover:scale-110 focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2
-                    ${theme.duo.id === d.id ? 'border-foreground ring-2 ring-primary' : 'border-transparent'}
+                    h-10 w-10 rounded-full border transition-all hover:scale-110 focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2
+                    ${theme.duo.id === d.id ? 'border-2 border-foreground ring-2 ring-primary' : 'border-border'}
                   `}
                 />
               ))}
@@ -96,22 +92,38 @@ export default function ThemeModal({ isOpen, onClose }: ThemeModalProps) {
           </div>
 
           <div className="space-y-3 pt-4 border-t border-border">
-            <h4 className="text-sm font-medium leading-none opacity-70 text-secondary">
+            <p className="text-sm font-medium leading-none opacity-70 text-secondary">
               {t.theme.presets.label}
-            </h4>
-            <div className="flex flex-wrap gap-2">
-              {PRESETS.map((preset) => (
-                <Button
-                  key={preset.id}
-                  // style={"color: " + }
-                  variant="secondary"
-                  size="sm"
-                  onClick={() => applyPreset(preset.id)}
-                  className="text-xs h-7"
-                >
-                  {t.theme.presets[preset.id]}
-                </Button>
-              ))}
+            </p>
+            <div className="flex flex-wrap items-center gap-2">
+              {PRESETS.map((preset) => {
+                const bgOption = BG_OPTIONS.find(bg => bg.value === preset.bg);
+                const duo = DUOS.find(d => d.id === preset.duoId);
+                const bgColor = preset.mode === 'dark' ? bgOption?.darkColor : bgOption?.lightColor;
+                const textColor = duo?.primary;
+                return (
+                  <Button
+                    key={preset.id}
+                    size="sm"
+                    onClick={() => applyPreset(preset.id)}
+                    className="text-xs h-7 flex items-center justify-between gap-2"
+                    style={{
+                      background: bgColor,
+                      color: textColor,
+                    }}
+                  >
+                    {t.theme.presets[preset.id]}
+                    <span
+                      className="inline-block ml-2 rounded-full"
+                      style={{
+                        width: '0.75em',
+                        height: '0.75em',
+                        background: textColor,
+                      }}
+                    />
+                  </Button>
+                );
+              })}
             </div>
           </div>
         </div>

@@ -39,7 +39,7 @@ export default function Home() {
         </p>
         <CompetenciesCarousel />
 
-        <Button asChild className="mx-auto">
+        <Button asChild variant="primary" className="mx-auto">
           <Link to="/projects">{t.home.skills.my_projects}</Link>
         </Button>
       </div>
@@ -54,7 +54,7 @@ export default function Home() {
         </p>
         <HobbiesCarousel />
 
-        <Button asChild className="mx-auto mt-8">
+        <Button asChild variant="primary" className="mx-auto mt-8">
           <Link to="/contact">{t.home.contact}</Link>
         </Button>
       </div>
