@@ -53,21 +53,23 @@ export default function Navbar() {
             </MenubarContent>
           </MenubarMenu>
           <MenubarMenu>
-            <MenubarTrigger onClick={() => setIsThemeModalOpen(true)}>{t.nav.menu.theme}</MenubarTrigger>
+            <MenubarTrigger onClick={() => setIsThemeModalOpen(true)}>
+              {t.nav.menu.theme}
+            </MenubarTrigger>
           </MenubarMenu>
           <MenubarMenu>
             <MenubarTrigger onClick={toggleLanguage}>
               <Switch
-                  checked={language === 'en'}
-                  onCheckedChange={toggleLanguage}
-                />
-                <img
-                  className="w-6 h-6 ml-2"
+                checked={language === 'en'}
+                onCheckedChange={toggleLanguage}
+              />
+              <img
+                className="w-6 h-6 ml-2"
                 src={language === 'fr' ? '/lang/fr.png' : '/lang/en.png'}
-                 alt={language === 'fr' ? 'FR' : 'EN'} />
-                
-                </MenubarTrigger>
-            </MenubarMenu>
+                alt={language === 'fr' ? 'FR' : 'EN'}
+              />
+            </MenubarTrigger>
+          </MenubarMenu>
         </Menubar>
       </nav>
       <ThemeModal

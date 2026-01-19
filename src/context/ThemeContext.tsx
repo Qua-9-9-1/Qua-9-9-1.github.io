@@ -2,7 +2,7 @@ import { createContext, useContext, useEffect, useState } from 'react';
 import type { ReactNode } from 'react';
 import type { ThemeMode, BgColorName, ColorDuo } from '../data/themeOptions';
 import { DUOS, PRESETS } from '../data/themeOptions';
-import { generatePalette } from '../utils/ColorUtils';
+import { generatePalette } from '../utils/colorUtils';
 
 interface ThemeState {
   mode: ThemeMode;
@@ -15,7 +15,7 @@ interface ThemeContextType {
   setMode: (mode: ThemeMode) => void;
   setBg: (bg: BgColorName) => void;
   setDuo: (duoId: string) => void;
-  applyPreset: (presetName: keyof typeof PRESETS) => void;
+  applyPreset: (presetName: string) => void;
 }
 
 const ThemeContext = createContext<ThemeContextType | undefined>(undefined);
@@ -40,24 +40,28 @@ function applyThemeCss(bg: BgColorName) {
       link.rel = 'stylesheet';
       document.head.appendChild(link);
     }
-    // Mettre à jour en dernier pour que ce fichier prenne la priorité dans la cascade.
     link.href = href;
   } else {
-    // Pas de fichier pour ce bg → on enlève l’override si existant.
     if (link) link.remove();
   }
 }
 
 export const ThemeProvider = ({ children }: { children: ReactNode }) => {
+  const getSystemTheme = (): ThemeMode =>
+    window.matchMedia &&
+    window.matchMedia('(prefers-color-scheme: dark)').matches
+      ? 'dark'
+      : 'light';
+
   const [theme, setTheme] = useState<ThemeState>(() => {
     const saved = localStorage.getItem('portfolio-theme-params');
-    return saved
-      ? JSON.parse(saved)
-      : {
-          mode: 'dark',
-          bg: 'neutral',
-          duo: DUOS[0],
-        };
+    if (saved) return JSON.parse(saved);
+    // Si pas de sauvegarde, utilise le thème système
+    return {
+      mode: getSystemTheme(),
+      bg: 'neutral',
+      duo: DUOS[0],
+    };
   });
 
   useEffect(() => {
@@ -68,10 +72,8 @@ export const ThemeProvider = ({ children }: { children: ReactNode }) => {
     root.setAttribute('data-theme', theme.mode);
     root.setAttribute('data-bg', theme.bg);
 
-    // Active les variables du bloc .dark {...} shadcn si mode sombre
     root.classList.toggle('dark', theme.mode === 'dark');
 
-    // Charge le fichier CSS de thème correspondant au bg
     applyThemeCss(theme.bg);
 
     root.style.setProperty('--primary-main', primaryPal.main);
@@ -93,12 +95,13 @@ export const ThemeProvider = ({ children }: { children: ReactNode }) => {
     if (selectedDuo) setTheme((prev) => ({ ...prev, duo: selectedDuo }));
   };
 
-  const applyPreset = (name: keyof typeof PRESETS) => {
-    const preset = PRESETS[name];
-    const duo = DUOS.find((d) => d.id === preset.duoId) || DUOS[0];
+  const applyPreset = (preset: string) => {
+    const presetObj = PRESETS.find((p) => p.id === preset);
+    if (!presetObj) return;
+    const duo = DUOS.find((d) => d.id === presetObj.duoId) || DUOS[0];
     setTheme({
-      mode: preset.mode,
-      bg: preset.bg,
+      mode: presetObj.mode,
+      bg: presetObj.bg,
       duo,
     });
   };
