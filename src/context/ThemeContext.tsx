@@ -2,7 +2,6 @@ import { createContext, useContext, useEffect, useState } from 'react';
 import type { ReactNode } from 'react';
 import type { ThemeMode, BgColorName, ColorDuo } from '../data/themeOptions';
 import { DUOS, PRESETS } from '../data/themeOptions';
-import { generatePalette } from '../utils/colorUtils';
 
 interface ThemeState {
   mode: ThemeMode;
@@ -66,24 +65,13 @@ export const ThemeProvider = ({ children }: { children: ReactNode }) => {
 
   useEffect(() => {
     const root = document.documentElement;
-    const primaryPal = generatePalette(theme.duo.primary);
-    const secondaryPal = generatePalette(theme.duo.secondary);
 
     root.setAttribute('data-theme', theme.mode);
     root.setAttribute('data-bg', theme.bg);
-
     root.classList.toggle('dark', theme.mode === 'dark');
-
     applyThemeCss(theme.bg);
-
-    root.style.setProperty('--primary-main', primaryPal.main);
-    root.style.setProperty('--primary-light', primaryPal.light);
-    root.style.setProperty('--primary-dark', primaryPal.dark);
-
-    root.style.setProperty('--secondary-main', secondaryPal.main);
-    root.style.setProperty('--secondary-light', secondaryPal.light);
-    root.style.setProperty('--secondary-dark', secondaryPal.dark);
-
+    root.style.setProperty('--primary-main', theme.duo.primary);
+    root.style.setProperty('--secondary-main', theme.duo.secondary);
     localStorage.setItem('portfolio-theme-params', JSON.stringify(theme));
   }, [theme]);
 
