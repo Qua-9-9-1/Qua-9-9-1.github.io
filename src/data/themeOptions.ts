@@ -55,11 +55,20 @@ export const DUOS: ColorDuo[] = [
   { id: 'saffron', primary: '#f7b731', secondary: '#b0852a' },
   { id: 'coral', primary: '#f97f51', secondary: '#b5471f' },
   { id: 'lilac', primary: '#9b51e0', secondary: '#652d98' },
+  { id: 'laser', primary: '#12cc22', secondary: '#287c25' },
+  { id: 'mocha', primary: '#81653a', secondary: '#463722' },
   { id: 'gray', primary: '#8a8a8a', secondary: '#535353' },
 ];
 
 export const PRESETS: Preset[] = [
+  { id: 'Developer', mode: 'dark', bg: 'zinc', duoId: 'azure' },
   { id: 'Minimalist', mode: 'light', bg: 'neutral', duoId: 'azure' },
   { id: 'Midnight', mode: 'dark', bg: 'gray', duoId: 'lilac' },
   { id: 'Vampire', mode: 'dark', bg: 'slate', duoId: 'roses' },
+  { id: 'Matrix', mode: 'dark', bg: 'neutral', duoId: 'laser' },
+  { id: 'Coffee', mode: 'light', bg: 'slate', duoId: 'mocha' },
+  { id: 'Owl', mode: 'dark', bg: 'stone', duoId: 'mint' },
+  { id: 'ColorBlind', mode: 'light', bg: 'zinc', duoId: 'gray' },
+  { id: 'Wooden', mode: 'dark', bg: 'stone', duoId: 'saffron' },
+  { id: 'Vector', mode: 'light', bg: 'stone', duoId: 'coral' },
 ];
