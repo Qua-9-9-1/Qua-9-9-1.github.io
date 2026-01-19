@@ -1,4 +1,3 @@
-import * as React from 'react';
 import InfiniteScroll from '../ui/infinite-scroll';
 import { skills } from '../../data/skillsIcons';
 import { Separator } from '../ui/separator';
