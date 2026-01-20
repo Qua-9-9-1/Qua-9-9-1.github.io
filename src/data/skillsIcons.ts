@@ -61,6 +61,7 @@ export const skills: Record<string, Skill[]> = {
     { name: 'Arch Linux', img: 'techs/archlinux.png', negative: false },
     { name: 'Arduino', img: 'techs/arduino.png', negative: false },
     { name: 'Bash', img: 'techs/bash.png', negative: false },
+    { name: 'Debian', img: 'techs/debian.png', negative: false },
     { name: 'Godot', img: 'techs/godot.png', negative: false },
     { name: 'SFML', img: 'techs/sfml.png', negative: false },
     { name: 'OpenGL', img: 'techs/opengl.png', negative: false },
