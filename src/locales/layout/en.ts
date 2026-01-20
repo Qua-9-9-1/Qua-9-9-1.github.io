@@ -9,7 +9,8 @@ export const layout_en = {
   },
   footer: {
     contact: 'My networks',
-    portfolio_techs: 'Technologies used for this portfolio',
+    portfolio_techs: 'This portfolio was made with',
+    my_time: 'My free time',
     credits: 'Credits',
   },
 };

@@ -9,7 +9,8 @@ export const layout_fr = {
   },
   footer: {
     contact: 'Mes réseaux',
-    portfolio_techs: 'Technologies utilisées pour ce portfolio',
+    portfolio_techs: 'Ce portfolio a été réalisé avec',
+    my_time: "Mon temps libre",
     credits: 'Crédits',
   },
 };
