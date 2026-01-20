@@ -15,7 +15,6 @@ import { Switch } from '../ui/switch';
 import { useIsMobile } from '../../hooks/useMediaQuery';
 import { Menu, Palette } from 'lucide-react';
 
-
 export default function Navbar() {
   const { t, language, setLanguage } = useLanguage();
   const [isThemeModalOpen, setIsThemeModalOpen] = useState(false);
@@ -43,46 +42,38 @@ export default function Navbar() {
         <Menubar>
           <MenubarMenu>
             <MenubarTrigger>
-              {!isMobile ? (
-                <p>{t.nav.menu.pages}</p>
-              ) : (
-                <Menu />
-              )}
-              </MenubarTrigger>
+              {!isMobile ? <p>{t.layout.navbar.pages}</p> : <Menu />}
+            </MenubarTrigger>
             <MenubarContent>
               <Link to="/">
-                <MenubarItem>{t.nav.menu.home}</MenubarItem>
+                <MenubarItem>{t.layout.navbar.home}</MenubarItem>
               </Link>
               <Link to="/projects">
-                <MenubarItem>{t.nav.menu.projects}</MenubarItem>
+                <MenubarItem>{t.layout.navbar.projects}</MenubarItem>
               </Link>
               <Link to="/contact">
-                <MenubarItem>{t.nav.menu.contact}</MenubarItem>
+                <MenubarItem>{t.layout.navbar.contact}</MenubarItem>
               </Link>
             </MenubarContent>
           </MenubarMenu>
           <MenubarMenu>
             <MenubarTrigger onClick={() => setIsThemeModalOpen(true)}>
-              {!isMobile ? (
-                  <p>{t.nav.menu.theme}</p>
-              ) : (
-                <Palette />
-              )}
+              {!isMobile ? <p>{t.layout.navbar.theme}</p> : <Palette />}
             </MenubarTrigger>
           </MenubarMenu>
           <MenubarMenu>
             <MenubarTrigger onClick={toggleLanguage}>
               {!isMobile ? (
                 <>
-              <Switch
-                checked={language === 'en'}
-                onCheckedChange={toggleLanguage}
-                />
-              <img
-                className="w-6 h-6 ml-2"
-                src={language === 'fr' ? '/lang/fr.png' : '/lang/en.png'}
-                alt={language === 'fr' ? 'FR' : 'EN'}
-                />
+                  <Switch
+                    checked={language === 'en'}
+                    onCheckedChange={toggleLanguage}
+                  />
+                  <img
+                    className="w-6 h-6 ml-2"
+                    src={language === 'fr' ? '/lang/fr.png' : '/lang/en.png'}
+                    alt={language === 'fr' ? 'FR' : 'EN'}
+                  />
                 </>
               ) : (
                 <img

@@ -53,10 +53,6 @@ export default function Home() {
           {t.home.hobbies.description}
         </p>
         <HobbiesCarousel />
-
-        <Button asChild variant="primary" className="mx-auto mt-8">
-          <Link to="/contact">{t.home.contact}</Link>
-        </Button>
       </div>
     </main>
   );

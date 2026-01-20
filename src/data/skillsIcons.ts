@@ -30,7 +30,7 @@ export const skills: Record<string, Skill[]> = {
     { name: 'Lua', img: 'techs/lua.png', negative: false },
     {
       name: 'TypeScript and Javascript',
-      img: 'techs/typescript.png',
+      img: 'techs/ts-js.png',
       negative: false,
     },
   ],
