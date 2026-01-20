@@ -14,11 +14,10 @@ export const home_fr = {
   },
   working_status: {
     title: 'Statut Professionnel',
-    stage: 'En stage',
+    available: 'Disponible',
     looking_for_internship: "À la recherche d'un stage",
-    employed: 'Employé',
     looking_for_job: "À la recherche d'un emploi",
-    freelance_available: 'Disponible pour du freelance',
+    employed: 'Employé',
   },
   skills: {
     title: 'Compétences Techniques',

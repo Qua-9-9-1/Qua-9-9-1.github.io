@@ -32,7 +32,9 @@ export default function Footer() {
         </div>
       </div>
 
-      <p className="text-center text-xs text-muted-foreground">{t.layout.footer.portfolio_techs}</p>
+      <p className="text-center text-xs text-muted-foreground">
+        {t.layout.footer.portfolio_techs}
+      </p>
       <div className="max-w-4xl mx-auto px-4 mt-4">
         <InfiniteScroll speed="fast" pauseOnHover={false} direction={false}>
           {techsIcons.map((tech, idx) => (
