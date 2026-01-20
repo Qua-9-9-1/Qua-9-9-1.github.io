@@ -1,0 +1,30 @@
+export const projects_fr = {
+  loading: 'Chargement des projets...',
+  loadingError: 'Erreur lors du chargement : ',
+  title: 'Mes projets',
+  ballsInstructions:
+    'Glissez les boules ici pour filtrer les projets par catégorie',
+  categories: {
+    all: 'Tous les projets',
+    filter: 'Projets contenant :',
+    lowlevel: 'Bas niveau',
+    highlevel: 'Haut niveau',
+    devops: 'DevOps',
+    web: 'Web',
+    embedded: 'Embarqué',
+    graphic: 'Graphique',
+    game: 'Jeux vidéos',
+    ai: 'IA',
+    mobile: 'Mobile',
+    database: 'Base de données',
+  },
+  NoDescription: 'Aucune description disponible.',
+  codeLink: 'Voir le code',
+  homepageLink: 'Voir le site',
+  status: {
+    completed: 'Terminé',
+    wip: 'En cours',
+    archived: 'Archivé',
+    unknown: 'Statut inconnu',
+  },
+};
