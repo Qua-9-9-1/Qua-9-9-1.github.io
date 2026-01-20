@@ -86,5 +86,4 @@ export const home_fr = {
       },
     ],
   },
-  contact: 'Mes contacts',
 };

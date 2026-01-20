@@ -70,5 +70,4 @@ export const home_en = {
       },
     ],
   },
-  contact: 'My Contacts',
 };
