@@ -39,8 +39,6 @@ export function useRemoteConfig() {
         console.error('Error loading config', err);
         setLoading(false);
       });
-    console.log('Fetching config from', CONFIG_URL);
-    console.log('Current config:', config);
   }, []);
 
   return { config, loading };
