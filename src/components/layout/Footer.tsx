@@ -4,20 +4,24 @@ import { useIsMobile } from '@/hooks/useMediaQuery';
 import { Link } from 'react-router-dom';
 import { Button } from '../ui/button';
 import { useLanguage } from '../../context/LanguageContext';
-
-const techsIcons = [
-  { name: 'React', iconPath: '/techs/react.png', negative: false },
-  { name: 'Vite', iconPath: '/techs/vite.png', negative: false },
-  { name: 'TailwindCSS', iconPath: '/techs/tailwindcss.png', negative: false },
-  { name: 'TypeScript', iconPath: '/techs/typescript.png', negative: false },
-  { name: 'shadcn', iconPath: '/techs/shadcn.png', negative: true },
-  { name: 'Three.js', iconPath: '/techs/threejs.png', negative: true },
-  { name: 'Prettier', iconPath: '/techs/prettier.png', negative: false },
-];
+import { shuffleArray } from '@/utils/shuffleArray';
 
 export default function Footer() {
   const { t } = useLanguage();
   const isMobile = useIsMobile();
+  
+  const techsIcons = [
+    { name: 'React', iconPath: '/techs/react.png', negative: false },
+    { name: 'Vite', iconPath: '/techs/vite.png', negative: false },
+    { name: 'TailwindCSS', iconPath: '/techs/tailwindcss.png', negative: false },
+    { name: 'TypeScript', iconPath: '/techs/typescript.png', negative: false },
+    { name: 'shadcn', iconPath: '/techs/shadcn.png', negative: true },
+    { name: 'Three.js', iconPath: '/techs/threejs.png', negative: true },
+    { name: 'Prettier', iconPath: '/techs/prettier.png', negative: false },
+    { name: 'Github Copilot', iconPath: '/techs/github_copilot.png', negative: true },
+    { name: t.layout.footer.my_time, iconPath: '/my_time.png', negative: false },
+    { name: 'Passion', iconPath: '/hearth.png', negative: true }
+  ];
 
   return (
     <footer className="w-full bg-background border-t border-secondary text-muted-foreground py-6 mt-12">
@@ -37,7 +41,7 @@ export default function Footer() {
       </p>
       <div className="max-w-4xl mx-auto px-4 mt-4">
         <InfiniteScroll speed="fast" pauseOnHover={false} direction={false}>
-          {techsIcons.map((tech, idx) => (
+          {shuffleArray(techsIcons).map((tech) => (
             <span key={tech.name} className="flex flex-col items-center mx-2">
               <img
                 src={tech.iconPath}
