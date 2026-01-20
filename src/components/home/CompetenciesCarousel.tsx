@@ -5,7 +5,13 @@ import { useLanguage } from '../../context/LanguageContext';
 import type { Skill } from '../../data/skillsIcons';
 import { shuffleArray } from '../../utils/shuffleArray';
 import type React from 'react';
-import { FileBraces, Globe, Container, Wrench, MessageSquareCode } from 'lucide-react';
+import {
+  FileBraces,
+  Globe,
+  Container,
+  Wrench,
+  MessageSquareCode,
+} from 'lucide-react';
 import { useIsMobile } from '../../hooks/useMediaQuery';
 import '../../styles/components/carousel.css';
 

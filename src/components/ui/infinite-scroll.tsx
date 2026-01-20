@@ -15,7 +15,8 @@ export default function InfiniteScroll({
   pauseOnHover = true,
   direction = true,
 }: InfiniteScrollProps) {
-  const duration = speed === 'fast' ? '10s' : speed === 'normal' ? '20s' : '40s';
+  const duration =
+    speed === 'fast' ? '10s' : speed === 'normal' ? '20s' : '40s';
   const [paused, setPaused] = useState(false);
   const [activeIndex, setActiveIndex] = useState<number | null>(null);
   const containerRef = useRef<HTMLDivElement>(null);
@@ -45,7 +46,9 @@ export default function InfiniteScroll({
       while (el && el !== containerRef.current) {
         if (el.classList.contains('carousel-item')) {
           setPaused(true);
-          const idx = Array.from(containerRef.current?.querySelectorAll('.carousel-item') || []).indexOf(el);
+          const idx = Array.from(
+            containerRef.current?.querySelectorAll('.carousel-item') || []
+          ).indexOf(el);
           setActiveIndex(idx);
           found = true;
           break;
@@ -63,8 +66,15 @@ export default function InfiniteScroll({
     }
   };
 
-  const enhancedChildren = (Array.isArray(children) ? children : [children]).map((child, idx) => {
-    if (typeof child === 'object' && child && 'props' in child && child.props.className?.includes('carousel-item')) {
+  const enhancedChildren = (
+    Array.isArray(children) ? children : [children]
+  ).map((child, idx) => {
+    if (
+      typeof child === 'object' &&
+      child &&
+      'props' in child &&
+      child.props.className?.includes('carousel-item')
+    ) {
       return {
         ...child,
         props: {
