@@ -23,7 +23,7 @@ export const home_fr = {
   skills: {
     title: 'Compétences Techniques',
     description:
-      "Voici un aperçu des technologies et compétences que j'ai acquises" +
+      "Voici un aperçu des technologies et compétences que j'ai acquises " +
       "au fil de mes expériences professionnelles et personnelles et que j'ai pu utiliser dans ",
     categories: {
       programming: 'Langages',
