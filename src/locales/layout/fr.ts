@@ -8,7 +8,7 @@ export const layout_fr = {
     contact: 'Contact',
   },
   footer: {
-      contact: 'Mes réseaux',
+    contact: 'Mes réseaux',
     portfolio_techs: 'Technologies utilisées pour ce portfolio',
     credits: 'Crédits',
   },

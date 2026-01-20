@@ -4,11 +4,46 @@ import { Avatar, AvatarFallback, AvatarImage } from '../ui/avatar';
 import { useLanguage } from '../../context/LanguageContext';
 import { Separator } from '../ui/separator';
 import { useIsMobile } from '../../hooks/useMediaQuery';
+import React from 'react';
 
 export default function PresentationCard() {
   const { t } = useLanguage();
   const isMobile = useIsMobile();
 
+  const getWorkingStatusBadge = (workingStatus: string): React.ReactNode => {
+    const defaultClasses: string = isMobile
+      ? 'flex justify-center px-4 py-2 text-sm bg-accent hover:bg-accent/90 text-accent-foreground shadow-lg '
+      : 'w-full justify-center px-4 py-3 text-sm bg-accent hover:bg-accent/90 text-accent-foreground';
+
+    switch (workingStatus) {
+      case 'available':
+        return (
+          <Badge className={defaultClasses} variant={'empty'}>
+            {t.home.working_status.available}
+          </Badge>
+        );
+      case 'looking_for_internship':
+        return (
+          <Badge className={defaultClasses + ' animate-bounce'}>
+            {t.home.working_status.looking_for_internship}
+          </Badge>
+        );
+      case 'looking_for_job':
+        return (
+          <Badge className={defaultClasses + ' animate-bounce'}>
+            {t.home.working_status.looking_for_job}
+          </Badge>
+        );
+      case 'employed':
+        return (
+          <Badge className={defaultClasses}>
+            {t.home.working_status.employed}
+          </Badge>
+        );
+      default:
+        return null;
+    }
+  };
   return (
     <div className="max-w-7xl mx-auto px-4 pb-8">
       {isMobile ? (
@@ -21,7 +56,11 @@ export default function PresentationCard() {
                   alt="@Qua-9-9-1"
                 />
                 <AvatarFallback className="text-4xl font-bold bg-gradient-to-br from-primary to-primary/60">
-                  Q
+                  <img
+                    src="/logo.svg"
+                    alt="Logo"
+                    className="w-16 h-16 mx-auto"
+                  />
                 </AvatarFallback>
               </Avatar>
             </div>
@@ -33,11 +72,7 @@ export default function PresentationCard() {
               </p>
             </div>
 
-            <div className="flex justify-center">
-              <Badge className="px-4 py-2 text-sm bg-accent hover:bg-accent/90 text-accent-foreground bg-secondary">
-                {t.home.working_status.looking_for_internship}
-              </Badge>
-            </div>
+            {getWorkingStatusBadge('looking_for_internship')}
 
             <Separator />
 
@@ -74,9 +109,7 @@ export default function PresentationCard() {
                   <p className="text-sm font-semibold text-muted-foreground uppercase tracking-wide text-center">
                     {t.home.working_status.title}
                   </p>
-                  <Badge className="w-full justify-center px-4 py-3 text-sm bg-accent hover:bg-accent/90 text-accent-foreground bg-secondary">
-                    {t.home.working_status.looking_for_internship}
-                  </Badge>
+                  {getWorkingStatusBadge('looking_for_internship')}
                 </div>
               </div>
 

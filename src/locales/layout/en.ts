@@ -8,8 +8,8 @@ export const layout_en = {
     contact: 'Contact',
   },
   footer: {
-      contact: 'My networks',
-  portfolio_techs: 'Technologies used for this portfolio',
-  credits: 'Credits',
+    contact: 'My networks',
+    portfolio_techs: 'Technologies used for this portfolio',
+    credits: 'Credits',
   },
 };
