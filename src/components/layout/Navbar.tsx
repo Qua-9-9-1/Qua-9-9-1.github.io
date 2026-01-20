@@ -12,10 +12,14 @@ import {
   MenubarTrigger,
 } from '../ui/menubar';
 import { Switch } from '../ui/switch';
+import { useIsMobile } from '../../hooks/useMediaQuery';
+import { Menu, Palette } from 'lucide-react';
+
 
 export default function Navbar() {
   const { t, language, setLanguage } = useLanguage();
   const [isThemeModalOpen, setIsThemeModalOpen] = useState(false);
+  const isMobile = useIsMobile();
 
   const toggleLanguage = () => {
     setLanguage(language === 'fr' ? 'en' : 'fr');
@@ -38,7 +42,13 @@ export default function Navbar() {
         </div>
         <Menubar>
           <MenubarMenu>
-            <MenubarTrigger>{t.nav.menu.pages}</MenubarTrigger>
+            <MenubarTrigger>
+              {!isMobile ? (
+                <p>{t.nav.menu.pages}</p>
+              ) : (
+                <Menu />
+              )}
+              </MenubarTrigger>
             <MenubarContent>
               <Link to="/">
                 <MenubarItem>{t.nav.menu.home}</MenubarItem>
@@ -53,20 +63,34 @@ export default function Navbar() {
           </MenubarMenu>
           <MenubarMenu>
             <MenubarTrigger onClick={() => setIsThemeModalOpen(true)}>
-              {t.nav.menu.theme}
+              {!isMobile ? (
+                  <p>{t.nav.menu.theme}</p>
+              ) : (
+                <Palette />
+              )}
             </MenubarTrigger>
           </MenubarMenu>
           <MenubarMenu>
             <MenubarTrigger onClick={toggleLanguage}>
+              {!isMobile ? (
+                <>
               <Switch
                 checked={language === 'en'}
                 onCheckedChange={toggleLanguage}
-              />
+                />
               <img
                 className="w-6 h-6 ml-2"
                 src={language === 'fr' ? '/lang/fr.png' : '/lang/en.png'}
                 alt={language === 'fr' ? 'FR' : 'EN'}
-              />
+                />
+                </>
+              ) : (
+                <img
+                  className="w-6 h-6"
+                  src={language === 'fr' ? '/lang/fr.png' : '/lang/en.png'}
+                  alt={language === 'fr' ? 'FR' : 'EN'}
+                />
+              )}
             </MenubarTrigger>
           </MenubarMenu>
         </Menubar>

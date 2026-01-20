@@ -9,6 +9,7 @@ import {
   DialogTitle,
 } from '../../components/ui/dialog';
 import { Switch } from '../ui/switch';
+import { Sun, Moon } from 'lucide-react';
 
 interface ThemeModalProps {
   isOpen: boolean;
@@ -21,7 +22,7 @@ export default function ThemeModal({ isOpen, onClose }: ThemeModalProps) {
 
   return (
     <Dialog open={isOpen} onOpenChange={(open) => !open && onClose()}>
-      <DialogContent className="sm:max-w-[425px] card text-foreground border-border">
+      <DialogContent className="sm:max-w-[825px] card text-foreground border-border">
         <DialogHeader>
           <DialogTitle className="text-xl font-bold">
             {t.theme.modalTitle}
@@ -30,7 +31,7 @@ export default function ThemeModal({ isOpen, onClose }: ThemeModalProps) {
 
         <div className="grid gap-6 py-4">
           <div className="space-y-3">
-            <p className="text-sm font-medium leading-none opacity-70 text-secondary">
+            <p className="text-sm font-medium leading-none opacity-70 text-primary">
               {t.theme.modeLabel}
             </p>
             <div className="flex items-center gap-2">
@@ -40,14 +41,16 @@ export default function ThemeModal({ isOpen, onClose }: ThemeModalProps) {
                   setMode(checked ? 'dark' : 'light')
                 }
               />
-              <p>
+              <p className='text-secondary flex-row gap-1 flex items-center'>
+                {theme.mode === 'dark' ? <Moon /> : <Sun />}
+                {" - "}
                 {theme.mode === 'dark' ? t.theme.darkLabel : t.theme.lightLabel}
               </p>
             </div>
           </div>
 
           <div className="space-y-3">
-            <p className="text-sm font-medium leading-none opacity-70 text-secondary">
+            <p className="text-sm font-medium leading-none opacity-70 text-primary">
               {t.theme.bg.label}
             </p>
             <div className="flex gap-3">
@@ -70,7 +73,7 @@ export default function ThemeModal({ isOpen, onClose }: ThemeModalProps) {
           </div>
 
           <div className="space-y-3">
-            <p className="text-sm font-medium leading-none opacity-70 text-secondary">
+            <p className="text-sm font-medium leading-none opacity-70 text-primary">
               {t.theme.duo.label}
             </p>
             <div className="flex flex-wrap gap-3">
@@ -92,7 +95,7 @@ export default function ThemeModal({ isOpen, onClose }: ThemeModalProps) {
           </div>
 
           <div className="space-y-3 pt-4 border-t border-border">
-            <p className="text-sm font-medium leading-none opacity-70 text-secondary">
+            <p className="text-sm font-medium leading-none opacity-70 text-primary">
               {t.theme.presets.label}
             </p>
             <div className="flex flex-wrap items-center gap-2">
