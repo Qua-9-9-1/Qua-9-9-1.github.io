@@ -5,6 +5,7 @@ import { projects_fr } from './pages/projects/fr';
 import { contact_fr } from './pages/contact/fr';
 
 export const fr = {
+  lang: 'fr',
   home: home_fr,
   layout: layout_fr,
   theme: theme_fr,

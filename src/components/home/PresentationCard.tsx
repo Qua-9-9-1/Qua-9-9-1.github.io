@@ -5,15 +5,26 @@ import { useLanguage } from '../../context/LanguageContext';
 import { Separator } from '../ui/separator';
 import { useIsMobile } from '../../hooks/useMediaQuery';
 import React from 'react';
+import { useRemoteConfig } from '../../hooks/useRemoteConfig';
+import { ColoredText } from '../ui/coloredText';
 
 export default function PresentationCard() {
   const { t } = useLanguage();
   const isMobile = useIsMobile();
+  const { config, loading } = useRemoteConfig();
 
   const getWorkingStatusBadge = (workingStatus: string): React.ReactNode => {
     const defaultClasses: string = isMobile
       ? 'flex justify-center px-4 py-2 text-sm bg-accent hover:bg-accent/90 text-accent-foreground shadow-lg '
       : 'w-full justify-center px-4 py-3 text-sm bg-accent hover:bg-accent/90 text-accent-foreground';
+
+    if (loading) {
+      return (
+        <Badge className={defaultClasses + ' animate-pulse'} variant={'empty'}>
+          {t.loading}
+        </Badge>
+      );
+    }
 
     switch (workingStatus) {
       case 'available':
@@ -44,6 +55,38 @@ export default function PresentationCard() {
         return null;
     }
   };
+
+  const getAvailabilityDate = (): React.ReactNode => {
+    if (
+      loading ||
+      config.workingStatus === 'available' ||
+      config.workingStatus === 'employed' ||
+      !config.availabilityDate.from ||
+      !config.availabilityDate.to
+    ) {
+      return null;
+    }
+    return (
+      <div
+        className={
+          'flex flex-row justify-center items-center gap-1 ' +
+          (isMobile
+            ? 'text-center text-sm text-muted-foreground'
+            : 'text-center text-base text-muted-foreground')
+        }
+      >
+        <span>{t.home.from}</span>
+        <span className="font-bold underline text-primary mx-1">
+          {config.availabilityDate.from}
+        </span>
+        <span>{t.home.to}</span>
+        <span className="font-bold underline text-primary mx-1">
+          {config.availabilityDate.to}
+        </span>
+      </div>
+    );
+  };
+
   return (
     <div className="max-w-7xl mx-auto px-4 pb-8">
       {isMobile ? (
@@ -52,8 +95,8 @@ export default function PresentationCard() {
             <div className="flex justify-center">
               <Avatar className="w-32 h-32 border-4 border-primary/20">
                 <AvatarImage
-                  src="https://github.com/Qua-9-9-1.png"
-                  alt="@Qua-9-9-1"
+                  src={`https://github.com/${config.github_user}.png`}
+                  alt={`@${config.github_user}`}
                 />
                 <AvatarFallback className="text-4xl font-bold bg-gradient-to-br from-primary to-primary/60">
                   <img
@@ -66,18 +109,24 @@ export default function PresentationCard() {
             </div>
 
             <div className="text-center space-y-2">
-              <h2 className="text-2xl font-bold text-primary">Quentin</h2>
-              <p className="text-lg text-muted-foreground text-secondary">
-                {t.home.pro_title}
+              <h2 className="text-2xl font-bold text-primary">
+                {config.username}
+              </h2>
+              <p
+                className={`text-lg text-muted-foreground text-secondary ${loading ? 'animate-pulse' : ''}`}
+              >
+                {config.pro_title[t.lang as 'en' | 'fr']}
               </p>
             </div>
 
-            {getWorkingStatusBadge('looking_for_internship')}
-
+            {getWorkingStatusBadge(config.workingStatus)}
+            {getAvailabilityDate()}
             <Separator />
 
-            <div className="text-sm text-muted-foreground leading-relaxed">
-              {t.home.about.description}
+            <div
+              className={`text-sm text-muted-foreground leading-relaxed ${loading ? 'animate-pulse' : ''}`}
+            >
+              <ColoredText text={config.description[t.lang as 'en' | 'fr']} />
             </div>
           </CardContent>
         </Card>
@@ -88,8 +137,8 @@ export default function PresentationCard() {
               <div className="p-8 space-y-6 flex flex-col items-center justify-start bg-muted/30 border-r">
                 <Avatar className="w-40 h-40 border-4 border-primary/30 shadow-xl">
                   <AvatarImage
-                    src="https://github.com/Qua-9-9-1.png"
-                    alt="@Qua-9-9-1"
+                    src={`https://github.com/${config.github_user}.png`}
+                    alt={`@${config.github_user}`}
                   />
                   <AvatarFallback className="text-5xl font-bold bg-gradient-to-br from-primary to-primary/60">
                     Q
@@ -97,26 +146,37 @@ export default function PresentationCard() {
                 </Avatar>
 
                 <div className="text-center space-y-3 w-full">
-                  <h2 className="text-3xl font-bold text-primary">Quentin</h2>
-                  <p className="text-xl text-muted-foreground font-medium text-secondary">
-                    {t.home.pro_title}
+                  <h2 className="text-3xl font-bold text-primary">
+                    {config.username}
+                  </h2>
+                  <p
+                    className={`text-xl text-muted-foreground font-medium text-secondary ${loading ? 'animate-pulse' : ''}`}
+                  >
+                    {config.pro_title[t.lang as 'en' | 'fr']}
                   </p>
                 </div>
 
                 <Separator className="w-full" />
 
                 <div className="w-full space-y-3">
-                  <p className="text-sm font-semibold text-muted-foreground uppercase tracking-wide text-center">
+                  <p
+                    className={`text-sm font-semibold text-muted-foreground uppercase tracking-wide text-center ${loading ? 'animate-pulse' : ''}`}
+                  >
                     {t.home.working_status.title}
                   </p>
-                  {getWorkingStatusBadge('looking_for_internship')}
+                  {getWorkingStatusBadge(config.workingStatus)}
+                  {getAvailabilityDate()}
                 </div>
               </div>
 
               <div className="p-8 flex items-center">
                 <div className="space-y-4">
-                  <p className="text-muted-foreground leading-relaxed text-lg">
-                    {t.home.about.description}
+                  <p
+                    className={`text-muted-foreground leading-relaxed text-lg ${loading ? 'animate-pulse' : ''}`}
+                  >
+                    <ColoredText
+                      text={config.description[t.lang as 'en' | 'fr']}
+                    />
                   </p>
                 </div>
               </div>

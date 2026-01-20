@@ -14,9 +14,11 @@ import {
 import { Switch } from '../ui/switch';
 import { useIsMobile } from '../../hooks/useMediaQuery';
 import { Menu, Palette } from 'lucide-react';
+import { useRemoteConfig } from '../../hooks/useRemoteConfig';
 
 export default function Navbar() {
   const { t, language, setLanguage } = useLanguage();
+  const { config, loading } = useRemoteConfig();
   const [isThemeModalOpen, setIsThemeModalOpen] = useState(false);
   const isMobile = useIsMobile();
 
@@ -31,12 +33,14 @@ export default function Navbar() {
           <Link to="/" className="flex items-center gap-2">
             <Avatar className="rounded-lg">
               <AvatarImage
-                src="https://github.com/Qua-9-9-1.png"
-                alt="@Qua-9-9-1"
+                src={`https://github.com/${config.github_user}.png`}
+                alt={`@${config.github_user}`}
               />
               <AvatarFallback>Q</AvatarFallback>
             </Avatar>
-            <p className="navbar-title">Qua-9-9-1</p>
+            <p className={`navbar-title ${loading ? 'animate-pulse' : ''}`}>
+              {config.github_user}
+            </p>
           </Link>
         </div>
         <Menubar>
