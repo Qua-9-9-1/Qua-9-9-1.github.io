@@ -7,33 +7,99 @@ interface InfiniteScrollProps {
   direction?: boolean;
 }
 
+import { useRef, useState } from 'react';
+
 export default function InfiniteScroll({
   children,
   speed = 'normal',
   pauseOnHover = true,
   direction = true,
 }: InfiniteScrollProps) {
-  const duration =
-    speed === 'fast' ? '20s' : speed === 'normal' ? '20s' : '40s';
+  const duration = speed === 'fast' ? '10s' : speed === 'normal' ? '20s' : '40s';
+  const [paused, setPaused] = useState(false);
+  const [activeIndex, setActiveIndex] = useState<number | null>(null);
+  const containerRef = useRef<HTMLDivElement>(null);
+
+  const handleMouseOver = (e: React.MouseEvent) => {
+    if (pauseOnHover) {
+      let el = e.target as HTMLElement | null;
+      while (el && el !== containerRef.current) {
+        if (el.classList.contains('carousel-item')) {
+          setPaused(true);
+          break;
+        }
+        el = el.parentElement;
+      }
+    }
+  };
+  const handleMouseOut = (e: React.MouseEvent) => {
+    if (pauseOnHover) {
+      setPaused(false);
+    }
+  };
+
+  const handleTouchStart = (e: React.TouchEvent) => {
+    if (pauseOnHover) {
+      let el = e.target as HTMLElement | null;
+      let found = false;
+      while (el && el !== containerRef.current) {
+        if (el.classList.contains('carousel-item')) {
+          setPaused(true);
+          const idx = Array.from(containerRef.current?.querySelectorAll('.carousel-item') || []).indexOf(el);
+          setActiveIndex(idx);
+          found = true;
+          break;
+        }
+        el = el.parentElement;
+      }
+      if (!found) setActiveIndex(null);
+    }
+  };
+
+  const handleTouchEnd = (e: React.TouchEvent) => {
+    if (pauseOnHover) {
+      setPaused(false);
+      setActiveIndex(null);
+    }
+  };
+
+  const enhancedChildren = (Array.isArray(children) ? children : [children]).map((child, idx) => {
+    if (typeof child === 'object' && child && 'props' in child && child.props.className?.includes('carousel-item')) {
+      return {
+        ...child,
+        props: {
+          ...child.props,
+          'data-active': activeIndex === idx ? 'true' : undefined,
+        },
+      };
+    }
+    return child;
+  });
 
   return (
     <div className="relative w-full overflow-hidden bg-background">
       <div className="absolute left-0 top-0 z-1 h-full w-20 bg-gradient-to-r from-background to-transparent pointer-events-none" />
       <div className="absolute right-0 top-0 z-1 h-full w-20 bg-gradient-to-l from-background to-transparent pointer-events-none" />
       <div
-        className={`flex w-max min-w-full gap-2 ${pauseOnHover ? 'hover:[animation-play-state:paused]' : ''}`}
+        ref={containerRef}
+        className={`flex w-max min-w-full gap-2`}
         style={{
           animation: `${direction ? 'scroll' : 'scroll-reverse'} ${duration} linear infinite`,
+          animationPlayState: paused ? 'paused' : 'running',
         }}
+        onMouseOver={handleMouseOver}
+        onMouseOut={handleMouseOut}
+        onTouchStart={handleTouchStart}
+        onTouchEnd={handleTouchEnd}
       >
         <div className="flex shrink-0 gap-2 items-center justify-around min-w-full">
-          {children}
+          {enhancedChildren}
         </div>
         <div
           className="flex shrink-0 gap-2 items-center justify-around min-w-full"
           aria-hidden="true"
         >
-          {children}
+          {enhancedChildren}
         </div>
       </div>
     </div>

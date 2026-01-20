@@ -34,6 +34,7 @@ export const fr = {
         others: 'Autres',
       },
       my_projects: 'mes projets',
+      check_on_web: `Rechercher sur le web`,
     },
     hobbies: {
       title: 'Mes Hobbies',

@@ -29,6 +29,7 @@ export const en: Translations = {
         others: 'Others',
       },
       my_projects: 'my projects',
+      check_on_web: 'Check on web',
     },
     hobbies: {
       title: 'My Hobbies',
