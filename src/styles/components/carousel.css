@@ -1,0 +1,5 @@
+.carousel-item[data-active="true"] {
+  border-color: var(--color-primary, #3b82f6) !important;
+  box-shadow: 0 0 0 2px var(--color-primary, #3b82f6)33;
+  z-index: 2;
+}
