@@ -12,6 +12,8 @@ import { Card, CardContent } from '../ui/card';
 import Scene3D from '../canvas/3DScene';
 import { useIsMobile } from '../../hooks/useMediaQuery';
 import { cn } from '../../lib/utils';
+import { ColoredText } from '../ui/coloredText';
+import LoadingContent from './LoadingContent';
 
 interface HobbyScene {
   label: string;
@@ -180,7 +182,7 @@ export default function HobbiesCarousel() {
                           hobby.getScene()
                         ) : (
                           <div className="w-full h-full flex items-center justify-center">
-                            <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-primary" />
+                            <LoadingContent />
                           </div>
                         )}
                       </div>
@@ -188,7 +190,7 @@ export default function HobbiesCarousel() {
                         {hobby.label}
                       </h4>
                       <p className="text-sm text-muted-foreground text-center leading-relaxed">
-                        {hobby.description}
+                        <ColoredText text={hobby.description} />
                       </p>
                     </div>
                   ) : (
@@ -198,7 +200,7 @@ export default function HobbiesCarousel() {
                           {hobby.label}
                         </h4>
                         <p className="text-lg text-muted-foreground leading-relaxed">
-                          {hobby.description}
+                          <ColoredText text={hobby.description} />
                         </p>
                       </div>
                       <div className="aspect-square rounded-2xl overflow-hidden bg-muted/30 shadow-lg">
@@ -206,7 +208,7 @@ export default function HobbiesCarousel() {
                           hobby.getScene()
                         ) : (
                           <div className="w-full h-full flex items-center justify-center">
-                            <div className="animate-spin rounded-full h-16 w-16 border-b-2 border-primary" />
+                            <LoadingContent />
                           </div>
                         )}
                       </div>

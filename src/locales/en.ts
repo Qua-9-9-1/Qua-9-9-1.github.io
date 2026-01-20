@@ -6,6 +6,7 @@ import { projects_en } from './pages/projects/en';
 import { contact_en } from './pages/contact/en';
 
 export const en: Translations = {
+  lang: 'en',
   home: home_en,
   layout: layout_en,
   theme: theme_en,

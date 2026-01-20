@@ -18,9 +18,7 @@ export default function Home() {
         <Separator className="my-6 mx-auto w-96 bg-primary" />
       </div>
 
-      <h3 className="text-2xl font-bold text-center mb-4">
-        {t.home.about.title}
-      </h3>
+      <h3 className="text-2xl font-bold text-center mb-4">{t.home.about}</h3>
       <PresentationCard />
 
       <div className="max-w-7xl mx-auto px-4 py-8">
