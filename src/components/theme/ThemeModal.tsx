@@ -41,9 +41,9 @@ export default function ThemeModal({ isOpen, onClose }: ThemeModalProps) {
                   setMode(checked ? 'dark' : 'light')
                 }
               />
-              <p className='text-secondary flex-row gap-1 flex items-center'>
+              <p className="text-secondary flex-row gap-1 flex items-center">
                 {theme.mode === 'dark' ? <Moon /> : <Sun />}
-                {" - "}
+                {' - '}
                 {theme.mode === 'dark' ? t.theme.darkLabel : t.theme.lightLabel}
               </p>
             </div>
@@ -100,9 +100,14 @@ export default function ThemeModal({ isOpen, onClose }: ThemeModalProps) {
             </p>
             <div className="flex flex-wrap items-center gap-2">
               {PRESETS.map((preset) => {
-                const bgOption = BG_OPTIONS.find(bg => bg.value === preset.bg);
-                const duo = DUOS.find(d => d.id === preset.duoId);
-                const bgColor = preset.mode === 'dark' ? bgOption?.darkColor : bgOption?.lightColor;
+                const bgOption = BG_OPTIONS.find(
+                  (bg) => bg.value === preset.bg
+                );
+                const duo = DUOS.find((d) => d.id === preset.duoId);
+                const bgColor =
+                  preset.mode === 'dark'
+                    ? bgOption?.darkColor
+                    : bgOption?.lightColor;
                 const textColor = duo?.primary;
                 return (
                   <Button

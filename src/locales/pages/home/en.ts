@@ -8,11 +8,10 @@ export const home_en = {
   },
   working_status: {
     title: 'Professional Status',
-    stage: 'Internship',
+    available: 'Available',
     looking_for_internship: 'Looking for an internship',
-    employed: 'Employed',
     looking_for_job: 'Looking for a job',
-    freelance_available: 'Available for freelance',
+    employed: 'Employed',
   },
   skills: {
     title: 'Technical Skills',
