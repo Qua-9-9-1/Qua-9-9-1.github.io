@@ -12,7 +12,7 @@ import { Card, CardContent } from '../ui/card';
 import Scene3D from '../canvas/3DScene';
 import { useIsMobile } from '../../hooks/useMediaQuery';
 import { cn } from '../../lib/utils';
-import { ColoredText } from '../ui/coloredText';
+import { FormatedText } from '../ui/formatedText';
 import LoadingContent from './LoadingContent';
 
 interface HobbyScene {
@@ -190,7 +190,7 @@ export default function HobbiesCarousel() {
                         {hobby.label}
                       </h4>
                       <p className="text-sm text-muted-foreground text-center leading-relaxed">
-                        <ColoredText text={hobby.description} />
+                        <FormatedText text={hobby.description} />
                       </p>
                     </div>
                   ) : (
@@ -200,7 +200,7 @@ export default function HobbiesCarousel() {
                           {hobby.label}
                         </h4>
                         <p className="text-lg text-muted-foreground leading-relaxed">
-                          <ColoredText text={hobby.description} />
+                          <FormatedText text={hobby.description} />
                         </p>
                       </div>
                       <div className="aspect-square rounded-2xl overflow-hidden bg-muted/30 shadow-lg">

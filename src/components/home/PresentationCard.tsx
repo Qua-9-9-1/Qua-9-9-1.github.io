@@ -6,7 +6,7 @@ import { Separator } from '../ui/separator';
 import { useIsMobile } from '../../hooks/useMediaQuery';
 import React from 'react';
 import { useRemoteConfig } from '../../hooks/useRemoteConfig';
-import { ColoredText } from '../ui/coloredText';
+import { FormatedText } from '../ui/formatedText';
 
 export default function PresentationCard() {
   const { t } = useLanguage();
@@ -128,7 +128,7 @@ export default function PresentationCard() {
             <div
               className={`text-sm text-muted-foreground leading-relaxed ${loading ? 'animate-pulse' : ''}`}
             >
-              <ColoredText text={config.description[t.lang as 'en' | 'fr']} />
+              <FormatedText text={config.description[t.lang as 'en' | 'fr']} />
             </div>
           </CardContent>
         </Card>
@@ -176,7 +176,7 @@ export default function PresentationCard() {
                   <p
                     className={`leading-relaxed text-lg ${loading ? 'animate-pulse' : ''}`}
                   >
-                    <ColoredText
+                    <FormatedText
                       text={config.description[t.lang as 'en' | 'fr']}
                     />
                   </p>
