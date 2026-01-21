@@ -169,7 +169,7 @@ export default function HobbiesCarousel() {
 
   return (
     <div className={cn('mx-auto', isMobile ? 'max-w-sm' : 'max-w-5xl')}>
-      <Carousel setApi={setApi} className="w-full">
+      <Carousel setApi={setApi} className="w-full" opts={{ loop: true }}>
         <CarouselContent>
           {hobbiesWithScenes.map((hobby, index) => (
             <CarouselItem key={index}>
