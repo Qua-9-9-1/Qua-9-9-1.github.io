@@ -109,7 +109,7 @@ export default function PresentationCard() {
             </div>
 
             <div className="text-center space-y-2">
-                <h2 className="text-2xl font-bold bg-gradient-to-b from-[var(--primary-main)] to-[var(--secondary-main)] text-transparent bg-clip-text">
+              <h2 className="text-2xl font-bold bg-gradient-to-b from-[var(--primary-main)] to-[var(--secondary-main)] text-transparent bg-clip-text">
                 {config.username}
               </h2>
               <p

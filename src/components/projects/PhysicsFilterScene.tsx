@@ -47,16 +47,19 @@ function SceneManager({
 }
 
 export default function PhysicsFilterScene({ technos, onFilterChange }: Props) {
-    const lastTechnosRef = useRef<string[]>([]);
-    useEffect(() => {
-      if (
-        lastTechnosRef.current.length !== technos.length ||
-        lastTechnosRef.current.some((t, i) => t !== technos[i])
-      ) {
-        console.log('[PhysicsFilterScene] Changement dans la liste technos:', technos);
-        lastTechnosRef.current = [...technos];
-      }
-    }, [technos]);
+  const lastTechnosRef = useRef<string[]>([]);
+  useEffect(() => {
+    if (
+      lastTechnosRef.current.length !== technos.length ||
+      lastTechnosRef.current.some((t, i) => t !== technos[i])
+    ) {
+      console.log(
+        '[PhysicsFilterScene] Changement dans la liste technos:',
+        technos
+      );
+      lastTechnosRef.current = [...technos];
+    }
+  }, [technos]);
   const { t } = useLanguage();
   const isMobile = useIsMobile();
   const zoom = isMobile ? 22 : 35;
@@ -67,55 +70,55 @@ export default function PhysicsFilterScene({ technos, onFilterChange }: Props) {
   const zoneConfig = isMobile
     ? { ...FILTER_ZONE, x: 0, y: -2, width: 6, height: 4 }
     : FILTER_ZONE;
-  const secondaryColor = "#3b82f6";
+  const secondaryColor = '#3b82f6';
 
   const filterZoneWalls: React.ReactNode = isMobile ? (
     <>
-    <Wall
-      position={[zoneConfig.x - zoneConfig.width / 2, zoneConfig.y, 0]}
-      args={[0.5, zoneConfig.height, 2]}
-      opacity={0.3}
-    />
-    <Wall
-      position={[zoneConfig.x + zoneConfig.width / 2, zoneConfig.y, 0]}
-      args={[0.5, zoneConfig.height, 2]}
-      opacity={0.3}
-    />
-    <Wall
-      position={[zoneConfig.x, zoneConfig.y + zoneConfig.height / 2, 0]}
-      args={[zoneConfig.width, 0.5, 2]}
-      opacity={0.3}
-    />
-    <Wall
-      position={[zoneConfig.x, zoneConfig.y - zoneConfig.height / 2, 0]}
-      args={[zoneConfig.width, 0.5, 2]}
-      opacity={0.3}
-    />
+      <Wall
+        position={[zoneConfig.x - zoneConfig.width / 2, zoneConfig.y, 0]}
+        args={[0.5, zoneConfig.height, 2]}
+        opacity={0.3}
+      />
+      <Wall
+        position={[zoneConfig.x + zoneConfig.width / 2, zoneConfig.y, 0]}
+        args={[0.5, zoneConfig.height, 2]}
+        opacity={0.3}
+      />
+      <Wall
+        position={[zoneConfig.x, zoneConfig.y + zoneConfig.height / 2, 0]}
+        args={[zoneConfig.width, 0.5, 2]}
+        opacity={0.3}
+      />
+      <Wall
+        position={[zoneConfig.x, zoneConfig.y - zoneConfig.height / 2, 0]}
+        args={[zoneConfig.width, 0.5, 2]}
+        opacity={0.3}
+      />
     </>
   ) : (
     <>
-    <Wall
-      position={[zoneConfig.x - zoneConfig.width / 2, zoneConfig.y, 0]}
-      args={[0.5, zoneConfig.height, 2]}
-      opacity={0.3}
-    />
-    <Wall
-      position={[zoneConfig.x + zoneConfig.width / 2, zoneConfig.y, 0]}
-      args={[0.5, zoneConfig.height, 2]}
-      opacity={0.3}
-    />
-    <Wall
-      position={[zoneConfig.x, zoneConfig.y + zoneConfig.height / 2, 0]}
-      args={[zoneConfig.width, 0.5, 2]}
-      opacity={0.3}
-    />
-    <Wall
-      position={[zoneConfig.x, zoneConfig.y - zoneConfig.height / 2, 0]}
-      args={[zoneConfig.width, 0.5, 2]}
-      opacity={0.3}
-    />
-      </>
-  )
+      <Wall
+        position={[zoneConfig.x - zoneConfig.width / 2, zoneConfig.y, 0]}
+        args={[0.5, zoneConfig.height, 2]}
+        opacity={0.3}
+      />
+      <Wall
+        position={[zoneConfig.x + zoneConfig.width / 2, zoneConfig.y, 0]}
+        args={[0.5, zoneConfig.height, 2]}
+        opacity={0.3}
+      />
+      <Wall
+        position={[zoneConfig.x, zoneConfig.y + zoneConfig.height / 2, 0]}
+        args={[zoneConfig.width, 0.5, 2]}
+        opacity={0.3}
+      />
+      <Wall
+        position={[zoneConfig.x, zoneConfig.y - zoneConfig.height / 2, 0]}
+        args={[zoneConfig.width, 0.5, 2]}
+        opacity={0.3}
+      />
+    </>
+  );
 
   return (
     <Canvas dpr={[1, 2]}>
@@ -126,11 +129,7 @@ export default function PhysicsFilterScene({ technos, onFilterChange }: Props) {
       <group position={[zoneConfig.x, zoneConfig.y, -0.5]}>
         <mesh>
           <planeGeometry args={[zoneConfig.width, zoneConfig.height]} />
-          <meshBasicMaterial
-            color={secondaryColor}
-            transparent
-            opacity={0.2}
-          />
+          <meshBasicMaterial color={secondaryColor} transparent opacity={0.2} />
         </mesh>
 
         <Text
