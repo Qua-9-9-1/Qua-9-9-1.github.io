@@ -1,4 +1,7 @@
 export const layout_en = {
+  informationToast: {
+    maintenance: 'The site is currently under maintenance. Some features may be unstable.',
+  },
   navbar: {
     pages: 'Pages',
     options: 'Options',
