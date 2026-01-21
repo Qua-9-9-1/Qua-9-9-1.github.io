@@ -178,7 +178,7 @@ export default function PresentationCard() {
               </div>
 
               <div className="p-8 flex flex-col items-center justify-center">
-                <div className="space-y-4 flex flex-col items-center">
+                <div className="flex flex-col items-center">
                   <div
                     className={`leading-relaxed text-center ${loading ? 'animate-pulse' : ''}`}
                   >
@@ -186,8 +186,9 @@ export default function PresentationCard() {
                       className="text-xl"
                       text={config.description[t.lang as 'en' | 'fr']}
                     />
+                    <Separator className="my-2" />
                   </div>
-                  <ButtonGroup className="mt-4 flex justify-center">
+                  <ButtonGroup className="mt-2 flex justify-center">
                     <Button asChild variant="secondary">
                       <SmartLink to="/projects">
                         {t.layout.navbar.projects}
