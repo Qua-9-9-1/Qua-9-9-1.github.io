@@ -5,9 +5,12 @@ import SmartLink from '../ui/smartLink';
 import { Button } from '../ui/button';
 import { useLanguage } from '../../context/LanguageContext';
 import { shuffleArray } from '../../utils/shuffleArray';
+import { Mail, Linkedin, Github } from 'lucide-react';
+import { useRemoteConfig } from '../../hooks/useRemoteConfig';
 
 export default function Footer() {
   const { t } = useLanguage();
+  const { config } = useRemoteConfig();
   const isMobile = useIsMobile();
 
   const techsIcons = [
@@ -37,14 +40,33 @@ export default function Footer() {
 
   return (
     <footer className="w-full bg-background border-t border-secondary text-muted-foreground py-6 mt-12">
-      <div className="max-w-4xl mx-auto px-4 flex flex-col md:flex-row items-center justify-between gap-4">
+      <div className="max-w-4xl mx-auto px-4 flex flex-row md:flex-row items-center justify-between gap-4">
         <div className="text-sm text-center md:text-left">
           © 2026 Quentin Duval
         </div>
         <div className="flex gap-4 items-center">
-          <Button asChild variant="primary" className="mx-auto mt-8">
-            <SmartLink to="/contact">{t.layout.footer.contact}</SmartLink>
-          </Button>
+          <a
+            href="mailto:quentduva@gmail.com"
+            className="hover:text-primary text-secondary"
+          >
+            <Mail />
+          </a>
+          <a
+            href="https://www.linkedin.com/in/quentin-duval-1a16a0186/"
+            className="hover:text-primary text-secondary"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            <Linkedin />
+          </a>
+          <a
+            href={'https://github.com/' + config.github_user}
+            className="hover:text-primary text-secondary"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            <Github />
+          </a>
         </div>
       </div>
 

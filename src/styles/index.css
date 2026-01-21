@@ -13,18 +13,18 @@
 }
 
 .text-primary {
-  color: var(--primary-main) !important;
+  color: var(--primary-main);
 }
 .text-secondary {
-  color: var(--secondary-main) !important;
+  color: var(--secondary-main);
 }
 
 .bg-primary {
-  background-color: var(--primary-main) !important;
+  background-color: var(--primary-main);
 }
 
 .bg-secondary {
-  background-color: var(--secondary-main) !important;
+  background-color: var(--secondary-main);
 }
 
 :root {

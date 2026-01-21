@@ -17,7 +17,6 @@ import { useRemoteConfig } from '../../hooks/useRemoteConfig';
 import SmartLink from '../ui/smartLink';
 
 export default function Navbar() {
-
   const { t, language, setLanguage } = useLanguage();
   const { config, loading } = useRemoteConfig();
   const [isThemeModalOpen, setIsThemeModalOpen] = useState(false);
@@ -50,7 +49,7 @@ export default function Navbar() {
               {!isMobile ? <p>{t.layout.navbar.pages}</p> : <Menu />}
             </MenubarTrigger>
             <MenubarContent>
-              <SmartLink to="/"> 
+              <SmartLink to="/">
                 <MenubarItem>{t.layout.navbar.home}</MenubarItem>
               </SmartLink>
               <SmartLink to="/projects">
