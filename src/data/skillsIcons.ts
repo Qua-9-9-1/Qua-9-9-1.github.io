@@ -35,14 +35,15 @@ export const skills: Record<string, Skill[]> = {
     },
   ],
   Web: [
-    { name: 'React', img: 'techs/react.png', negative: false },
-    { name: 'Vue.js', img: 'techs/vue.png', negative: false },
+    { name: 'Electron', img: 'techs/electron.png', negative: false },
     { name: 'NestJS', img: 'techs/nestjs.png', negative: false },
     { name: 'Node.js', img: 'techs/nodejs.png', negative: false },
     { name: 'Npm', img: 'techs/npm.png', negative: false },
+    { name: 'React', img: 'techs/react.png', negative: false },
     { name: 'Tailwind CSS', img: 'techs/tailwindcss.png', negative: false },
     { name: 'Three.js', img: 'techs/threejs.png', negative: true },
     { name: 'Tone.js', img: 'techs/tonejs.png', negative: false },
+    { name: 'Vue.js', img: 'techs/vue.png', negative: false },
   ],
   Tools: [
     { name: 'CLion', img: 'techs/clion.png', negative: false },
