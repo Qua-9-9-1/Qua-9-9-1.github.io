@@ -1,7 +1,7 @@
 import InfiniteScroll from '../ui/infinite-scroll';
 import '../../styles/index.css';
 import { useIsMobile } from '@/hooks/useMediaQuery';
-import { Link } from 'react-router-dom';
+import SmartLink from '../ui/smartLink';
 import { Button } from '../ui/button';
 import { useLanguage } from '../../context/LanguageContext';
 import { shuffleArray } from '@/utils/shuffleArray';
@@ -43,7 +43,7 @@ export default function Footer() {
         </div>
         <div className="flex gap-4 items-center">
           <Button asChild variant="primary" className="mx-auto mt-8">
-            <Link to="/contact">{t.layout.footer.contact}</Link>
+            <SmartLink to="/contact">{t.layout.footer.contact}</SmartLink>
           </Button>
         </div>
       </div>

@@ -3,7 +3,7 @@ import { Separator } from '../components/ui/separator';
 import PresentationCard from '../components/home/PresentationCard';
 import CompetenciesCarousel from '../components/home/CompetenciesCarousel';
 import HobbiesCarousel from '../components/home/HobbiesCarousel';
-import { Link } from 'react-router';
+import SmartLink from '../components/ui/smartLink';
 
 export default function Home() {
   const { t } = useLanguage();
@@ -27,12 +27,12 @@ export default function Home() {
         </h3>
         <p className="text-center text-muted-foreground mb-8">
           {t.home.skills.description}
-          <Link
+          <SmartLink
             to="/projects"
             className="underline text-secondary hover:text-primary"
           >
             {t.home.skills.my_projects}
-          </Link>
+          </SmartLink>
         </p>
         <CompetenciesCarousel />
       </div>
