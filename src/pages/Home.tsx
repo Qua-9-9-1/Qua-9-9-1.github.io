@@ -36,10 +36,6 @@ export default function Home() {
           </Link>
         </p>
         <CompetenciesCarousel />
-
-        <Button asChild variant="primary" className="mx-auto">
-          <Link to="/projects">{t.home.skills.my_projects}</Link>
-        </Button>
       </div>
 
       <div className="max-w-7xl mx-auto px-4 py-8">
