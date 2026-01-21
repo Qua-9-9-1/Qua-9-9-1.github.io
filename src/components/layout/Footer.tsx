@@ -1,15 +1,18 @@
 import InfiniteScroll from '../ui/infinite-scroll';
 import '../../styles/index.css';
+import { useState } from 'react';
 import { useIsMobile } from '../../hooks/useMediaQuery';
 import { useLanguage } from '../../context/LanguageContext';
 import { shuffleArray } from '../../utils/shuffleArray';
 import { Mail, Linkedin, Github } from 'lucide-react';
 import { useRemoteConfig } from '../../hooks/useRemoteConfig';
+import CreditsModal from './CreditsModal';
 
 export default function Footer() {
   const { t } = useLanguage();
   const { config } = useRemoteConfig();
   const isMobile = useIsMobile();
+  const [isCreditsModalOpen, setIsCreditsModalOpen] = useState(false);
 
   const techsIcons = [
     { name: 'React', iconPath: '/techs/react.png', negative: false },
@@ -97,11 +100,18 @@ export default function Footer() {
       <div className="max-w-4xl mx-auto px-4 flex flex-col md:flex-row items-center justify-between gap-4 mt-2">
         <div />
         <div className="text-xs text-center md:text-right">
-          <p className="underline hover:text-primary">
-            {t.layout.footer.credits}
+          <p
+            className="underline hover:text-primary cursor-pointer"
+            onClick={() => setIsCreditsModalOpen(true)}
+          >
+            {t.layout.footer.credits.title}
           </p>
         </div>
       </div>
+      <CreditsModal
+        isOpen={isCreditsModalOpen}
+        onClose={() => setIsCreditsModalOpen(false)}
+      />
     </footer>
   );
 }
