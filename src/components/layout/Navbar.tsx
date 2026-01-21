@@ -1,4 +1,3 @@
-import { Link } from 'react-router-dom';
 import { useState } from 'react';
 import { useLanguage } from '../../context/LanguageContext';
 import ThemeModal from '../theme/ThemeModal';
@@ -15,8 +14,10 @@ import { Switch } from '../ui/switch';
 import { useIsMobile } from '../../hooks/useMediaQuery';
 import { Menu, Palette } from 'lucide-react';
 import { useRemoteConfig } from '../../hooks/useRemoteConfig';
+import SmartLink from '../ui/smartLink';
 
 export default function Navbar() {
+
   const { t, language, setLanguage } = useLanguage();
   const { config, loading } = useRemoteConfig();
   const [isThemeModalOpen, setIsThemeModalOpen] = useState(false);
@@ -30,7 +31,7 @@ export default function Navbar() {
     <>
       <nav className="navbar">
         <div className="navbar-logo">
-          <Link to="/" className="flex items-center gap-2">
+          <SmartLink to="/" className="flex items-center gap-2">
             <Avatar className="rounded-lg">
               <AvatarImage
                 src={`https://github.com/${config.github_user}.png`}
@@ -41,7 +42,7 @@ export default function Navbar() {
             <p className={`navbar-title ${loading ? 'animate-pulse' : ''}`}>
               {config.github_user}
             </p>
-          </Link>
+          </SmartLink>
         </div>
         <Menubar>
           <MenubarMenu>
@@ -49,15 +50,15 @@ export default function Navbar() {
               {!isMobile ? <p>{t.layout.navbar.pages}</p> : <Menu />}
             </MenubarTrigger>
             <MenubarContent>
-              <Link to="/">
+              <SmartLink to="/"> 
                 <MenubarItem>{t.layout.navbar.home}</MenubarItem>
-              </Link>
-              <Link to="/projects">
+              </SmartLink>
+              <SmartLink to="/projects">
                 <MenubarItem>{t.layout.navbar.projects}</MenubarItem>
-              </Link>
-              <Link to="/contact">
+              </SmartLink>
+              <SmartLink to="/contact">
                 <MenubarItem>{t.layout.navbar.contact}</MenubarItem>
-              </Link>
+              </SmartLink>
             </MenubarContent>
           </MenubarMenu>
           <MenubarMenu>
