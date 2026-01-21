@@ -7,6 +7,13 @@ import { useIsMobile } from '../../hooks/useMediaQuery';
 import React from 'react';
 import { useRemoteConfig } from '../../hooks/useRemoteConfig';
 import { FormatedText } from '../ui/formatedText';
+import { Button } from '../ui/button';
+import {
+  ButtonGroup,
+  ButtonGroupSeparator,
+  ButtonGroupText,
+} from '@/components/ui/button-group';
+import SmartLink from '../ui/smartLink';
 
 export default function PresentationCard() {
   const { t } = useLanguage();
@@ -171,15 +178,29 @@ export default function PresentationCard() {
                 </div>
               </div>
 
-              <div className="p-8 flex items-center">
-                <div className="space-y-4">
-                  <p
-                    className={`leading-relaxed text-lg ${loading ? 'animate-pulse' : ''}`}
+              <div className="p-8 flex flex-col items-center justify-center">
+                <div className="space-y-4 flex flex-col items-center">
+                  <div
+                    className={`leading-relaxed text-center ${loading ? 'animate-pulse' : ''}`}
                   >
                     <FormatedText
+                      className="text-xl"
                       text={config.description[t.lang as 'en' | 'fr']}
                     />
-                  </p>
+                  </div>
+                  <ButtonGroup className="mt-4 flex justify-center">
+                    <Button asChild variant="secondary">
+                      <SmartLink to="/projects">
+                        {t.layout.navbar.projects}
+                      </SmartLink>
+                    </Button>
+                    <ButtonGroupSeparator />
+                    <Button asChild variant="secondary">
+                      <SmartLink to="/contact">
+                        {t.layout.navbar.contact}
+                      </SmartLink>
+                    </Button>
+                  </ButtonGroup>
                 </div>
               </div>
             </div>

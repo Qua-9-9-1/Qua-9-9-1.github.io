@@ -1,10 +1,11 @@
 import React from 'react';
 
-type Props = { text: string };
+type Props = React.ButtonHTMLAttributes<HTMLButtonElement> & { text: string };
 
-export function FormatedText({ text }: Props) {
+export function FormatedText({ text, ...props }: Props) {
   if (!text) return null;
-  const regex = /(`[^`]+`)|(\*\*([^*]+)\*\*)|(\*([^*]+)\*)|(__([^_]+)__)|(~~([^~]+)~~)|(\$([^$]+)\$)|(\@([^@]+)\@)|(\n)/g;
+  const regex =
+    /(`[^`]+`)|(\*\*([^*]+)\*\*)|(\*([^*]+)\*)|(__([^_]+)__)|(~~([^~]+)~~)|(\$([^$]+)\$)|(\@([^@]+)\@)|(\n)/g;
 
   const parse = (input: string) => {
     const elements: React.ReactNode[] = [];
@@ -18,7 +19,10 @@ export function FormatedText({ text }: Props) {
       switch (true) {
         case !!match[1]:
           elements.push(
-            <code key={key++} className="bg-muted px-1 rounded text-sm font-mono">
+            <code
+              key={key++}
+              className="bg-muted px-1 rounded text-sm font-mono"
+            >
               {match[1].slice(1, -1)}
             </code>
           );
@@ -69,5 +73,5 @@ export function FormatedText({ text }: Props) {
     return elements;
   };
 
-  return <span>{parse(text)}</span>;
+  return <span {...props}>{parse(text)}</span>;
 }
