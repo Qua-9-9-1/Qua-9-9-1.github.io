@@ -11,7 +11,6 @@ import { Button } from '../ui/button';
 import {
   ButtonGroup,
   ButtonGroupSeparator,
-  ButtonGroupText,
 } from '@/components/ui/button-group';
 import SmartLink from '../ui/smartLink';
 
