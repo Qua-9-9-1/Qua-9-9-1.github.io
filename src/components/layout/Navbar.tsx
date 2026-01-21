@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { useLocation } from 'react-router-dom';
 import { useLanguage } from '../../context/LanguageContext';
-import ThemeModal from '../theme/ThemeModal';
+import ThemeModal from './ThemeModal';
 import '../../styles/components/layout/navbar.css';
 import { Avatar, AvatarFallback, AvatarImage } from '../ui/avatar';
 import {
