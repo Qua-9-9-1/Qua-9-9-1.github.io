@@ -6,7 +6,7 @@ interface InfiniteScrollProps {
   speed?: 'slow' | 'normal' | 'fast';
   pauseOnHover?: boolean;
   direction?: boolean;
-}  
+}
 
 export default function InfiniteScroll({
   children,
