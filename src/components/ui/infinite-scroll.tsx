@@ -1,13 +1,12 @@
 import type { ReactNode } from 'react';
+import { useRef, useState, useEffect } from 'react';
 
 interface InfiniteScrollProps {
   children: ReactNode;
   speed?: 'slow' | 'normal' | 'fast';
   pauseOnHover?: boolean;
   direction?: boolean;
-}
-
-import { useRef, useState } from 'react';
+}  
 
 export default function InfiniteScroll({
   children,
@@ -15,11 +14,22 @@ export default function InfiniteScroll({
   pauseOnHover = true,
   direction = true,
 }: InfiniteScrollProps) {
-  const duration =
-    speed === 'fast' ? '10s' : speed === 'normal' ? '20s' : '40s';
+  const pxPerSec = speed === 'fast' ? 220 : speed === 'normal' ? 160 : 80;
+  const [duration, setDuration] = useState('20s');
   const [paused, setPaused] = useState(false);
   const [activeIndex, setActiveIndex] = useState<number | null>(null);
   const containerRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    if (!containerRef.current) return;
+
+    const content = containerRef.current.querySelector('div');
+    if (content) {
+      const width = (content as HTMLElement).offsetWidth;
+      const seconds = width / pxPerSec;
+      setDuration(`${seconds}s`);
+    }
+  }, [children, speed]);
 
   const handleMouseOver = (e: React.MouseEvent) => {
     if (pauseOnHover) {
@@ -33,6 +43,7 @@ export default function InfiniteScroll({
       }
     }
   };
+
   const handleMouseOut = () => {
     if (pauseOnHover) {
       setPaused(false);
