@@ -16,7 +16,6 @@ export default function RootLayout() {
 
     const shown = localStorage.getItem('maintenance-toast-shown');
 
-    console.log('Website status:', config.website_status);
     if (!shown) {
       switch (config.website_status) {
         case 'maintenance':
