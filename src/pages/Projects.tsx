@@ -42,10 +42,7 @@ export default function ProjectsPage() {
 
   return (
     <div className="flex flex-col">
-      <div
-        style={{ touchAction: 'none' }}
-        className="h-[40vh] w-full relative"
-      >
+      <div style={{ touchAction: 'none' }} className="h-[40vh] w-full relative">
         <PhysicsFilterScene
           technos={allCategories}
           onFilterChange={setSelectedTechnos}

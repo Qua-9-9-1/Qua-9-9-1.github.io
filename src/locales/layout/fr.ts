@@ -1,6 +1,7 @@
 export const layout_fr = {
   informationToast: {
-    maintenance: "Le site est actuellement en maintenance. Certaines fonctionnalités peuvent être instables.",
+    maintenance:
+      'Le site est actuellement en maintenance. Certaines fonctionnalités peuvent être instables.',
   },
   navbar: {
     pages: 'Pages',
@@ -13,7 +14,7 @@ export const layout_fr = {
   footer: {
     contact: 'Mes réseaux',
     portfolio_techs: 'Ce portfolio a été réalisé avec',
-    my_time: "Mon temps libre",
+    my_time: 'Mon temps libre',
     credits: 'Crédits',
   },
 };

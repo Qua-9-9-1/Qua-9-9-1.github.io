@@ -9,18 +9,30 @@ import { shuffleArray } from '@/utils/shuffleArray';
 export default function Footer() {
   const { t } = useLanguage();
   const isMobile = useIsMobile();
-  
+
   const techsIcons = [
     { name: 'React', iconPath: '/techs/react.png', negative: false },
     { name: 'Vite', iconPath: '/techs/vite.png', negative: false },
-    { name: 'TailwindCSS', iconPath: '/techs/tailwindcss.png', negative: false },
+    {
+      name: 'TailwindCSS',
+      iconPath: '/techs/tailwindcss.png',
+      negative: false,
+    },
     { name: 'TypeScript', iconPath: '/techs/typescript.png', negative: false },
     { name: 'shadcn', iconPath: '/techs/shadcn.png', negative: true },
     { name: 'Three.js', iconPath: '/techs/threejs.png', negative: true },
     { name: 'Prettier', iconPath: '/techs/prettier.png', negative: false },
-    { name: 'Github Copilot', iconPath: '/techs/github_copilot.png', negative: true },
-    { name: t.layout.footer.my_time, iconPath: '/my_time.png', negative: false },
-    { name: 'Passion', iconPath: '/hearth.png', negative: true }
+    {
+      name: 'Github Copilot',
+      iconPath: '/techs/github_copilot.png',
+      negative: true,
+    },
+    {
+      name: t.layout.footer.my_time,
+      iconPath: '/my_time.png',
+      negative: false,
+    },
+    { name: 'Passion', iconPath: '/hearth.png', negative: true },
   ];
 
   return (

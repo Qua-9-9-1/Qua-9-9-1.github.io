@@ -34,7 +34,7 @@ const fallbackConfig: Config = {
   working_status: 'Available',
   availability_date: { from: '', to: '' },
   description: {
-    fr: "Le chargement de la configuration a échoué.",
+    fr: 'Le chargement de la configuration a échoué.',
     en: 'Failed to load configuration.',
   },
 };
