@@ -1,10 +1,10 @@
 import InfiniteScroll from '../ui/infinite-scroll';
 import '../../styles/index.css';
-import { useIsMobile } from '@/hooks/useMediaQuery';
+import { useIsMobile } from '../../hooks/useMediaQuery';
 import SmartLink from '../ui/smartLink';
 import { Button } from '../ui/button';
 import { useLanguage } from '../../context/LanguageContext';
-import { shuffleArray } from '@/utils/shuffleArray';
+import { shuffleArray } from '../../utils/shuffleArray';
 
 export default function Footer() {
   const { t } = useLanguage();
