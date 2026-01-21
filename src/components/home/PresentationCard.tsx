@@ -59,10 +59,10 @@ export default function PresentationCard() {
   const getAvailabilityDate = (): React.ReactNode => {
     if (
       loading ||
-      config.workingStatus === 'available' ||
-      config.workingStatus === 'employed' ||
-      !config.availabilityDate.from ||
-      !config.availabilityDate.to
+      config.working_status === 'available' ||
+      config.working_status === 'employed' ||
+      !config.availability_date.from ||
+      !config.availability_date.to
     ) {
       return null;
     }
@@ -76,12 +76,12 @@ export default function PresentationCard() {
         }
       >
         <span>{t.home.from}</span>
-        <span className="font-bold underline text-primary mx-1">
-          {config.availabilityDate.from}
+        <span className="font-bold text-primary mx-1">
+          {config.availability_date.from}
         </span>
         <span>{t.home.to}</span>
-        <span className="font-bold underline text-primary mx-1">
-          {config.availabilityDate.to}
+        <span className="font-bold text-primary mx-1">
+          {config.availability_date.to}
         </span>
       </div>
     );
@@ -119,7 +119,7 @@ export default function PresentationCard() {
               </p>
             </div>
 
-            {getWorkingStatusBadge(config.workingStatus)}
+            {getWorkingStatusBadge(config.working_status)}
             {getAvailabilityDate()}
             <Separator />
 
@@ -164,7 +164,7 @@ export default function PresentationCard() {
                   >
                     {t.home.working_status.title}
                   </p>
-                  {getWorkingStatusBadge(config.workingStatus)}
+                  {getWorkingStatusBadge(config.working_status)}
                   {getAvailabilityDate()}
                 </div>
               </div>

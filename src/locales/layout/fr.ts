@@ -1,4 +1,9 @@
+import { toast } from "sonner";
+
 export const layout_fr = {
+  informationToast: {
+    maintenance: "Le site est actuellement en maintenance. Certaines fonctionnalités peuvent être instables.",
+  },
   navbar: {
     pages: 'Pages',
     options: 'Options',
