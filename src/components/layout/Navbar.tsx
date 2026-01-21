@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { useLocation } from 'react-router-dom';
 import { useLanguage } from '../../context/LanguageContext';
 import ThemeModal from '../theme/ThemeModal';
 import '../../styles/components/layout/navbar.css';
@@ -15,12 +16,17 @@ import { useIsMobile } from '../../hooks/useMediaQuery';
 import { Menu, Palette } from 'lucide-react';
 import { useRemoteConfig } from '../../hooks/useRemoteConfig';
 import SmartLink from '../ui/smartLink';
+import { Button } from '../ui/button';
+import { ButtonGroup, ButtonGroupSeparator } from '../ui/button-group';
 
 export default function Navbar() {
   const { t, language, setLanguage } = useLanguage();
   const { config, loading } = useRemoteConfig();
   const [isThemeModalOpen, setIsThemeModalOpen] = useState(false);
   const isMobile = useIsMobile();
+  const location = useLocation();
+
+  const isActive = (path: string) => location.pathname === path;
 
   const toggleLanguage = () => {
     setLanguage(language === 'fr' ? 'en' : 'fr');
@@ -43,23 +49,48 @@ export default function Navbar() {
             </p>
           </SmartLink>
         </div>
+        {!isMobile && (
+          <div className="flex-1 flex justify-center">
+            <ButtonGroup>
+              <Button asChild variant={isActive('/') ? 'secondary' : 'outline'}>
+                <SmartLink to="/">{t.layout.navbar.home}</SmartLink>
+              </Button>
+              <ButtonGroupSeparator />
+              <Button
+                asChild
+                variant={isActive('/projects') ? 'secondary' : 'outline'}
+              >
+                <SmartLink to="/projects">{t.layout.navbar.projects}</SmartLink>
+              </Button>
+              <ButtonGroupSeparator />
+              <Button
+                asChild
+                variant={isActive('/contact') ? 'secondary' : 'outline'}
+              >
+                <SmartLink to="/contact">{t.layout.navbar.contact}</SmartLink>
+              </Button>
+            </ButtonGroup>
+          </div>
+        )}
         <Menubar>
-          <MenubarMenu>
-            <MenubarTrigger>
-              {!isMobile ? <p>{t.layout.navbar.pages}</p> : <Menu />}
-            </MenubarTrigger>
-            <MenubarContent>
-              <SmartLink to="/">
-                <MenubarItem>{t.layout.navbar.home}</MenubarItem>
-              </SmartLink>
-              <SmartLink to="/projects">
-                <MenubarItem>{t.layout.navbar.projects}</MenubarItem>
-              </SmartLink>
-              <SmartLink to="/contact">
-                <MenubarItem>{t.layout.navbar.contact}</MenubarItem>
-              </SmartLink>
-            </MenubarContent>
-          </MenubarMenu>
+          {isMobile && (
+            <MenubarMenu>
+              <MenubarTrigger>
+                <Menu />
+              </MenubarTrigger>
+              <MenubarContent>
+                <SmartLink to="/">
+                  <MenubarItem>{t.layout.navbar.home}</MenubarItem>
+                </SmartLink>
+                <SmartLink to="/projects">
+                  <MenubarItem>{t.layout.navbar.projects}</MenubarItem>
+                </SmartLink>
+                <SmartLink to="/contact">
+                  <MenubarItem>{t.layout.navbar.contact}</MenubarItem>
+                </SmartLink>
+              </MenubarContent>
+            </MenubarMenu>
+          )}
           <MenubarMenu>
             <MenubarTrigger onClick={() => setIsThemeModalOpen(true)}>
               {!isMobile ? <p>{t.layout.navbar.theme}</p> : <Palette />}
