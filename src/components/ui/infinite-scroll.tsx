@@ -33,7 +33,7 @@ export default function InfiniteScroll({
       }
     }
   };
-  const handleMouseOut = (e: React.MouseEvent) => {
+  const handleMouseOut = () => {
     if (pauseOnHover) {
       setPaused(false);
     }
@@ -59,7 +59,7 @@ export default function InfiniteScroll({
     }
   };
 
-  const handleTouchEnd = (e: React.TouchEvent) => {
+  const handleTouchEnd = () => {
     if (pauseOnHover) {
       setPaused(false);
       setActiveIndex(null);
