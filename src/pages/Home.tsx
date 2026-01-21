@@ -3,7 +3,6 @@ import { Separator } from '../components/ui/separator';
 import PresentationCard from '../components/home/PresentationCard';
 import CompetenciesCarousel from '../components/home/CompetenciesCarousel';
 import HobbiesCarousel from '../components/home/HobbiesCarousel';
-import { Button } from '../components/ui/button';
 import { Link } from 'react-router';
 
 export default function Home() {
