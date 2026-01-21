@@ -15,7 +15,7 @@ export default function PresentationCard() {
 
   const getWorkingStatusBadge = (workingStatus: string): React.ReactNode => {
     const defaultClasses: string = isMobile
-      ? 'flex justify-center px-4 py-2 text-sm bg-accent hover:bg-accent/90 text-accent-foreground shadow-lg '
+      ? 'flex justify-center px-4 py-2 text-sm bg-accent hover:bg-accent/90 text-accent-foreground shadow-lg'
       : 'w-full justify-center px-4 py-3 text-sm bg-accent hover:bg-accent/90 text-accent-foreground';
 
     if (loading) {
@@ -136,7 +136,7 @@ export default function PresentationCard() {
         <Card className="w-full shadow-xl">
           <CardContent className="p-0">
             <div className="grid grid-cols-[350px_1fr]">
-              <div className="p-8 space-y-6 flex flex-col items-center justify-start bg-muted/30 border-r">
+              <div className="p-4 space-y-6 flex flex-col items-center justify-start bg-muted/30 border-r">
                 <Avatar className="w-40 h-40 border-4 border-primary/30 shadow-xl">
                   <AvatarImage
                     src={`https://github.com/${config.github_user}.png`}
