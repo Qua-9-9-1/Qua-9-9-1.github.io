@@ -72,7 +72,12 @@ export default function Footer() {
         {t.layout.footer.portfolio_techs}
       </p>
       <div className="max-w-4xl mx-auto px-4 mt-4">
-        <InfiniteScroll speed="normal" pauseOnHover={false} direction={false}>
+        <InfiniteScroll
+          speed="slow"
+          pauseOnHover={false}
+          direction={false}
+          itemGapPx={isMobile ? 60 : 10}
+        >
           {shuffleArray(techsIcons).map((tech) => (
             <span key={tech.name} className="flex flex-col items-center mx-2">
               <img

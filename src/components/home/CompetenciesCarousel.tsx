@@ -36,7 +36,12 @@ function SkillSlider({
         {icon && <span className="inline-block ml-2">{icon}</span>}
       </h3>
 
-      <InfiniteScroll speed="normal" pauseOnHover={true} direction={!reverse}>
+      <InfiniteScroll
+        speed={!isMobile ? 'slow' : 'normal'}
+        pauseOnHover={true}
+        direction={!reverse}
+        itemGapPx={isMobile ? 20 : 50}
+      >
         {skills.map((skill, index) => {
           const googleUrl = `https://www.google.com/search?q=${encodeURIComponent(skill.name)}`;
           const itemContent = (
@@ -50,7 +55,7 @@ function SkillSlider({
                   (skill.negative ? ' img-negative' : '')
                 }
               />
-              <span className="font-medium px-2">{skill.name}</span>
+              <span className="font-medium px-1">{skill.name}</span>
               {!isMobile && (
                 <span className="absolute left-1/2 -translate-x-1/2 top-full mt-2 px-2 py-1 rounded bg-primary text-primary-foreground text-xs opacity-0 pointer-events-none transition-opacity duration-200 group-hover:opacity-100 z-10 shadow">
                   check on web

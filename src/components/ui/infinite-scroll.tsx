@@ -1,11 +1,12 @@
+import React, { useRef, useState, useEffect } from 'react';
 import type { ReactNode } from 'react';
-import { useRef, useState, useEffect } from 'react';
 
 interface InfiniteScrollProps {
   children: ReactNode;
   speed?: 'slow' | 'normal' | 'fast';
   pauseOnHover?: boolean;
   direction?: boolean;
+  itemGapPx?: number; // spacing between items in pixels
 }
 
 export default function InfiniteScroll({
@@ -13,8 +14,9 @@ export default function InfiniteScroll({
   speed = 'normal',
   pauseOnHover = true,
   direction = true,
+  itemGapPx = 0,
 }: InfiniteScrollProps) {
-  const pxPerSec = speed === 'fast' ? 220 : speed === 'normal' ? 160 : 80;
+  const pxPerSec = speed === 'fast' ? 160 : speed === 'normal' ? 100 : 80;
   const [duration, setDuration] = useState('20s');
   const [paused, setPaused] = useState(false);
   const [activeIndex, setActiveIndex] = useState<number | null>(null);
@@ -77,22 +79,26 @@ export default function InfiniteScroll({
     }
   };
 
-  const enhancedChildren = (
-    Array.isArray(children) ? children : [children]
-  ).map((child, idx) => {
-    if (
-      typeof child === 'object' &&
-      child &&
-      'props' in child &&
-      child.props.className?.includes('carousel-item')
-    ) {
-      return {
-        ...child,
-        props: {
+  const childArray = Array.isArray(children) ? children : [children];
+  type AnyProps = {
+    className?: string;
+    style?: React.CSSProperties;
+    [key: string]: any;
+  };
+  const enhancedChildren = childArray.map((child, idx) => {
+    if (React.isValidElement<AnyProps>(child)) {
+      const className = child.props?.className as string | undefined;
+      if (className?.includes('carousel-item')) {
+        const mergedStyle: React.CSSProperties = {
+          ...(child.props.style as React.CSSProperties | undefined),
+          marginRight: itemGapPx,
+        };
+        return React.cloneElement(child, {
           ...child.props,
-          'data-active': activeIndex === idx ? 'true' : undefined,
-        },
-      };
+          ['data-active']: activeIndex === idx ? 'true' : undefined,
+          style: mergedStyle,
+        } as AnyProps);
+      }
     }
     return child;
   });
@@ -103,9 +109,13 @@ export default function InfiniteScroll({
       <div className="absolute right-0 top-0 z-1 h-full w-20 bg-gradient-to-l from-background to-transparent pointer-events-none" />
       <div
         ref={containerRef}
-        className={`flex w-max min-w-full gap-2`}
+        className={`flex w-max min-w-full`}
         style={{
-          animation: `${direction ? 'scroll' : 'scroll-reverse'} ${duration} linear infinite`,
+          animationName: 'scroll',
+          animationDuration: duration,
+          animationTimingFunction: 'linear',
+          animationIterationCount: 'infinite',
+          animationDirection: direction ? 'normal' : 'reverse',
           animationPlayState: paused ? 'paused' : 'running',
         }}
         onMouseOver={handleMouseOver}
@@ -113,11 +123,11 @@ export default function InfiniteScroll({
         onTouchStart={handleTouchStart}
         onTouchEnd={handleTouchEnd}
       >
-        <div className="flex shrink-0 gap-2 items-center justify-around min-w-full">
+        <div className="flex shrink-0 items-center flex-nowrap gap-0 min-w-max">
           {enhancedChildren}
         </div>
         <div
-          className="flex shrink-0 gap-2 items-center justify-around min-w-full"
+          className="flex shrink-0 items-center flex-nowrap gap-0 min-w-max"
           aria-hidden="true"
         >
           {enhancedChildren}
