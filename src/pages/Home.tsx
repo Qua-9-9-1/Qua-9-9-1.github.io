@@ -10,11 +10,11 @@ export default function Home() {
 
   return (
     <main className="min-h-screen bg-background text-foreground">
-      <div className="py-12 px-4 text-center">
-        <h1 className="text-4xl md:text-6xl font-bold bg-gradient-to-r from-primary to-primary/60 bg-clip-text text-transparent mb-2">
+      <div className="py-6 px-4 text-center">
+        <h1 className="text-4xl md:text-6xl py-4 font-bold bg-gradient-to-r from-primary to-primary/60 bg-clip-text text-transparent mb-2">
           {t.home.title}
         </h1>
-        <Separator className="my-6 mx-auto w-96 bg-primary" />
+        <Separator className="my-3 mx-auto w-96 bg-primary" />
       </div>
 
       <h3 className="text-2xl font-bold text-center mb-4">{t.home.about}</h3>
