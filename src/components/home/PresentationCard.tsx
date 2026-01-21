@@ -35,19 +35,19 @@ export default function PresentationCard() {
         );
       case 'looking_for_internship':
         return (
-          <Badge className={defaultClasses + ' animate-bounce'}>
+          <Badge className={defaultClasses + ' animate-bounce bg-primary'}>
             {t.home.working_status.looking_for_internship}
           </Badge>
         );
       case 'looking_for_job':
         return (
-          <Badge className={defaultClasses + ' animate-bounce'}>
+          <Badge className={defaultClasses + ' animate-bounce bg-primary'}>
             {t.home.working_status.looking_for_job}
           </Badge>
         );
       case 'employed':
         return (
-          <Badge className={defaultClasses}>
+          <Badge className={defaultClasses + ' bg-secondary'}>
             {t.home.working_status.employed}
           </Badge>
         );
@@ -76,11 +76,11 @@ export default function PresentationCard() {
         }
       >
         <span>{t.home.from}</span>
-        <span className="font-bold text-primary mx-1">
+        <span className="font-bold text-secondary mx-1">
           {config.availability_date.from}
         </span>
         <span>{t.home.to}</span>
-        <span className="font-bold text-primary mx-1">
+        <span className="font-bold text-secondary mx-1">
           {config.availability_date.to}
         </span>
       </div>
@@ -109,18 +109,20 @@ export default function PresentationCard() {
             </div>
 
             <div className="text-center space-y-2">
-              <h2 className="text-2xl font-bold text-primary">
+                <h2 className="text-2xl font-bold bg-gradient-to-b from-[var(--primary-main)] to-[var(--secondary-main)] text-transparent bg-clip-text">
                 {config.username}
               </h2>
               <p
-                className={`text-lg text-muted-foreground text-secondary ${loading ? 'animate-pulse' : ''}`}
+                className={`text-lg text-muted-foreground ${loading ? 'animate-pulse' : ''}`}
               >
                 {config.pro_title[t.lang as 'en' | 'fr']}
               </p>
             </div>
 
-            {getWorkingStatusBadge(config.working_status)}
-            {getAvailabilityDate()}
+            <div className="w-full bg-muted/50 p-4 rounded-md space-y-3">
+              {getWorkingStatusBadge(config.working_status)}
+              {getAvailabilityDate()}
+            </div>
             <Separator />
 
             <div
@@ -146,11 +148,11 @@ export default function PresentationCard() {
                 </Avatar>
 
                 <div className="text-center space-y-3 w-full">
-                  <h2 className="text-3xl font-bold text-primary">
+                  <h2 className="text-2xl font-bold bg-gradient-to-b from-[var(--primary-main)] to-[var(--secondary-main)] text-transparent bg-clip-text">
                     {config.username}
                   </h2>
                   <p
-                    className={`text-xl text-muted-foreground font-medium text-secondary ${loading ? 'animate-pulse' : ''}`}
+                    className={`text-xl text-muted-foreground font-medium ${loading ? 'animate-pulse' : ''}`}
                   >
                     {config.pro_title[t.lang as 'en' | 'fr']}
                   </p>
@@ -158,9 +160,9 @@ export default function PresentationCard() {
 
                 <Separator className="w-full" />
 
-                <div className="w-full space-y-3">
+                <div className="w-full space-y-3 bg-muted/50 p-4 rounded-md">
                   <p
-                    className={`text-sm font-semibold text-muted-foreground uppercase tracking-wide text-center ${loading ? 'animate-pulse' : ''}`}
+                    className={`text-sm font-semibold uppercase tracking-wide text-center ${loading ? 'animate-pulse' : ''}`}
                   >
                     {t.home.working_status.title}
                   </p>
@@ -172,7 +174,7 @@ export default function PresentationCard() {
               <div className="p-8 flex items-center">
                 <div className="space-y-4">
                   <p
-                    className={`text-muted-foreground leading-relaxed text-lg ${loading ? 'animate-pulse' : ''}`}
+                    className={`leading-relaxed text-lg ${loading ? 'animate-pulse' : ''}`}
                   >
                     <ColoredText
                       text={config.description[t.lang as 'en' | 'fr']}
