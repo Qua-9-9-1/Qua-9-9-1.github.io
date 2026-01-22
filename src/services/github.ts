@@ -34,6 +34,8 @@ export const fetchGitHubProjects = async (): Promise<Project[]> => {
         status = 'archived';
       } else if (repo.topics.includes('wip')) {
         status = 'wip';
+      } else if (repo.topics.includes('stopped')) {
+        status = 'stopped';
       }
 
       const imageUrl = `https://raw.githubusercontent.com/${USERNAME}/${repo.name}/${repo.default_branch}/cover.png`;
