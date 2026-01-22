@@ -105,8 +105,8 @@ export default function InfiniteScroll({
 
   return (
     <div className="relative w-full overflow-hidden bg-background select-none">
-      <div className="absolute left-0 top-0 z-1 h-full w-20 bg-gradient-to-r from-background to-transparent pointer-events-none" />
-      <div className="absolute right-0 top-0 z-1 h-full w-20 bg-gradient-to-l from-background to-transparent pointer-events-none" />
+      <div className="absolute left-0 top-0 z-2 h-full w-20 bg-gradient-to-r from-background to-transparent pointer-events-none" />
+      <div className="absolute right-0 top-0 z-2 h-full w-20 bg-gradient-to-l from-background to-transparent pointer-events-none" />
       <div
         ref={containerRef}
         className={`flex w-max min-w-full`}

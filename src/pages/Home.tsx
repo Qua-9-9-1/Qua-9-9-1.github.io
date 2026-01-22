@@ -10,14 +10,15 @@ export default function Home() {
 
   return (
     <main className="min-h-screen bg-background text-foreground">
-      <div className="py-6 px-4 text-center">
-        <h1 className="text-4xl md:text-6xl py-4 font-bold bg-gradient-to-r from-primary to-primary/60 bg-clip-text text-transparent mb-2">
+
+      <div className="py-6 px-4 text-center relative">
+        <h1 className="text-4xl md:text-6xl py-4 font-bold bg-gradient-to-r from-primary to-primary/60 bg-clip-text text-transparent mb-2 relative z-2">
           {t.home.title}
         </h1>
-        <Separator className="my-3 mx-auto w-96 bg-primary" />
+        <Separator className="my-3 mx-auto w-96 bg-primary relative z-2" />
       </div>
 
-      <h3 className="text-2xl font-bold text-center mb-4">{t.home.about}</h3>
+      <h3 className="text-2xl font-bold text-center mb-4 relative z-2">{t.home.about}</h3>
       <PresentationCard />
 
       <div className="max-w-7xl mx-auto px-4 py-8">
