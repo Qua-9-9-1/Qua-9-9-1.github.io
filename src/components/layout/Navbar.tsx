@@ -2,7 +2,6 @@ import { useState } from 'react';
 import { useLocation } from 'react-router-dom';
 import { useLanguage } from '../../context/LanguageContext';
 import ThemeModal from './ThemeModal';
-import '../../styles/components/layout/navbar.css';
 import { Avatar, AvatarFallback, AvatarImage } from '../ui/avatar';
 import {
   Menubar,
@@ -34,8 +33,8 @@ export default function Navbar() {
 
   return (
     <>
-      <nav className="navbar">
-        <div className="navbar-logo select-none">
+      <nav className="z-10 flex items-center justify-between px-4 py-4 sticky top-0 border-b-2 border-secondary bg-gradient-to-b from-background/80 to-bg-secondary backdrop-blur-md">
+        <div className="font-bold text-xl select-none bg-gradient-to-r from-[var(--primary-main)] to-[var(--secondary-main)] bg-clip-text text-transparent">
           <SmartLink to="/" className="flex items-center gap-2">
             <Avatar className="rounded-lg">
               <AvatarImage

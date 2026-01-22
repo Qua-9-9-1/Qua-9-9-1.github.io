@@ -27,6 +27,14 @@
   background-color: var(--secondary-main);
 }
 
+.border-primary {
+  border-color: var(--primary-main);
+}
+
+.border-secondary {
+  border-color: var(--secondary-main);
+}
+
 :root {
   font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
   line-height: 1.5;
