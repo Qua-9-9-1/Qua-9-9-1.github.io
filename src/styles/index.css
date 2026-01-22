@@ -9,6 +9,19 @@
   }
   body {
     @apply bg-background text-foreground;
+    cursor: default;
+  }
+  a[href],
+  button,
+  [role="button"],
+  label[for],
+  .cursor-pointer {
+    cursor: pointer;
+  }
+  input,
+  textarea,
+  [contenteditable="true"] {
+    cursor: text;
   }
 }
 
