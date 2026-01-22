@@ -42,9 +42,9 @@ export default function HobbiesCarousel() {
                   models={[
                     {
                       url: '/assets/models/laptop/scene.gltf',
-                      position: [3.2, -2.4, 0],
+                      position: [1.8, -2.0, 1.8],
                       rotation: [0.4, 3.1, 0.2],
-                      scale: 4.1,
+                      scale: 3.9,
                     },
                   ]}
                 />
@@ -68,9 +68,9 @@ export default function HobbiesCarousel() {
                   models={[
                     {
                       url: '/assets/models/controller/scene.gltf',
-                      position: [0, 0, -1.1],
+                      position: [0, 0, -0.5],
                       rotation: [-11.3, -45.0, 0],
-                      scale: 0.09,
+                      scale: 0.08,
                     },
                   ]}
                 />
@@ -96,7 +96,7 @@ export default function HobbiesCarousel() {
                       url: '/assets/models/graphic_tablet/scene.gltf',
                       position: [0, 0, 0],
                       rotation: [11.3, 0, 0],
-                      scale: 1.2,
+                      scale: 0.8,
                     },
                   ]}
                 />
@@ -104,8 +104,28 @@ export default function HobbiesCarousel() {
             case 5: // 3D (dev) and shaders
               return (
                 <Scene3D
+                  shapes={[
+                    {
+                      type: 'cone',
+                      position: [-1.1, 0.6, -0.6],
+                      rotation: [0.1, 0, 0.5],
+                      scale: 1.5,
+                      color: '#ff8f00',
+                      wireframe: true,
+                      size: 1,
+                    },
+                    {
+                      type: 'torus',
+                      position: [0, -1, 1],
+                      rotation: [1.5, 0.92, 0],
+                      scale: 1.2,
+                      color: '#3b82f6',
+                      wireframe: false,
+                      size: 1,
+                    }
+                  ]}
                   psychicCubes={[
-                    { position: [0, 0, 0], rotation: [0, 0, 0], size: 1 },
+                    { position: [0.9, 1.2, 0], rotation: [0.67, 0, 0.2], size: 1 },
                   ]}
                 />
               );
@@ -115,9 +135,9 @@ export default function HobbiesCarousel() {
                   models={[
                     {
                       url: '/assets/models/video_camera/scene.gltf',
-                      position: [0, 0, 0],
+                      position: [0, 0, 5],
                       rotation: [0, 0, 0],
-                      scale: 1,
+                      scale: 2,
                     },
                   ]}
                 />
