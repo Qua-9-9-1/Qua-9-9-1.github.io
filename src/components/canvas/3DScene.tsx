@@ -14,7 +14,7 @@ type ModelProps = {
 };
 
 type ShapeProps = {
-  type?: 'sphere' | 'cube';
+  type?: 'sphere' | 'cube' | 'cone' | 'cylinder' | 'torus' | 'pyramid';
   position?: [number, number, number];
   rotation?: [number, number, number];
   scale?: number | [number, number, number];

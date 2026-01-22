@@ -2,7 +2,7 @@ import { useLoader } from '@react-three/fiber';
 import type { JSX } from 'react/jsx-dev-runtime';
 import * as THREE from 'three';
 
-type ShapeType = 'sphere' | 'cube';
+type ShapeType = 'sphere' | 'cube' | 'cone' | 'cylinder' | 'torus' | 'pyramid';
 
 type Shape3DProps = JSX.IntrinsicElements['mesh'] & {
   type?: ShapeType;
@@ -31,6 +31,18 @@ export default function Shape3D({
       break;
     case 'cube':
       geometry = <boxGeometry args={[size, size, size]} />;
+      break;
+    case 'cone':
+      geometry = <coneGeometry args={[size / 2, size, 32]} />;
+      break;
+    case 'cylinder':
+      geometry = <cylinderGeometry args={[size / 2, size / 2, size, 32]} />;
+      break;
+    case 'torus':
+      geometry = <torusGeometry args={[size / 2, size / 6, 16, 100]} />;
+      break;
+    case 'pyramid':
+      geometry = <coneGeometry args={[size / 2, size, 4]} />;
       break;
     default:
       geometry = <boxGeometry args={[size, size, size]} />;
