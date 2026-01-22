@@ -25,6 +25,7 @@ export const projects_fr = {
     completed: 'Terminé',
     wip: 'En cours',
     archived: 'Archivé',
+    stopped: 'Arrêté',
     unknown: 'Statut inconnu',
   },
 };
