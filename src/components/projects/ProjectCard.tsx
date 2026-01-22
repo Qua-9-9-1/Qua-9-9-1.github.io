@@ -88,28 +88,28 @@ export default function ProjectCard({ project }: { project: Project }) {
         <div className="min-h-[3rem] flex items-center">
           <ButtonGroup>
             {project.url && (
-              <Button className="flex flex-col items-center hover:underline ">
                 <a
                   href={project.url}
                   target="_blank"
                   rel="noreferrer"
-                  className="mb-1"
+                  className="mb-1 cursor-pointer"
                 >
+              <Button className="flex flex-col items-center hover:underline ">
                   {t.projects.codeLink}
-                </a>
               </Button>
+                </a>
             )}
             {project.homepageUrl && (
-              <Button className="flex flex-col items-center hover:underline ">
-                <a
-                  href={project.homepageUrl}
-                  target="_blank"
-                  rel="noreferrer"
-                  className="mb-1"
-                >
+              <a
+                href={project.homepageUrl}
+                target="_blank"
+                rel="noreferrer"
+                className="mb-1 cursor-pointer"
+              >
+              <Button className="flex flex-col items-center hover:underline " >
                   {t.projects.homepageLink}
-                </a>
               </Button>
+                </a>
             )}
           </ButtonGroup>
         </div>
