@@ -1,6 +1,5 @@
 import type { Project } from '../../types/project';
 import { useLanguage } from '../../context/LanguageContext';
-import '../../styles/projects/projectCard.css';
 import {
   Card,
   CardContent,
