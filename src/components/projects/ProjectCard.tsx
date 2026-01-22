@@ -45,15 +45,13 @@ export default function ProjectCard({ project }: { project: Project }) {
     }
   };
 
-  
-
   return (
     <Card className="flex flex-col h-full">
       <CardHeader className="space-y-2">
-        <CardTitle className="text-primary min-h-[1.75rem] text-xl font-semibold">{project.name}</CardTitle>
-        <CardDescription
-          className="text-secondary overflow-hidden min-h-[3rem] text-lg"
-        >
+        <CardTitle className="text-primary min-h-[1.75rem] text-xl font-semibold">
+          {project.name}
+        </CardTitle>
+        <CardDescription className="text-secondary overflow-hidden min-h-[3rem] text-lg">
           {project.description}
         </CardDescription>
       </CardHeader>
@@ -88,16 +86,16 @@ export default function ProjectCard({ project }: { project: Project }) {
         <div className="min-h-[3rem] flex items-center">
           <ButtonGroup>
             {project.url && (
-                <a
-                  href={project.url}
-                  target="_blank"
-                  rel="noreferrer"
-                  className="mb-1 cursor-pointer"
-                >
-              <Button className="flex flex-col items-center hover:underline ">
+              <a
+                href={project.url}
+                target="_blank"
+                rel="noreferrer"
+                className="mb-1 cursor-pointer"
+              >
+                <Button className="flex flex-col items-center hover:underline ">
                   {t.projects.codeLink}
-              </Button>
-                </a>
+                </Button>
+              </a>
             )}
             {project.homepageUrl && (
               <a
@@ -106,10 +104,10 @@ export default function ProjectCard({ project }: { project: Project }) {
                 rel="noreferrer"
                 className="mb-1 cursor-pointer"
               >
-              <Button className="flex flex-col items-center hover:underline " >
+                <Button className="flex flex-col items-center hover:underline ">
                   {t.projects.homepageLink}
-              </Button>
-                </a>
+                </Button>
+              </a>
             )}
           </ButtonGroup>
         </div>

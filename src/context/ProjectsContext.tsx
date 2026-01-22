@@ -1,4 +1,10 @@
-import React, { createContext, useContext, useEffect, useMemo, useState } from 'react';
+import React, {
+  createContext,
+  useContext,
+  useEffect,
+  useMemo,
+  useState,
+} from 'react';
 import type { Project } from '../types/project';
 import { fetchGitHubProjects } from '../services/github';
 import { ExternalProject } from '../data/externalProjects';
@@ -17,7 +23,9 @@ type ProjectsContextValue = {
   error: string | null;
 };
 
-const ProjectsContext = createContext<ProjectsContextValue | undefined>(undefined);
+const ProjectsContext = createContext<ProjectsContextValue | undefined>(
+  undefined
+);
 
 export function ProjectsProvider({ children }: { children: React.ReactNode }) {
   const [projects, setProjects] = useState<Project[]>([]);
@@ -47,8 +55,15 @@ export function ProjectsProvider({ children }: { children: React.ReactNode }) {
     };
   }, []);
 
-  const value = useMemo(() => ({ projects, loading, error }), [projects, loading, error]);
-  return <ProjectsContext.Provider value={value}>{children}</ProjectsContext.Provider>;
+  const value = useMemo(
+    () => ({ projects, loading, error }),
+    [projects, loading, error]
+  );
+  return (
+    <ProjectsContext.Provider value={value}>
+      {children}
+    </ProjectsContext.Provider>
+  );
 }
 
 export function useProjectsContext() {

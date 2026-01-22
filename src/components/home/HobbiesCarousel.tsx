@@ -122,10 +122,14 @@ export default function HobbiesCarousel() {
                       color: '#3b82f6',
                       wireframe: false,
                       size: 1,
-                    }
+                    },
                   ]}
                   psychicCubes={[
-                    { position: [0.9, 1.2, 0], rotation: [0.67, 0, 0.2], size: 1 },
+                    {
+                      position: [0.9, 1.2, 0],
+                      rotation: [0.67, 0, 0.2],
+                      size: 1,
+                    },
                   ]}
                 />
               );

@@ -38,7 +38,7 @@ export const home_en = {
         label: 'Electronics',
         description:
           'Tinkering with $circuits$ and building electronic devices in a $self-taught$ way. ' +
-          'That\'s directly related to my interest in $hardware$ and $embedded systems$.',
+          "That's directly related to my interest in $hardware$ and $embedded systems$.",
       },
       {
         label: 'Gaming & Retro Gaming',
@@ -51,19 +51,19 @@ export const home_en = {
         label: 'Music',
         description:
           'Listening to and $trying to make music$ with my $AKAI MPK Mini Plus$ keyboard, ' +
-          'but I\'m more in the $learning$ phase than actually producing.',
+          "but I'm more in the $learning$ phase than actually producing.",
       },
       {
         label: 'Drawing and design',
         description:
           '$Drawing$ and $designing interfaces$, which helps me improve my $UI/UX$ skills ' +
-          '(I don\'t really use my tablet anymore).',
+          "(I don't really use my tablet anymore).",
       },
       {
         label: '3D (dev) and shaders',
         description:
           'Testing $3D rendering$ and $shaders$, mainly with $Three.js$ and $GLSL$. ' +
-          'I\'m thinking about learning modeling for 3D printing.'
+          "I'm thinking about learning modeling for 3D printing.",
       },
       {
         label: 'Videos',
