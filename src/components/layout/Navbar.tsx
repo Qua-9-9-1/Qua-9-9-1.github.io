@@ -35,7 +35,7 @@ export default function Navbar() {
   return (
     <>
       <nav className="navbar">
-        <div className="navbar-logo">
+        <div className="navbar-logo select-none">
           <SmartLink to="/" className="flex items-center gap-2">
             <Avatar className="rounded-lg">
               <AvatarImage
@@ -44,13 +44,15 @@ export default function Navbar() {
               />
               <AvatarFallback>Q</AvatarFallback>
             </Avatar>
-            <p className={`navbar-title ${loading ? 'animate-pulse' : ''}`}>
+            <p
+              className={`navbar-title select-none ${loading ? 'animate-pulse' : ''}`}
+            >
               {config.github_user}
             </p>
           </SmartLink>
         </div>
         {!isMobile && (
-          <div className="flex-1 flex justify-center">
+          <div className="flex-1 flex justify-center select-none">
             <ButtonGroup>
               <Button asChild variant={isActive('/') ? 'secondary' : 'outline'}>
                 <SmartLink to="/">{t.layout.navbar.home}</SmartLink>

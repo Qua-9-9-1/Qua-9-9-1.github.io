@@ -21,8 +21,8 @@ export default function PresentationCard() {
 
   const getWorkingStatusBadge = (workingStatus: string): React.ReactNode => {
     const defaultClasses: string = isMobile
-      ? 'flex justify-center px-4 py-2 text-sm bg-accent hover:bg-accent/90 text-accent-foreground shadow-lg'
-      : 'w-full justify-center px-4 py-3 text-sm bg-accent hover:bg-accent/90 text-accent-foreground';
+      ? 'flex justify-center px-4 py-2 text-sm bg-accent hover:bg-accent/90 text-accent-foreground shadow-lg select-none'
+      : 'w-full justify-center px-4 py-3 text-sm bg-accent hover:bg-accent/90 text-accent-foreground select-none';
 
     if (loading) {
       return (
@@ -168,7 +168,7 @@ export default function PresentationCard() {
 
                 <div className="w-full space-y-3 bg-muted/50 p-4 rounded-md">
                   <p
-                    className={`text-sm font-semibold uppercase tracking-wide text-center ${loading ? 'animate-pulse' : ''}`}
+                    className={`text-sm font-semibold uppercase tracking-wide text-center select-none ${loading ? 'animate-pulse' : ''}`}
                   >
                     {t.home.working_status.title}
                   </p>
