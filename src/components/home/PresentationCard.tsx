@@ -132,7 +132,7 @@ export default function PresentationCard() {
             <Separator />
 
             <div
-              className={`text-sm text-muted-foreground leading-relaxed ${loading ? 'animate-pulse' : ''}`}
+              className={`text-sm text-muted-foreground justify-start leading-relaxed ${loading ? 'animate-pulse' : ''}`}
             >
               <FormatedText text={config.description[t.lang as 'en' | 'fr']} />
             </div>
@@ -142,7 +142,7 @@ export default function PresentationCard() {
         <Card className="w-full shadow-xl">
           <CardContent className="p-0">
             <div className="grid grid-cols-[350px_1fr]">
-              <div className="p-4 space-y-6 flex flex-col items-center justify-start bg-muted/30 border-r">
+              <div className="p-4 space-y-6 flex flex-col items-center bg-muted/30 border-r h-full justify-center">
                 <Avatar className="w-40 h-40 border-4 border-primary/30 shadow-xl">
                   <AvatarImage
                     src={`https://github.com/${config.github_user}.png`}
@@ -177,30 +177,31 @@ export default function PresentationCard() {
                 </div>
               </div>
 
-              <div className="p-8 flex flex-col items-center justify-center">
-                <div className="flex flex-col items-center">
-                  <div
-                    className={`leading-relaxed text-center ${loading ? 'animate-pulse' : ''}`}
+              <div className="p-8 flex flex-col items-center justify-center h-full">
+                <div className="flex flex-col items-center justify-between h-full w-full">
+                  <div className={`leading-relaxed justify-start w-full flex-1 ${loading ? 'animate-pulse' : ''}`}
                   >
                     <FormatedText
                       className="text-xl"
                       text={config.description[t.lang as 'en' | 'fr']}
                     />
-                    <Separator className="my-2" />
                   </div>
-                  <ButtonGroup className="mt-2 flex justify-center">
-                    <Button asChild variant="secondary">
-                      <SmartLink to="/projects">
-                        {t.layout.navbar.projects}
-                      </SmartLink>
-                    </Button>
-                    <ButtonGroupSeparator />
-                    <Button asChild variant="secondary">
-                      <SmartLink to="/contact">
-                        {t.layout.navbar.contact}
-                      </SmartLink>
-                    </Button>
-                  </ButtonGroup>
+                  <div className="w-full h-full mt-4">
+                    <Separator className="my-2" />
+                    <ButtonGroup className="mt-2 flex justify-center">
+                      <Button asChild variant="secondary">
+                        <SmartLink to="/projects">
+                          {t.layout.navbar.projects}
+                        </SmartLink>
+                      </Button>
+                      <ButtonGroupSeparator />
+                      <Button asChild variant="secondary">
+                        <SmartLink to="/contact">
+                          {t.layout.navbar.contact}
+                        </SmartLink>
+                      </Button>
+                    </ButtonGroup>
+                  </div>
                 </div>
               </div>
             </div>
