@@ -1,6 +1,17 @@
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from '../ui/dialog';
 import { Separator } from '../ui/separator';
 import { useLanguage } from '../../context/LanguageContext';
+import {
+  Atom,
+  Zap,
+  Code,
+  Waves,
+  SquareDashedBottom,
+  Shell,
+  Pyramid,
+  CircleParking,
+  Bolt,
+} from 'lucide-react';
 
 interface ThemeModalProps {
   isOpen: boolean;
@@ -10,15 +21,53 @@ interface ThemeModalProps {
 export default function CreditsModal({ isOpen, onClose }: ThemeModalProps) {
   const { t } = useLanguage();
   const techs = [
-    { name: 'React', url: 'https://react.dev' },
-    { name: 'Vite', url: 'https://vitejs.dev' },
-    { name: 'TypeScript', url: 'https://www.typescriptlang.org' },
-    { name: 'Tailwind CSS', url: 'https://tailwindcss.com' },
-    { name: 'shadcn/ui', url: 'https://ui.shadcn.com' },
-    { name: 'Three.js', url: 'https://threejs.org' },
-    { name: 'Lucide Icons', url: 'https://lucide.dev' },
-    { name: 'Prettier', url: 'https://prettier.io' },
-    { name: 'ESLint', url: 'https://eslint.org' },
+    {
+      icon: <Atom className="text-primary" />,
+      name: 'React',
+      url: 'https://react.dev',
+    },
+    {
+      icon: <Zap className="text-primary" />,
+      name: 'Vite',
+      url: 'https://vitejs.dev',
+    },
+    {
+      icon: <Code className="text-secondary" />,
+      name: 'TypeScript',
+      url: 'https://www.typescriptlang.org',
+    },
+
+    {
+      icon: <Waves className="text-secondary" />,
+      name: 'Tailwind CSS',
+      url: 'https://tailwindcss.com',
+    },
+    {
+      icon: <SquareDashedBottom className="text-primary" />,
+      name: 'shadcn/ui',
+      url: 'https://ui.shadcn.com',
+    },
+    {
+      icon: <Pyramid className="text-primary" />,
+      name: 'Three.js',
+      url: 'https://threejs.org',
+    },
+    {
+      icon: <Shell className="text-secondary" />,
+      name: 'Lucide Icons',
+      url: 'https://lucide.dev',
+    },
+    {
+      icon: <CircleParking className="text-secondary" />,
+      name: 'Prettier',
+      url: 'https://prettier.io',
+    },
+
+    {
+      icon: <Bolt className="text-primary" />,
+      name: 'ESLint',
+      url: 'https://eslint.org',
+    },
   ];
   const models = [
     {
@@ -63,7 +112,11 @@ export default function CreditsModal({ isOpen, onClose }: ThemeModalProps) {
             <Separator className="my-2 bg-secondary" />
             <ul className="grid grid-cols-1 sm:grid-cols-2 gap-2">
               {techs.map((tech) => (
-                <li key={tech.name} className="text-sm">
+                <li
+                  key={tech.name}
+                  className="text-sm flex flex-row items-center gap-2"
+                >
+                  {tech.icon}
                   <a
                     href={tech.url}
                     target="_blank"
@@ -91,7 +144,7 @@ export default function CreditsModal({ isOpen, onClose }: ThemeModalProps) {
                   <span className="font-medium">{m.name}</span> —
                   <a
                     href={m.licensePath}
-                    className="ml-1 underline hover:text-primary"
+                    className="ml-1 underline text-primary hover:text-primary"
                   >
                     {t.layout.footer.credits.models.license}
                   </a>
@@ -112,7 +165,7 @@ export default function CreditsModal({ isOpen, onClose }: ThemeModalProps) {
                   href="https://lucide.dev"
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="underline hover:text-primary"
+                  className="underline text-primary hover:text-primary"
                 >
                   Lucide
                 </a>
@@ -123,7 +176,7 @@ export default function CreditsModal({ isOpen, onClose }: ThemeModalProps) {
                   href="https://ui.shadcn.com"
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="underline hover:text-primary"
+                  className="underline text-primary hover:text-primary"
                 >
                   shadcn/ui
                 </a>
