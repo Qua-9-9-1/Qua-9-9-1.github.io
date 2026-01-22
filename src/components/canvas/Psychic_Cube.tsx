@@ -46,9 +46,9 @@ vec3 rainbow(vec2 uv) {
     float x = uv.x * 3.0;
 
     return vec3(
-        0.5 + 0.5 * sin(6.2831 * (x + 0.0)) + sin(uv.y * u_time),
-        0.5 + 0.5 * sin(6.2831 * (x + 0.33)) + sin(uv.y * u_time),
-        0.5 + 0.5 * sin(6.2831 * (x + 0.66)) + sin(uv.y * u_time)
+        0.5 + 0.5 * sin(6.2831 * (x + 0.0)),
+        0.5 + 0.5 * sin(6.2831 * (x + 0.33)),
+        0.5 + 0.5 * sin(6.2831 * (x + 0.66))
     );
 }
 
