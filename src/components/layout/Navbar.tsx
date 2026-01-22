@@ -17,6 +17,7 @@ import { useRemoteConfig } from '../../hooks/useRemoteConfig';
 import SmartLink from '../ui/smartLink';
 import { Button } from '../ui/button';
 import { ButtonGroup, ButtonGroupSeparator } from '../ui/button-group';
+import { Separator } from '../ui/separator';
 
 export default function Navbar() {
   const { t, language, setLanguage } = useLanguage();
@@ -90,12 +91,14 @@ export default function Navbar() {
                   <MenubarItem>{t.layout.navbar.contact}</MenubarItem>
                 </SmartLink>
               </MenubarContent>
+              <Separator orientation="vertical" className="mx-2 bg-secondary" />
             </MenubarMenu>
           )}
           <MenubarMenu>
             <MenubarTrigger onClick={() => setIsThemeModalOpen(true)}>
               {!isMobile ? <p>{t.layout.navbar.theme}</p> : <Palette />}
             </MenubarTrigger>
+          <Separator orientation="vertical" className="mx-2 bg-secondary" />
           </MenubarMenu>
           <MenubarMenu>
             <MenubarTrigger onClick={toggleLanguage}>
