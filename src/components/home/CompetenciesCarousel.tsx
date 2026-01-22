@@ -57,7 +57,7 @@ function SkillSlider({
               />
               <span className="font-medium px-1">{skill.name}</span>
               {!isMobile && (
-                <span className="absolute left-1/2 -translate-x-1/2 top-full mt-2 px-2 py-1 rounded bg-primary text-primary-foreground text-xs opacity-0 pointer-events-none transition-opacity duration-200 group-hover:opacity-100 z-10 shadow">
+                <span className="absolute left-1/2 -translate-x-1/2 top-full mt-2 px-2 py-1 rounded bg-primary text-primary-foreground text-xs opacity-0 pointer-events-none transition-opacity duration-200 group-hover:opacity-100 z-2 shadow">
                   check on web
                 </span>
               )}
