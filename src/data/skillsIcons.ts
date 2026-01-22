@@ -52,6 +52,7 @@ export const skills: Record<string, Skill[]> = {
     { name: 'GitLab', img: 'techs/gitlab.png', negative: false },
     { name: 'IntelliJ IDEA', img: 'techs/intellij.png', negative: false },
     { name: 'Postman', img: 'techs/postman.png', negative: false },
+    { name: 'PHPStorm', img: 'techs/phpstorm.png', negative: false },
     { name: 'PyCharm', img: 'techs/pycharm.png', negative: false },
     { name: 'VSCode', img: 'techs/vscode.png', negative: false },
     { name: 'Vim', img: 'techs/vim.png', negative: false },
