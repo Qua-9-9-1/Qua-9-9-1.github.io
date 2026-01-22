@@ -64,7 +64,7 @@ export default function Scene3D({
   shapes,
   psychicCubes,
   cursor = false,
-  debug = true,
+  debug = false,
   autoRotate = true,
   rotationSpeed = 0.5,
   fov = 55,
