@@ -98,7 +98,7 @@ export default function Navbar() {
             <MenubarTrigger onClick={() => setIsThemeModalOpen(true)}>
               {!isMobile ? <p>{t.layout.navbar.theme}</p> : <Palette />}
             </MenubarTrigger>
-          <Separator orientation="vertical" className="mx-2 bg-secondary" />
+            <Separator orientation="vertical" className="mx-2 bg-secondary" />
           </MenubarMenu>
           <MenubarMenu>
             <MenubarTrigger onClick={toggleLanguage}>
