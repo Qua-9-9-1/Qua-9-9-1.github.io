@@ -66,7 +66,7 @@ export const home_fr = {
         label: '3D (dev) et shaders',
         description:
           'Tester le $rendu 3D$ et les $shaders$ en utilisant principalement $Three.js$ et $GLSL$. ' +
-          "J'envisage d'apprendre la modélisation pour l'impression 3D.",
+          "J'apprends aussi la modélisation pour l'impression 3D.",
       },
       {
         label: 'Vidéos',
