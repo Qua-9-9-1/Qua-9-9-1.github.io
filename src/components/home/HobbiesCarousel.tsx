@@ -104,6 +104,14 @@ export default function HobbiesCarousel() {
             case 5: // 3D (dev) and shaders
               return (
                 <Scene3D
+                  models={[
+                    {
+                      url: '/models/nodl/logo.glb',
+                      position: [0.9, 1.2, 0],
+                      rotation: [0.67, 0, 0.2],
+                      scale: 0.5,
+                    },
+                  ]}
                   shapes={[
                     {
                       type: 'cone',
@@ -124,13 +132,13 @@ export default function HobbiesCarousel() {
                       size: 1,
                     },
                   ]}
-                  psychicCubes={[
-                    {
-                      position: [0.9, 1.2, 0],
-                      rotation: [0.67, 0, 0.2],
-                      size: 1,
-                    },
-                  ]}
+                  // psychicCubes={[
+                  //   {
+                  //     position: [0.9, 1.2, 0],
+                  //     rotation: [0.67, 0, 0.2],
+                  //     size: 1,
+                  //   },
+                  // ]}
                 />
               );
             case 6: // Videos
