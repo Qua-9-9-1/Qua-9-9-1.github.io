@@ -127,7 +127,6 @@ export default function HobbiesCarousel() {
                       position: [0, -1, 1],
                       rotation: [1.5, 0.92, 0],
                       scale: 1.2,
-                      color: '#3b82f6',
                       wireframe: false,
                       size: 1,
                       fragmentShaderUrl: '/shaders/frag/psychedelic.glsl',
@@ -141,9 +140,9 @@ export default function HobbiesCarousel() {
                   models={[
                     {
                       url: '/models/video_camera/scene.gltf',
-                      position: [0, 0, 5],
+                      position: [35, -2, -5],
                       rotation: [0, 0, 0],
-                      scale: 2,
+                      scale: 10,
                     },
                   ]}
                 />
