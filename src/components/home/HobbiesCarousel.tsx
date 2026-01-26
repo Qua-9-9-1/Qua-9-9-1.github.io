@@ -107,7 +107,7 @@ export default function HobbiesCarousel() {
                   models={[
                     {
                       url: '/models/nodl/logo.glb',
-                      position: [0.9, 1.2, 0],
+                      position: [0.9, 1.05, 0],
                       rotation: [0.67, 0, 0.2],
                       scale: 0.5,
                     },
@@ -130,15 +130,9 @@ export default function HobbiesCarousel() {
                       color: '#3b82f6',
                       wireframe: false,
                       size: 1,
+                      fragmentShaderUrl: '/shaders/frag/psychedelic.glsl',
                     },
                   ]}
-                  // psychicCubes={[
-                  //   {
-                  //     position: [0.9, 1.2, 0],
-                  //     rotation: [0.67, 0, 0.2],
-                  //     size: 1,
-                  //   },
-                  // ]}
                 />
               );
             case 6: // Videos
@@ -155,13 +149,7 @@ export default function HobbiesCarousel() {
                 />
               );
             default:
-              return (
-                <Scene3D
-                  psychicCubes={[
-                    { position: [0, 0, 0], rotation: [0, 0, 0], size: 1 },
-                  ]}
-                />
-              );
+              return <></>;
           }
         };
 
