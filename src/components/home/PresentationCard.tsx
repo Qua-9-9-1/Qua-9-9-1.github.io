@@ -179,7 +179,8 @@ export default function PresentationCard() {
 
               <div className="p-8 flex flex-col items-center justify-center h-full">
                 <div className="flex flex-col items-center justify-between h-full w-full">
-                  <div className={`leading-relaxed justify-start w-full flex-1 ${loading ? 'animate-pulse' : ''}`}
+                  <div
+                    className={`leading-relaxed justify-start w-full flex-1 ${loading ? 'animate-pulse' : ''}`}
                   >
                     <FormatedText
                       className="text-xl"
