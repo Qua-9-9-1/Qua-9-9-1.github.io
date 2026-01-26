@@ -53,7 +53,6 @@ export const skills: Record<string, Skill[]> = {
     { name: 'IntelliJ IDEA', img: 'techs/intellij.png', negative: false },
     { name: 'Postman', img: 'techs/postman.png', negative: false },
     { name: 'PHPStorm', img: 'techs/phpstorm.png', negative: false },
-    { name: 'PyCharm', img: 'techs/pycharm.png', negative: false },
     { name: 'VSCode', img: 'techs/vscode.png', negative: false },
     { name: 'Vim', img: 'techs/vim.png', negative: false },
     { name: 'WinSCP', img: 'techs/winscp.png', negative: false },
@@ -69,5 +68,6 @@ export const skills: Record<string, Skill[]> = {
     { name: 'OpenGL', img: 'techs/opengl.png', negative: false },
     { name: 'PostgreSQL', img: 'techs/postgresql.png', negative: false },
     { name: 'Raspberry Pi', img: 'techs/raspberrypi.png', negative: false },
+    { name: 'WordPress', img: 'techs/wordpress.png', negative: true },
   ],
 };
