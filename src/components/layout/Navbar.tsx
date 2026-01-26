@@ -101,7 +101,7 @@ export default function Navbar() {
             <Separator orientation="vertical" className="mx-2 bg-secondary" />
           </MenubarMenu>
           <MenubarMenu>
-            <MenubarTrigger onClick={toggleLanguage}>
+            <div className="flex items-center px-3 py-1">
               {!isMobile ? (
                 <>
                   <Switch
@@ -109,19 +109,21 @@ export default function Navbar() {
                     onCheckedChange={toggleLanguage}
                   />
                   <img
-                    className="w-6 h-6 ml-2"
+                    className="w-6 h-6 ml-2 cursor-pointer"
                     src={language === 'fr' ? '/lang/fr.png' : '/lang/en.png'}
                     alt={language === 'fr' ? 'FR' : 'EN'}
+                    onClick={toggleLanguage}
                   />
                 </>
               ) : (
                 <img
-                  className="w-6 h-6"
+                  className="w-6 h-6 cursor-pointer"
                   src={language === 'fr' ? '/lang/fr.png' : '/lang/en.png'}
                   alt={language === 'fr' ? 'FR' : 'EN'}
+                  onClick={toggleLanguage}
                 />
               )}
-            </MenubarTrigger>
+            </div>
           </MenubarMenu>
         </Menubar>
       </nav>

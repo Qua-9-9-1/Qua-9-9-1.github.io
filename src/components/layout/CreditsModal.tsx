@@ -1,4 +1,4 @@
-import { Dialog, DialogContent, DialogHeader, DialogTitle } from '../ui/dialog';
+import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle } from '../ui/dialog';
 import { Separator } from '../ui/separator';
 import { useLanguage } from '../../context/LanguageContext';
 import {
@@ -103,6 +103,9 @@ export default function CreditsModal({ isOpen, onClose }: ThemeModalProps) {
           <DialogTitle className="text-xl font-bold">
             {t.layout.footer.credits.title}
           </DialogTitle>
+          <DialogDescription className="sr-only">
+            {t.layout.footer.credits.title}
+          </DialogDescription>
         </DialogHeader>
         <div className="space-y-6">
           <section>
