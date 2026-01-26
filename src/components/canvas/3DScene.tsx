@@ -3,7 +3,6 @@ import { OrbitControls } from '@react-three/drei';
 import { useRef } from 'react';
 import Model3D from './3DModel';
 import Shape3D from './3DShape';
-import Psychic_Cube3D from './Psychic_Cube';
 
 type ModelProps = {
   url: string;
@@ -22,12 +21,13 @@ type ShapeProps = {
   wireframe?: boolean;
   size?: number;
   textureUrl?: string;
+  fragmentShaderUrl?: string;
+  vertexShaderUrl?: string;
 };
 
 type Scene3DProps = {
   models?: ModelProps[];
   shapes?: ShapeProps[];
-  psychicCubes?: ShapeProps[];
   cursor?: boolean;
   debug?: boolean;
   autoRotate?: boolean;
@@ -62,7 +62,6 @@ function CameraController({
 export default function Scene3D({
   models,
   shapes,
-  psychicCubes,
   cursor = false,
   debug = false,
   autoRotate = true,
@@ -87,9 +86,6 @@ export default function Scene3D({
       ))}
       {shapes?.map((props, i) => (
         <Shape3D key={`shape-${i}`} {...props} />
-      ))}
-      {psychicCubes?.map((props, i) => (
-        <Psychic_Cube3D key={`psychic-cube-${i}`} {...props} />
       ))}
 
       {debug && <axesHelper args={[100]} />}
