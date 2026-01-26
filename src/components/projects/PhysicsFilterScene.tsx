@@ -75,21 +75,25 @@ export default function PhysicsFilterScene({ technos, onFilterChange }: Props) {
   const filterZoneWalls: React.ReactNode = isMobile ? (
     <>
       <Wall
+        key="mobile-wall-left"
         position={[zoneConfig.x - zoneConfig.width / 2, zoneConfig.y, 0]}
         args={[0.5, zoneConfig.height, 2]}
         opacity={0.3}
       />
       <Wall
+        key="mobile-wall-right"
         position={[zoneConfig.x + zoneConfig.width / 2, zoneConfig.y, 0]}
         args={[0.5, zoneConfig.height, 2]}
         opacity={0.3}
       />
       <Wall
+        key="mobile-wall-top"
         position={[zoneConfig.x, zoneConfig.y + zoneConfig.height / 2, 0]}
         args={[zoneConfig.width, 0.5, 2]}
         opacity={0.3}
       />
       <Wall
+        key="mobile-wall-bottom"
         position={[zoneConfig.x, zoneConfig.y - zoneConfig.height / 2, 0]}
         args={[zoneConfig.width, 0.5, 2]}
         opacity={0.3}
@@ -98,21 +102,25 @@ export default function PhysicsFilterScene({ technos, onFilterChange }: Props) {
   ) : (
     <>
       <Wall
+        key="desktop-wall-left"
         position={[zoneConfig.x - zoneConfig.width / 2, zoneConfig.y, 0]}
         args={[0.5, zoneConfig.height, 2]}
         opacity={0.3}
       />
       <Wall
+        key="desktop-wall-right"
         position={[zoneConfig.x + zoneConfig.width / 2, zoneConfig.y, 0]}
         args={[0.5, zoneConfig.height, 2]}
         opacity={0.3}
       />
       <Wall
+        key="desktop-wall-top"
         position={[zoneConfig.x, zoneConfig.y + zoneConfig.height / 2, 0]}
         args={[zoneConfig.width, 0.5, 2]}
         opacity={0.3}
       />
       <Wall
+        key="desktop-wall-bottom"
         position={[zoneConfig.x, zoneConfig.y - zoneConfig.height / 2, 0]}
         args={[zoneConfig.width, 0.5, 2]}
         opacity={0.3}
