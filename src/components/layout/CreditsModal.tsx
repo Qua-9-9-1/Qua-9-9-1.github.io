@@ -72,27 +72,27 @@ export default function CreditsModal({ isOpen, onClose }: ThemeModalProps) {
   const models = [
     {
       name: t.layout.footer.credits.models.laptop,
-      licensePath: '/assets/models/laptop/license.txt',
+      licensePath: '/models/laptop/license.txt',
     },
     {
       name: t.layout.footer.credits.models.multimeter,
-      licensePath: '/assets/models/multimeter/license.txt',
+      licensePath: '/models/multimeter/license.txt',
     },
     {
       name: t.layout.footer.credits.models.controller,
-      licensePath: '/assets/models/controller/license.txt',
+      licensePath: '/models/controller/license.txt',
     },
     {
       name: t.layout.footer.credits.models.midi_keyboard,
-      licensePath: '/assets/models/MIDI_keyboard/license.txt',
+      licensePath: '/models/MIDI_keyboard/license.txt',
     },
     {
       name: t.layout.footer.credits.models.graphic_tablet,
-      licensePath: '/assets/models/graphic_tablet/license.txt',
+      licensePath: '/models/graphic_tablet/license.txt',
     },
     {
       name: t.layout.footer.credits.models.video_camera,
-      licensePath: '/assets/models/video_camera/license.txt',
+      licensePath: '/models/video_camera/license.txt',
     },
   ];
 
