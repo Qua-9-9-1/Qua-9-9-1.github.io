@@ -65,10 +65,10 @@ export default function PresentationCard() {
   const getAvailabilityDate = (): React.ReactNode => {
     if (
       loading ||
-      config.working_status === 'available' ||
-      config.working_status === 'employed' ||
-      !config.availability_date.from ||
-      !config.availability_date.to
+      config.work.status === 'available' ||
+      config.work.status === 'employed' ||
+      !config.work.from ||
+      !config.work.to
     ) {
       return null;
     }
@@ -83,11 +83,11 @@ export default function PresentationCard() {
       >
         <span>{t.home.from}</span>
         <span className="font-bold text-secondary mx-1">
-          {config.availability_date.from}
+          {config.work.from}
         </span>
         <span>{t.home.to}</span>
         <span className="font-bold text-secondary mx-1">
-          {config.availability_date.to}
+          {config.work.to}
         </span>
       </div>
     );
@@ -126,7 +126,12 @@ export default function PresentationCard() {
             </div>
 
             <div className="w-full bg-muted/50 p-4 rounded-md space-y-3">
-              {getWorkingStatusBadge(config.working_status)}
+              {getWorkingStatusBadge(config.work.status)}
+              <div
+                className={`text-center text-sm text-muted-foreground leading-relaxed ${loading ? 'animate-pulse' : ''}`}
+              >
+                {config.work.details[t.lang as 'en' | 'fr']}
+              </div>
               {getAvailabilityDate()}
             </div>
             <Separator />
@@ -172,7 +177,10 @@ export default function PresentationCard() {
                   >
                     {t.home.working_status.title}
                   </p>
-                  {getWorkingStatusBadge(config.working_status)}
+                  {getWorkingStatusBadge(config.work.status)}
+                  <div className={`text-center font-semibold text-muted-foreground ${loading ? 'animate-pulse' : ''}`}>
+                    {config.work.details[t.lang as 'en' | 'fr']}
+                  </div>
                   {getAvailabilityDate()}
                 </div>
               </div>
