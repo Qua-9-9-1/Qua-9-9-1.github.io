@@ -5,11 +5,14 @@ import React, {
   useMemo,
   useState,
 } from 'react';
-import { type Config, loadingConfig, fallbackConfig } from '../types/remoteConfig';
+import {
+  type Config,
+  loadingConfig,
+  fallbackConfig,
+} from '../types/remoteConfig';
 
 const CONFIG_URL =
   'https://gist.githubusercontent.com/Qua-9-9-1/2b708f831600070a9336a400b41407b9/raw/portfolio.config.json';
-
 
 type RemoteConfigContextValue = {
   config: Config;

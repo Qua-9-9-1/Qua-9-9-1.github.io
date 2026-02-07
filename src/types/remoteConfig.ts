@@ -3,7 +3,12 @@ export interface Config {
   github_user: string;
   username: string;
   pro_title: { fr: string; en: string };
-  work: { status: string; from: string; to: string; details: { fr: string; en: string } };
+  work: {
+    status: string;
+    from: string;
+    to: string;
+    details: { fr: string; en: string };
+  };
   description: { fr: string; en: string };
 }
 
