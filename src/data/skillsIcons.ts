@@ -17,6 +17,7 @@ export const skills: Record<string, Skill[]> = {
   ],
   Programming: [
     { name: 'C++', img: 'techs/cpp.png', negative: false },
+    { name: 'C#', img: 'techs/csharp.png', negative: false },
     { name: 'Haskell', img: 'techs/haskell.png', negative: false },
     { name: 'Python', img: 'techs/python.png', negative: false },
     { name: 'Rust', img: 'techs/rust.png', negative: true },
