@@ -67,6 +67,7 @@ export const skills: Record<string, Skill[]> = {
     { name: 'SFML', img: 'techs/sfml.png', negative: false },
     { name: 'OpenGL', img: 'techs/opengl.png', negative: false },
     { name: 'PostgreSQL', img: 'techs/postgresql.png', negative: false },
+    { name: 'Prisma', img: 'techs/prisma.png', negative: true },
     { name: 'Raspberry Pi', img: 'techs/raspberrypi.png', negative: false },
     { name: 'WordPress', img: 'techs/wordpress.png', negative: true },
   ],
