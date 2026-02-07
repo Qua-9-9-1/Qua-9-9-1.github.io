@@ -40,11 +40,12 @@ function CameraController({
   autoRotate = false,
   rotationSpeed = 0.5,
   target = [0, 0, 0] as [number, number, number],
+  enableControls = false,
 }) {
   const controlsRef = useRef<any>(null);
 
   useFrame((state) => {
-    if (autoRotate && controlsRef.current) {
+    if (autoRotate && !enableControls) {
       const time = state.clock.getElapsedTime();
       const radius = 5;
       const x = Math.sin(time * rotationSpeed) * radius;
@@ -56,7 +57,10 @@ function CameraController({
     }
   });
 
-  return <OrbitControls ref={controlsRef} enableRotate={!autoRotate} />;
+  if (enableControls) {
+    return <OrbitControls ref={controlsRef} enableRotate={!autoRotate} />;
+  }
+  return null;
 }
 
 export default function Scene3D({
@@ -64,7 +68,7 @@ export default function Scene3D({
   shapes,
   cursor = false,
   debug = false,
-  autoRotate = true,
+  autoRotate = false,
   rotationSpeed = 0.5,
   fov = 55,
   cameraPosition = [0, 0, 5],
@@ -89,15 +93,12 @@ export default function Scene3D({
       ))}
 
       {debug && <axesHelper args={[100]} />}
-      {cursor ? (
+      {(cursor || autoRotate) && (
         <CameraController
           autoRotate={autoRotate}
           rotationSpeed={rotationSpeed}
+          enableControls={cursor}
         />
-      ) : (
-        autoRotate && (
-          <CameraController autoRotate rotationSpeed={rotationSpeed} />
-        )
       )}
     </Canvas>
   );

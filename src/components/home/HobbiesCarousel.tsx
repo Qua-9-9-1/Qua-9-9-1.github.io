@@ -39,6 +39,7 @@ export default function HobbiesCarousel() {
             case 0: // Development
               return (
                 <Scene3D
+                  autoRotate={true}
                   models={[
                     {
                       url: '/models/laptop/scene.gltf',
@@ -52,6 +53,7 @@ export default function HobbiesCarousel() {
             case 1: // Electronics
               return (
                 <Scene3D
+                  autoRotate={true}
                   models={[
                     {
                       url: '/models/multimeter/scene.glb',
@@ -65,6 +67,7 @@ export default function HobbiesCarousel() {
             case 2: // Gaming & Retro Gaming
               return (
                 <Scene3D
+                  autoRotate={true}
                   models={[
                     {
                       url: '/models/controller/scene.gltf',
@@ -78,6 +81,7 @@ export default function HobbiesCarousel() {
             case 3: // Music
               return (
                 <Scene3D
+                  autoRotate={true}
                   models={[
                     {
                       url: '/models/MIDI_keyboard/scene.gltf',
@@ -91,6 +95,7 @@ export default function HobbiesCarousel() {
             case 4: // Drawing and design
               return (
                 <Scene3D
+                  autoRotate={true}
                   models={[
                     {
                       url: '/models/graphic_tablet/scene.gltf',
@@ -104,6 +109,7 @@ export default function HobbiesCarousel() {
             case 5: // 3D (dev) and shaders
               return (
                 <Scene3D
+                  autoRotate={true}
                   models={[
                     {
                       url: '/models/nodl/logo.glb',
@@ -137,6 +143,7 @@ export default function HobbiesCarousel() {
             case 6: // Videos
               return (
                 <Scene3D
+                  autoRotate={true}
                   models={[
                     {
                       url: '/models/video_camera/scene.gltf',
@@ -253,7 +260,6 @@ export default function HobbiesCarousel() {
                 ? 'bg-primary w-8'
                 : 'bg-muted-foreground/30 hover:bg-muted-foreground/50'
             )}
-            aria-label={`Aller au hobby ${index + 1}`}
           />
         ))}
       </div>
