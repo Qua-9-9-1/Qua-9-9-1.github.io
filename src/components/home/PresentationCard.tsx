@@ -86,9 +86,7 @@ export default function PresentationCard() {
           {config.work.from}
         </span>
         <span>{t.home.to}</span>
-        <span className="font-bold text-secondary mx-1">
-          {config.work.to}
-        </span>
+        <span className="font-bold text-secondary mx-1">{config.work.to}</span>
       </div>
     );
   };
@@ -178,7 +176,9 @@ export default function PresentationCard() {
                     {t.home.working_status.title}
                   </p>
                   {getWorkingStatusBadge(config.work.status)}
-                  <div className={`text-center font-semibold text-muted-foreground ${loading ? 'animate-pulse' : ''}`}>
+                  <div
+                    className={`text-center font-semibold text-muted-foreground ${loading ? 'animate-pulse' : ''}`}
+                  >
                     {config.work.details[t.lang as 'en' | 'fr']}
                   </div>
                   {getAvailabilityDate()}

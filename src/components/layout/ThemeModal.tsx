@@ -2,7 +2,13 @@ import { useTheme } from '../../context/ThemeContext';
 import { useLanguage } from '../../context/LanguageContext';
 import { DUOS, BG_OPTIONS, PRESETS } from '../../data/themeOptions';
 import { Button } from '../ui/button';
-import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle } from '../ui/dialog';
+import {
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogHeader,
+  DialogTitle,
+} from '../ui/dialog';
 import { Switch } from '../ui/switch';
 import { Sun, Moon } from 'lucide-react';
 
