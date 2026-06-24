@@ -38,11 +38,13 @@ export const skills: Record<string, Skill[]> = {
     { name: 'PostgreSQL', negative: false },
     { name: 'Prisma', negative: true },
     { name: '.NET', negative: false },
+    { name: 'Vitest', negative: false },
   ],
   Tools: [
     { name: 'Git', negative: false },
     { name: 'GitHub', negative: true },
     { name: 'GitLab', negative: false },
+    { name: 'Husky', negative: false },
     { name: 'IntelliJ IDEA', negative: false },
     { name: 'Postman', negative: false },
     { name: 'PHPStorm', negative: false },

@@ -6,13 +6,7 @@ import { useLanguage } from '../../context/LanguageContext';
 import type { Skill } from '../../data/skillsList';
 import { shuffleArray } from '../../utils/shuffleArray';
 import type React from 'react';
-import {
-  FileBraces,
-  Globe,
-  Container,
-  Wrench,
-  Cpu,
-} from 'lucide-react';
+import { FileBraces, Globe, Container, Wrench, Cpu } from 'lucide-react';
 import { useIsMobile } from '../../hooks/useMediaQuery';
 import '../../styles/components/carousel.css';
 

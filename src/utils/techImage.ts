@@ -10,6 +10,9 @@ export const getTechImage = (name: string): string => {
     return `techs/${TECH_EXCEPTIONS[name]}.webp`;
   }
 
-  const formattedName = name.toLowerCase().replace(/\s+/g, '-').replace(/\./g, '');
+  const formattedName = name
+    .toLowerCase()
+    .replace(/\s+/g, '-')
+    .replace(/\./g, '');
   return `techs/${formattedName}.webp`;
-}
+};

@@ -4,6 +4,7 @@ import { useState } from 'react';
 import { useIsMobile } from '../../hooks/useMediaQuery';
 import { useLanguage } from '../../context/LanguageContext';
 import { shuffleArray } from '../../utils/shuffleArray';
+import { getTechImage } from '../../utils/techImage';
 import { Mail, Linkedin, Github } from 'lucide-react';
 import { useRemoteConfig } from '../../hooks/useRemoteConfig';
 import CreditsModal from './CreditsModal';
@@ -15,20 +16,20 @@ export default function Footer() {
   const [isCreditsModalOpen, setIsCreditsModalOpen] = useState(false);
 
   const techsIcons = [
-    { name: 'React', iconPath: '/techs/react.webp', negative: false },
-    { name: 'Vite', iconPath: '/techs/vite.webp', negative: false },
+    { name: 'React', negative: false },
+    { name: 'Vite', negative: false },
     {
-      name: 'TailwindCSS',
-      iconPath: '/techs/tailwindcss.webp',
+      name: 'Tailwind CSS',
       negative: false,
     },
-    { name: 'TypeScript', iconPath: '/techs/typescript.webp', negative: false },
-    { name: 'shadcn', iconPath: '/techs/shadcn.webp', negative: true },
-    { name: 'Three.js', iconPath: '/techs/threejs.webp', negative: true },
-    { name: 'Prettier', iconPath: '/techs/prettier.webp', negative: false },
+    { name: 'TypeScript', negative: false },
+    { name: 'shadcn', negative: true },
+    { name: 'Three.js', negative: true },
+    { name: 'Prettier', negative: false },
+    { name: 'ESLint', negative: false },
+    { name: 'Husky', negative: false },
     {
       name: 'Github Copilot',
-      iconPath: '/techs/github_copilot.webp',
       negative: true,
     },
     {
@@ -84,8 +85,8 @@ export default function Footer() {
           {shuffleArray(techsIcons).map((tech) => (
             <span key={tech.name} className="flex flex-col items-center mx-2">
               <img
-                src={tech.iconPath}
-                alt={tech.name}
+                src={tech.iconPath ? tech.iconPath : getTechImage(tech.name)}
+                alt={tech.name + ' logo'}
                 className={
                   'object-contain object-center' +
                   (isMobile ? ' w-7 h-7' : ' w-9 h-9') +
