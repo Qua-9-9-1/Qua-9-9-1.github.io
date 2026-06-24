@@ -1,5 +1,6 @@
 import { Canvas, useFrame } from '@react-three/fiber';
 import { OrbitControls } from '@react-three/drei';
+import type { OrbitControls as OrbitControlsImpl } from 'three-stdlib';
 import { useRef } from 'react';
 import Model3D from './3DModel';
 import Shape3D from './3DShape';
@@ -42,7 +43,7 @@ function CameraController({
   target = [0, 0, 0] as [number, number, number],
   enableControls = false,
 }) {
-  const controlsRef = useRef<any>(null);
+  const controlsRef = useRef<OrbitControlsImpl | null>(null);
 
   useFrame((state) => {
     if (autoRotate && !enableControls) {

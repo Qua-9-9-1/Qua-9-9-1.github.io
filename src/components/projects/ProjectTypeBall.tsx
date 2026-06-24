@@ -1,10 +1,11 @@
 import { useRef, useState, useMemo } from 'react';
-import { useFrame, useThree } from '@react-three/fiber';
+import { useFrame, useThree, type ThreeEvent } from '@react-three/fiber';
 import { RigidBody, RapierRigidBody, BallCollider } from '@react-three/rapier';
 import { Text } from '@react-three/drei';
 import { useLanguage } from '../../context/LanguageContext';
 import { useIsMobile } from '../../hooks/useMediaQuery';
 import type { Mesh } from 'three';
+import type { PointerEvent } from 'react';
 
 export const ballStates = new Map<string, boolean>();
 
@@ -40,7 +41,7 @@ export default function ProjectTypeBall({
     [label]
   );
 
-  const onPointerDown = (e: any) => {
+  const onPointerDown = (e: ThreeEvent<PointerEvent>) => {
     e.stopPropagation();
     (e.target as Element).setPointerCapture(e.pointerId);
     setIsDragging(true);
@@ -48,7 +49,7 @@ export default function ProjectTypeBall({
     rigidBody.current?.wakeUp();
   };
 
-  const onPointerUp = (e: any) => {
+  const onPointerUp = (e: ThreeEvent<PointerEvent>) => {
     e.stopPropagation();
     (e.target as Element).releasePointerCapture(e.pointerId);
     setIsDragging(false);
@@ -68,10 +69,7 @@ export default function ProjectTypeBall({
     if (!rigidBody.current) return;
 
     if (rigidBody.current && textRef.current) {
-      // 1. On lit la position physique de la balle
       const pos = rigidBody.current.translation();
-
-      // 2. On applique cette position au texte, en ajoutant le décalage sur l'axe Z
       textRef.current.position.set(pos.x, pos.y, pos.z + RADIUS + 0.05);
     }
 

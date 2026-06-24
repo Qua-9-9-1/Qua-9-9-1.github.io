@@ -53,17 +53,15 @@ export default function PhysicsFilterScene({ technos, onFilterChange }: Props) {
       lastTechnosRef.current.length !== technos.length ||
       lastTechnosRef.current.some((t, i) => t !== technos[i])
     ) {
-      console.log(
-        '[PhysicsFilterScene] Changement dans la liste technos:',
-        technos
-      );
       lastTechnosRef.current = [...technos];
     }
   }, [technos]);
 
   const initialPositions = useMemo(() => {
     return technos.map((_, index) => {
-      const x = -6 + Math.random() * 4;
+      const pseudoRandom = (index * 0.74) % 1;
+
+      const x = -6 + pseudoRandom * 4;
       const y = 5 + index * 2;
       const z = 0;
       return [x, y, z] as [number, number, number];
@@ -162,7 +160,7 @@ export default function PhysicsFilterScene({ technos, onFilterChange }: Props) {
         </Text>
       </group>
 
-      <Physics gravity={[0, -50, 0]} timeStep={1 / 60}>
+      <Physics gravity={[0, -40, 0]} timeStep={1 / 60}>
         <Wall
           position={[0, -6, 0]}
           args={[26, 1, 2]}

@@ -14,13 +14,14 @@ const formatPortfolioProjects = (projects: Project[]): Project[] => {
 
 export const useProjects = () => {
   const ctx = useProjectsContext?.();
-  if (ctx) return ctx;
 
   const [projects, setProjects] = useState<Project[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
+    if (ctx) return;
+
     const loadProjects = async () => {
       try {
         const data = await fetchGitHubProjects();
@@ -35,7 +36,9 @@ export const useProjects = () => {
     };
 
     loadProjects();
-  }, []);
+  }, [ctx]);
+
+  if (ctx) return ctx;
 
   return { projects, loading, error };
 };

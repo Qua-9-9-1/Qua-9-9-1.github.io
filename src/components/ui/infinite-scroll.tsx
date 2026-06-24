@@ -6,7 +6,7 @@ interface InfiniteScrollProps {
   speed?: 'slow' | 'normal' | 'fast';
   pauseOnHover?: boolean;
   direction?: boolean;
-  itemGapPx?: number; // spacing between items in pixels
+  itemGapPx?: number;
 }
 
 export default function InfiniteScroll({
@@ -31,7 +31,7 @@ export default function InfiniteScroll({
       const seconds = width / pxPerSec;
       setDuration(`${seconds}s`);
     }
-  }, [children, speed]);
+  }, [children, speed, pxPerSec]);
 
   const handleMouseOver = (e: React.MouseEvent) => {
     if (pauseOnHover) {
@@ -83,7 +83,7 @@ export default function InfiniteScroll({
   type AnyProps = {
     className?: string;
     style?: React.CSSProperties;
-    [key: string]: any;
+    [key: string]: unknown;
   };
   const enhancedChildren = childArray.map((child, idx) => {
     if (React.isValidElement<AnyProps>(child)) {

@@ -2,7 +2,7 @@ import { Spinner } from '../ui/spinner';
 import { Button } from '../ui/button';
 import { useLanguage } from '../../context/LanguageContext';
 
-export default function LoadingContent({}) {
+export default function LoadingContent() {
   const { t } = useLanguage();
 
   return (

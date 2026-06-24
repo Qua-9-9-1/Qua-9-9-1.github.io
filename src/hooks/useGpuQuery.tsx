@@ -1,13 +1,11 @@
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 
 export function useGpuTier() {
-  const [gpuInfo, setGpuInfo] = useState<{
-    renderer: string;
-    vendor: string;
-    isLowEnd: boolean;
-  } | null>(null);
+  const [gpuInfo] = useState(() => {
+    if (typeof window === 'undefined' || typeof document === 'undefined') {
+      return null;
+    }
 
-  useEffect(() => {
     try {
       const canvas = document.createElement('canvas');
       const gl =
@@ -22,13 +20,16 @@ export function useGpuTier() {
           const isLowEnd = /(mali|adreno|powervr|intel)/i.test(
             renderer + vendor
           );
-          setGpuInfo({ renderer, vendor, isLowEnd });
+
+          return { renderer, vendor, isLowEnd };
         }
       }
     } catch {
-      setGpuInfo(null);
+      return null;
     }
-  }, []);
+
+    return null;
+  });
 
   return gpuInfo;
 }

@@ -10,16 +10,18 @@ import { useLanguage } from '../../context/LanguageContext';
 export default function RootLayout() {
   const { config } = useRemoteConfig();
   const { t } = useLanguage();
+  const websiteStatus = config?.website_status;
+  const maintenanceMessage = t.layout.informationToast.maintenance;
 
   useEffect(() => {
-    if (!config || !config.website_status) return;
+    if (!websiteStatus) return;
 
     const shown = localStorage.getItem('maintenance-toast-shown');
 
     if (!shown) {
-      switch (config.website_status) {
+      switch (websiteStatus) {
         case 'maintenance':
-          toast.warning(t.layout.informationToast.maintenance, {
+          toast.warning(maintenanceMessage, {
             position: 'bottom-right',
             duration: 16000,
           });
@@ -29,7 +31,7 @@ export default function RootLayout() {
       }
       localStorage.setItem('maintenance-toast-shown', 'true');
     }
-  }, [config.website_status]);
+  }, [websiteStatus, maintenanceMessage]);
 
   return (
     <div className="min-h-screen flex flex-col">

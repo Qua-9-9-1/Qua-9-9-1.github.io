@@ -5,7 +5,7 @@ type Props = React.ButtonHTMLAttributes<HTMLButtonElement> & { text: string };
 export function FormatedText({ text, ...props }: Props) {
   if (!text) return null;
   const regex =
-    /(`[^`]+`)|(\*\*([^*]+)\*\*)|(\*([^*]+)\*)|(__([^_]+)__)|(~~([^~]+)~~)|(\$([^$]+)\$)|(\@([^@]+)\@)|(\n)/g;
+    /(`[^`]+`)|(\*\*([^*]+)\*\*)|(\*([^*]+)\*)|(__([^_]+)__)|(~~([^~]+)~~)|(\$([^$]+)\$)|(@([^@]+)@)|(\n)/g;
 
   const parse = (input: string) => {
     const elements: React.ReactNode[] = [];

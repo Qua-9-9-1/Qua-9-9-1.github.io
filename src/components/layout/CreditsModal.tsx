@@ -17,6 +17,7 @@ import {
   Pyramid,
   CircleParking,
   Bolt,
+  PawPrint,
 } from 'lucide-react';
 
 interface ThemeModalProps {
@@ -68,11 +69,15 @@ export default function CreditsModal({ isOpen, onClose }: ThemeModalProps) {
       name: 'Prettier',
       url: 'https://prettier.io',
     },
-
     {
       icon: <Bolt className="text-primary" />,
       name: 'ESLint',
       url: 'https://eslint.org',
+    },
+    {
+      icon: <PawPrint className="text-primary" />,
+      name: 'Husky',
+      url: 'https://typicode.github.io/husky/#/',
     },
   ];
   const models = [

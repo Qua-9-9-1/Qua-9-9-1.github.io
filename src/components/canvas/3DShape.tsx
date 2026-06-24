@@ -67,10 +67,7 @@ export default function Shape3D({
   const [texture, setTexture] = useState<THREE.Texture | null>(null);
 
   useEffect(() => {
-    if (!textureUrl) {
-      setTexture(null);
-      return;
-    }
+    if (!textureUrl) return;
 
     let disposed = false;
     const loader = new THREE.TextureLoader();
@@ -101,10 +98,7 @@ export default function Shape3D({
   }, [textureUrl]);
 
   useEffect(() => {
-    if (!fragmentShaderUrl) {
-      setFragmentShader(null);
-      return;
-    }
+    if (!fragmentShaderUrl) return;
 
     let cancelled = false;
     const loader = new THREE.FileLoader();
@@ -128,10 +122,7 @@ export default function Shape3D({
   }, [fragmentShaderUrl]);
 
   useEffect(() => {
-    if (!vertexShaderUrl) {
-      setVertexShader(defaultVertexShader);
-      return;
-    }
+    if (!vertexShaderUrl) return;
 
     let cancelled = false;
     const loader = new THREE.FileLoader();
@@ -182,7 +173,7 @@ export default function Shape3D({
       {hasShader ? (
         <shaderMaterial
           ref={shaderMaterialRef}
-          vertexShader={vertexShader}
+          vertexShader={vertexShaderUrl ? vertexShader : defaultVertexShader}
           fragmentShader={fragmentShader ?? ''}
           uniforms={shaderUniforms}
           wireframe={wireframe}
@@ -191,7 +182,7 @@ export default function Shape3D({
         <meshStandardMaterial
           color={color}
           wireframe={wireframe}
-          map={texture ?? undefined}
+          map={textureUrl ? texture : null}
         />
       )}
     </mesh>

@@ -45,7 +45,6 @@ export function ProjectsProvider({ children }: { children: React.ReactNode }) {
         setError('Impossible to load projects from GitHub.');
         console.error(err);
       } finally {
-        if (!active) return;
         setLoading(false);
       }
     };

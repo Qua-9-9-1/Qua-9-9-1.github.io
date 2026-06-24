@@ -11,12 +11,12 @@ const CONFIG_URL =
 
 export function useRemoteConfig() {
   const ctx = useRemoteConfigContext?.();
-  if (ctx) return ctx;
-
   const [config, setConfig] = useState<Config>(loadingConfig);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
+    if (ctx) return;
+
     fetch(`${CONFIG_URL}?t=${new Date().getTime()}`)
       .then((res) => res.json())
       .then((data) => {
@@ -29,6 +29,8 @@ export function useRemoteConfig() {
         setLoading(false);
       });
   }, []);
+
+  if (ctx) return ctx;
 
   return { config, loading };
 }
