@@ -17,7 +17,7 @@ export const layout_en = {
     my_time: 'My free time',
     credits: {
       title: 'Credits',
-      techs: 'Technologies',
+      techs: 'Code quality',
       models: {
         title: '3D Models',
         desc: '3D models used in this portfolio are sourced from Sketchfab. Licenses for each model can be found below:',

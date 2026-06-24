@@ -43,26 +43,20 @@ export default function CreditsModal({ isOpen, onClose }: ThemeModalProps) {
       name: 'TypeScript',
       url: 'https://www.typescriptlang.org',
     },
-
+    {
+      icon: <Zap className="text-primary" />,
+      name: 'Vitest',
+      url: 'https://vitest.dev',
+    },
     {
       icon: <Waves className="text-secondary" />,
       name: 'Tailwind CSS',
       url: 'https://tailwindcss.com',
     },
     {
-      icon: <SquareDashedBottom className="text-primary" />,
-      name: 'shadcn/ui',
-      url: 'https://ui.shadcn.com',
-    },
-    {
       icon: <Pyramid className="text-primary" />,
       name: 'Three.js',
       url: 'https://threejs.org',
-    },
-    {
-      icon: <Shell className="text-secondary" />,
-      name: 'Lucide Icons',
-      url: 'https://lucide.dev',
     },
     {
       icon: <CircleParking className="text-secondary" />,

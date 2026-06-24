@@ -28,6 +28,7 @@ export default function Footer() {
     { name: 'Prettier', negative: false },
     { name: 'ESLint', negative: false },
     { name: 'Husky', negative: false },
+    { name: 'Vitest', negative: false },
     {
       name: 'Github Copilot',
       negative: true,
