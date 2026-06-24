@@ -1,7 +1,6 @@
-@import "tailwindcss";
+@import 'tailwindcss';
 
 @custom-variant dark (&:is(.dark *));
-
 
 @layer base {
   * {
@@ -13,14 +12,14 @@
   }
   a[href],
   button,
-  [role="button"],
+  [role='button'],
   label[for],
   .cursor-pointer {
     cursor: pointer;
   }
   input,
   textarea,
-  [contenteditable="true"] {
+  [contenteditable='true'] {
     cursor: text;
   }
 }
@@ -52,7 +51,10 @@
   font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
   line-height: 1.5;
   font-weight: 400;
-  transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease;
+  transition:
+    background-color 0.3s ease,
+    color 0.3s ease,
+    border-color 0.3s ease;
   --radius: 0.625rem;
   --background: oklch(1 0 0);
   --foreground: oklch(0.13 0.028 261.692);
