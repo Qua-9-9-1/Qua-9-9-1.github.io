@@ -5,7 +5,7 @@ import ProjectTypeBall, { ballStates } from './ProjectTypeBall';
 import Wall from './Wall';
 import { useIsMobile } from '../../hooks/useMediaQuery';
 import { Text } from '@react-three/drei';
-import { useEffect, useRef } from 'react';
+import { useEffect, useRef, useMemo } from 'react';
 import { useLanguage } from '../../context/LanguageContext';
 
 interface Props {
@@ -13,7 +13,7 @@ interface Props {
   onFilterChange: (technos: string[]) => void;
 }
 
-export const FILTER_ZONE = {
+const FILTER_ZONE = {
   x: 6,
   y: 0,
   width: 8,
@@ -60,6 +60,16 @@ export default function PhysicsFilterScene({ technos, onFilterChange }: Props) {
       lastTechnosRef.current = [...technos];
     }
   }, [technos]);
+
+  const initialPositions = useMemo(() => {
+    return technos.map((_, index) => {
+      const x = -6 + Math.random() * 4;
+      const y = 5 + index * 2;
+      const z = 0;
+      return [x, y, z] as [number, number, number];
+    });
+  }, [technos]);
+
   const { t } = useLanguage();
   const isMobile = useIsMobile();
   const zoom = isMobile ? 22 : 35;
@@ -185,7 +195,7 @@ export default function PhysicsFilterScene({ technos, onFilterChange }: Props) {
           <ProjectTypeBall
             key={tech}
             label={tech}
-            startPosition={[-6 + Math.random() * 4, 5 + index * 2, 0]}
+            startPosition={initialPositions[index]}
             spawnRangeX={[-8, -2]}
             resetY={-10}
             limits={{ x: 12.5, floor: -6 }}
