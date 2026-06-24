@@ -14,6 +14,7 @@ export const ExternalProject: Project[] = [
       'vite',
       'shaders',
       'docker',
+      'ci-cd',
     ],
     status: 'wip',
   },

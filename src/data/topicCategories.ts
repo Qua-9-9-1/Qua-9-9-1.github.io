@@ -11,6 +11,8 @@ export const TOPIC_TO_CATEGORY: Record<string, string> = {
   docker: 'devops',
   kubernetes: 'devops',
   'github-actions': 'devops',
+  'ci-cd': 'devops',
+  husky: 'devops',
 
   react: 'web',
   nestjs: 'web',
