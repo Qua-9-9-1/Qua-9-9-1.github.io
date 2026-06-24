@@ -51,7 +51,9 @@ export const fetchGitHubProjects = async (): Promise<Project[]> => {
             t !== 'portfolio' &&
             t !== 'completed' &&
             t !== 'wip' &&
-            t !== 'archived'
+            t !== 'archived' &&
+            t !== 'stopped' &&
+            t !== 'unknown'
         ),
         status,
         imageUrl,
