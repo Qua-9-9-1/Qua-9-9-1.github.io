@@ -16,6 +16,7 @@ export const ExternalProject: Project[] = [
       'docker',
       'caddy',
       'ci-cd',
+      'mobile',
     ],
     status: 'wip',
   },
