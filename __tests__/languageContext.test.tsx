@@ -3,7 +3,7 @@ import { render, screen, fireEvent } from '@testing-library/react';
 import { LanguageProvider, useLanguage } from '../src/context/LanguageContext';
 
 const TestComponent = () => {
-  const { language, setLanguage, t } = useLanguage();
+  const { language, setLanguage } = useLanguage();
   return (
     <div>
       <span data-testid="lang-display">{language}</span>

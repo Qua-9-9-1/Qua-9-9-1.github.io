@@ -1,4 +1,4 @@
-import { describe, it, expect, beforeAll, afterAll } from 'vitest';
+import { describe, it, expect, afterAll } from 'vitest';
 import { renderHook, act } from '@testing-library/react';
 import { useIsMobile } from '../src/hooks/useMediaQuery';
 

@@ -26,7 +26,7 @@ describe('Service : fetchGitHubProjects', () => {
       }
     ];
 
-    (fetch as any).mockResolvedValue({
+    (fetch as vi.Mock).mockResolvedValue({
       ok: true,
       json: async () => mockGitHubData,
     });
@@ -40,7 +40,7 @@ describe('Service : fetchGitHubProjects', () => {
   });
 
   it('doit lever une erreur si la requête échoue', async () => {
-    (fetch as any).mockResolvedValue({
+    (fetch as vi.Mock).mockResolvedValue({
       ok: false,
     });
 

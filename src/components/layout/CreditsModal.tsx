@@ -12,8 +12,6 @@ import {
   Zap,
   Code,
   Waves,
-  SquareDashedBottom,
-  Shell,
   Pyramid,
   CircleParking,
   Bolt,
