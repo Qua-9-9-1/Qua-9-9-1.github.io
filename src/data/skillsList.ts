@@ -39,6 +39,7 @@ export const skills: Record<string, Skill[]> = {
     { name: 'Prisma', negative: true },
     { name: '.NET', negative: false },
     { name: 'Vitest', negative: false },
+    { name: 'Supabase', negative: false },
   ],
   Tools: [
     { name: 'Git', negative: false },
