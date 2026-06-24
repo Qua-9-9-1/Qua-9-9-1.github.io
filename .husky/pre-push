@@ -1,0 +1,19 @@
+#!/usr/bin/env sh
+
+echo "Lint & Build..."
+
+npm run lint
+
+if [ $? -ne 0 ]; then
+  echo "Error : linting failed. Push aborted."
+  exit 1
+fi
+
+npm run build
+
+if [ $? -ne 0 ]; then
+  echo "Error : build failed. Push aborted."
+  exit 1
+fi
+
+echo "Linting and build successful. Proceeding with push."
