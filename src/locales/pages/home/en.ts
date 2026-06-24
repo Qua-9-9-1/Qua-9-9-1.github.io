@@ -19,7 +19,7 @@ export const home_en = {
       web: 'Web',
       devops: 'DevOps',
       tools: 'Tools',
-      others: 'Others',
+      hardware_and_graphics: 'Hardware and Graphics',
     },
     my_projects: 'my projects',
     check_on_web: 'Check on web',

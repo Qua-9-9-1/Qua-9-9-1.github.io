@@ -15,28 +15,28 @@ export default function Footer() {
   const [isCreditsModalOpen, setIsCreditsModalOpen] = useState(false);
 
   const techsIcons = [
-    { name: 'React', iconPath: '/techs/react.png', negative: false },
-    { name: 'Vite', iconPath: '/techs/vite.png', negative: false },
+    { name: 'React', iconPath: '/techs/react.webp', negative: false },
+    { name: 'Vite', iconPath: '/techs/vite.webp', negative: false },
     {
       name: 'TailwindCSS',
-      iconPath: '/techs/tailwindcss.png',
+      iconPath: '/techs/tailwindcss.webp',
       negative: false,
     },
-    { name: 'TypeScript', iconPath: '/techs/typescript.png', negative: false },
-    { name: 'shadcn', iconPath: '/techs/shadcn.png', negative: true },
-    { name: 'Three.js', iconPath: '/techs/threejs.png', negative: true },
-    { name: 'Prettier', iconPath: '/techs/prettier.png', negative: false },
+    { name: 'TypeScript', iconPath: '/techs/typescript.webp', negative: false },
+    { name: 'shadcn', iconPath: '/techs/shadcn.webp', negative: true },
+    { name: 'Three.js', iconPath: '/techs/threejs.webp', negative: true },
+    { name: 'Prettier', iconPath: '/techs/prettier.webp', negative: false },
     {
       name: 'Github Copilot',
-      iconPath: '/techs/github_copilot.png',
+      iconPath: '/techs/github_copilot.webp',
       negative: true,
     },
     {
       name: t.layout.footer.my_time,
-      iconPath: '/my_time.png',
+      iconPath: '/my_time.webp',
       negative: false,
     },
-    { name: 'Passion', iconPath: '/hearth.png', negative: true },
+    { name: 'Passion', iconPath: '/hearth.webp', negative: true },
   ];
 
   return (

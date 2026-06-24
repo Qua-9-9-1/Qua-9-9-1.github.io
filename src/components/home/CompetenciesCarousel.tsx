@@ -1,8 +1,9 @@
 import InfiniteScroll from '../ui/infinite-scroll';
-import { skills } from '../../data/skillsIcons';
+import { skills } from '../../data/skillsList';
+import { getTechImage } from '../../utils/techImage';
 import { Separator } from '../ui/separator';
 import { useLanguage } from '../../context/LanguageContext';
-import type { Skill } from '../../data/skillsIcons';
+import type { Skill } from '../../data/skillsList';
 import { shuffleArray } from '../../utils/shuffleArray';
 import type React from 'react';
 import {
@@ -10,7 +11,7 @@ import {
   Globe,
   Container,
   Wrench,
-  MessageSquareCode,
+  Cpu,
 } from 'lucide-react';
 import { useIsMobile } from '../../hooks/useMediaQuery';
 import '../../styles/components/carousel.css';
@@ -47,8 +48,8 @@ function SkillSlider({
           const itemContent = (
             <>
               <img
-                src={skill.img}
-                alt={skill.name}
+                src={getTechImage(skill.name)}
+                alt={skill.name + ' logo'}
                 className={
                   'object-contain object-center' +
                   (isMobile ? ' w-6 h-6' : ' w-12 h-12') +
@@ -128,9 +129,9 @@ export default function CompetenciesCarousel() {
       />
       <Separator className="my-8 bg-secondary" />
       <SkillSlider
-        label={t.home.skills.categories.others}
-        icon={<MessageSquareCode />}
-        skills={shuffleArray(skills.Others)}
+        label={t.home.skills.categories.hardware_and_graphics}
+        icon={<Cpu />}
+        skills={shuffleArray(skills.Hardware_And_Graphics)}
         reverse={false}
       />
     </section>

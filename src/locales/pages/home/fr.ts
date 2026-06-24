@@ -20,7 +20,7 @@ export const home_fr = {
       web: 'Web',
       devops: 'DevOps',
       tools: 'Outils',
-      others: 'Autres',
+      hardware_and_graphics: 'Matériel et Graphismes',
     },
     my_projects: 'mes projets',
     check_on_web: `Rechercher sur le web`,

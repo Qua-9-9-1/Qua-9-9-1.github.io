@@ -110,7 +110,7 @@ export default function Navbar() {
                   />
                   <img
                     className="w-6 h-6 ml-2 cursor-pointer"
-                    src={language === 'fr' ? '/lang/fr.png' : '/lang/en.png'}
+                    src={language === 'fr' ? '/lang/fr.webp' : '/lang/en.webp'}
                     alt={language === 'fr' ? 'FR' : 'EN'}
                     onClick={toggleLanguage}
                   />
@@ -118,7 +118,7 @@ export default function Navbar() {
               ) : (
                 <img
                   className="w-6 h-6 cursor-pointer"
-                  src={language === 'fr' ? '/lang/fr.png' : '/lang/en.png'}
+                  src={language === 'fr' ? '/lang/fr.webp' : '/lang/en.webp'}
                   alt={language === 'fr' ? 'FR' : 'EN'}
                   onClick={toggleLanguage}
                 />
