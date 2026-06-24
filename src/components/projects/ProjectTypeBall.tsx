@@ -4,6 +4,7 @@ import { RigidBody, RapierRigidBody, BallCollider } from '@react-three/rapier';
 import { Text } from '@react-three/drei';
 import { useLanguage } from '../../context/LanguageContext';
 import { useIsMobile } from '../../hooks/useMediaQuery';
+import type { Mesh } from 'three';
 
 export const ballStates = new Map<string, boolean>();
 
@@ -30,6 +31,7 @@ export default function ProjectTypeBall({
   const [isDragging, setIsDragging] = useState(false);
   const { viewport } = useThree();
   const RADIUS = isMobile ? 0.55 : 0.85;
+  const textRef = useRef<Mesh>(null);
 
   const color = useMemo(
     () =>
@@ -65,6 +67,14 @@ export default function ProjectTypeBall({
   useFrame(({ pointer }) => {
     if (!rigidBody.current) return;
 
+    if (rigidBody.current && textRef.current) {
+      // 1. On lit la position physique de la balle
+      const pos = rigidBody.current.translation();
+
+      // 2. On applique cette position au texte, en ajoutant le décalage sur l'axe Z
+      textRef.current.position.set(pos.x, pos.y, pos.z + RADIUS + 0.05);
+    }
+
     const currentPos = rigidBody.current.translation();
     const minX = zoneTarget.x - zoneTarget.width / 2;
     const maxX = zoneTarget.x + zoneTarget.width / 2;
@@ -94,9 +104,6 @@ export default function ProjectTypeBall({
       });
     } else {
       if (currentPos.y < resetY || Math.abs(currentPos.x) > limits.x + 20) {
-        console.log('Respawning ball:', label);
-        console.log('Current Position:', currentPos);
-        console.log('Limits:', limits);
         const newX =
           spawnRangeX[0] + Math.random() * (spawnRangeX[1] - spawnRangeX[0]);
 
@@ -109,8 +116,6 @@ export default function ProjectTypeBall({
       }
 
       if (Math.abs(currentPos.z) > 20) {
-        console.log('Resetting Z position for ball:', label);
-        console.log('Current Z Position:', currentPos.z);
         rigidBody.current.setTranslation(
           { x: currentPos.x, y: currentPos.y, z: 0 },
           true
@@ -120,25 +125,28 @@ export default function ProjectTypeBall({
   });
 
   return (
-    <RigidBody
-      ref={rigidBody}
-      position={startPosition}
-      colliders={false}
-      restitution={0.2}
-      friction={0.8}
-      enabledTranslations={[true, true, false]}
-      enabledRotations={[false, false, true]}
-      ccd={true}
-      linearDamping={0.5}
-      angularDamping={0.5}
-    >
-      <BallCollider args={[RADIUS]} />
-      <mesh onPointerDown={onPointerDown} onPointerUp={onPointerUp}>
-        <sphereGeometry args={[RADIUS, 24, 24]} />
-        <meshStandardMaterial color={color} roughness={0.3} metalness={0.2} />
-      </mesh>
+    <group>
+      <RigidBody
+        ref={rigidBody}
+        position={startPosition}
+        colliders={false}
+        restitution={0.2}
+        friction={0.8}
+        enabledTranslations={[true, true, false]}
+        enabledRotations={[false, false, true]}
+        ccd={true}
+        linearDamping={0.5}
+        angularDamping={0.5}
+      >
+        <BallCollider args={[RADIUS]} />
+        <mesh onPointerDown={onPointerDown} onPointerUp={onPointerUp}>
+          <sphereGeometry args={[RADIUS, 24, 24]} />
+          <meshStandardMaterial color={color} roughness={0.3} metalness={0.2} />
+        </mesh>
+      </RigidBody>
+
       <Text
-        position={[0, 0, RADIUS + 0.05]}
+        ref={textRef}
         fontSize={0.3}
         color="white"
         fontWeight="bold"
@@ -150,6 +158,6 @@ export default function ProjectTypeBall({
       >
         {t.projects.categories[label as keyof typeof t.projects.categories]}
       </Text>
-    </RigidBody>
+    </group>
   );
 }
