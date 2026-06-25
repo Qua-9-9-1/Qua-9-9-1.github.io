@@ -4,6 +4,7 @@ import { layout_en } from './layout/en';
 import { theme_en } from './theme/en';
 import { projects_en } from './pages/projects/en';
 import { contact_en } from './pages/contact/en';
+import { no_content_en } from './pages/noContent/en';
 
 export const en: Translations = {
   lang: 'en',
@@ -13,4 +14,5 @@ export const en: Translations = {
   loading: 'Loading...',
   projects: projects_en,
   contact: contact_en,
+  no_content: no_content_en,
 };

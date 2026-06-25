@@ -3,6 +3,7 @@ import { layout_fr } from './layout/fr';
 import { theme_fr } from './theme/fr';
 import { projects_fr } from './pages/projects/fr';
 import { contact_fr } from './pages/contact/fr';
+import { no_content_fr } from './pages/noContent/fr';
 
 export const fr = {
   lang: 'fr',
@@ -12,6 +13,7 @@ export const fr = {
   loading: 'Chargement...',
   projects: projects_fr,
   contact: contact_fr,
+  no_content: no_content_fr,
 };
 
 export type Translations = typeof fr;

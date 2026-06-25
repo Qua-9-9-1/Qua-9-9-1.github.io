@@ -3,6 +3,7 @@ import RootLayout from './components/layout/RootLayout';
 import Home from './pages/Home';
 import Projects from './pages/Projects';
 import Contact from './pages/Contact';
+import NoContent from './pages/NoContent';
 
 export const router = createHashRouter([
   {
@@ -20,6 +21,10 @@ export const router = createHashRouter([
       {
         path: 'contact',
         element: <Contact />,
+      },
+      {
+        path: '*',
+        element: <NoContent />,
       },
     ],
   },
