@@ -25,7 +25,7 @@ function SkillSlider({
   const { t } = useLanguage();
 
   return (
-    <div className="items-center px-1 py-2 bg-surface text-foreground shadow-sm">
+    <div className="items-center px-1 py-2 shadow-sm">
       <h3 className="text-center font-bold mb-4 text-muted-foreground flex justify-center items-center">
         {label}
         {icon && <span className="inline-block ml-2">{icon}</span>}
@@ -93,7 +93,7 @@ export default function CompetenciesCarousel() {
   const { t } = useLanguage();
 
   return (
-    <section>
+    <section className="max-w-7xl mx-auto px-4 py-8 bg-background shadow-sm rounded-lg">
       <SkillSlider
         label={t.home.skills.categories.programming}
         icon={<FileBraces />}
