@@ -4,14 +4,12 @@ import PresentationCard from '../components/home/PresentationCard';
 import CompetenciesCarousel from '../components/home/CompetenciesCarousel';
 import HobbiesCarousel from '../components/home/HobbiesCarousel';
 import SmartLink from '../components/ui/smartLink';
-import Background from '../components/layout/HexagonsAnimatedBackground';
 
 export default function Home() {
   const { t } = useLanguage();
 
   return (
-    <main className="min-h-screen text-foreground relative">
-      <Background />
+    <main className="min-h-screen text-foreground">
       <div className="py-6 px-4 text-center relative">
         <h1 className="text-4xl md:text-6xl py-4 font-bold bg-gradient-to-r from-primary to-primary/60 bg-clip-text text-transparent mb-2 relative z-2">
           {t.home.title}

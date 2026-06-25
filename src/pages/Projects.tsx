@@ -5,7 +5,6 @@ import ProjectList from '../components/projects/ProjectList';
 import LoadingContent from '../components/home/LoadingContent';
 import PhysicsFilterScene from '../components/projects/PhysicsFilterScene';
 import { TOPIC_TO_CATEGORY } from '../data/topicCategories';
-import Background from '../components/layout/HexagonsAnimatedBackground';
 
 export default function ProjectsPage() {
   const { projects, loading, error } = useProjects();
@@ -44,7 +43,6 @@ export default function ProjectsPage() {
   return (
     <div className="flex flex-col">
       <div style={{ touchAction: 'none' }} className="h-[40vh] w-full relative">
-        <Background />
         <PhysicsFilterScene
           technos={allCategories}
           onFilterChange={setSelectedTechnos}

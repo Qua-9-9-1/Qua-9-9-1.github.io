@@ -6,6 +6,7 @@ import { Toaster } from '../ui/sonner';
 import { toast } from 'sonner';
 import { useRemoteConfig } from '../../hooks/useRemoteConfig';
 import { useLanguage } from '../../context/LanguageContext';
+import Background from './HexagonsAnimatedBackground';
 
 export default function RootLayout() {
   const { config } = useRemoteConfig();
@@ -35,6 +36,7 @@ export default function RootLayout() {
 
   return (
     <div className="min-h-screen flex flex-col">
+      <Background />
       <Toaster />
       <Navbar />
       <main className="flex-1">
