@@ -61,5 +61,6 @@ export const skills: Record<string, Skill[]> = {
     { name: 'OpenGL', negative: false },
     { name: 'Three.js', negative: true },
     { name: 'Tone.js', negative: false },
+    { name: 'KDE', negative: false },
   ],
 };
