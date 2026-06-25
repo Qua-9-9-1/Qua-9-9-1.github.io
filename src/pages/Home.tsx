@@ -9,7 +9,7 @@ export default function Home() {
   const { t } = useLanguage();
 
   return (
-    <main className="min-h-screen text-foreground">
+    <div className="w-full text-foreground pb-12">
       <div className="py-6 px-4 text-center relative">
         <h1 className="text-4xl md:text-6xl py-4 font-bold bg-gradient-to-r from-primary to-primary/60 bg-clip-text text-transparent mb-2 relative z-2">
           {t.home.title}
@@ -49,6 +49,6 @@ export default function Home() {
         </p>
         <HobbiesCarousel />
       </div>
-    </main>
+    </div>
   );
 }
