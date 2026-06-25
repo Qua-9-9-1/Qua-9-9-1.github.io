@@ -1,0 +1,76 @@
+body {
+  font-family: 'Fjalla One', sans-serif;
+}
+.wrap {
+  text-align: center;
+}
+._404-text {
+  font-size: 190px;
+  font-weight: 700;
+  text-align: center;
+  position: relative;
+  letter-spacing: 15px;
+  display: inline-block;
+  color: var(--primary-main);
+  &:before {
+    content: attr(data-text);
+    position: absolute;
+    top: 0;
+    left: 2px;
+    color: var(--primary-main);
+    text-shadow: -1px 0 #0ff;
+    clip: rect(0, 800px, 0, 0);
+    animation: glitch-1 1s linear alternate-reverse infinite;
+  }
+  &:after {
+    content: attr(data-text);
+    position: absolute;
+    top: 0;
+    left: -2px;
+    color: var(--secondary-main);
+    text-shadow: 3px 0 #ff28d7;
+    clip: rect(0, 800px, 0, 0);
+    animation: glitch-2 0.6s linear alternate-reverse infinite 0.2s;
+  }
+}
+
+@keyframes glitch-1 {
+  0% {
+    clip: rect(40px, 800px, 70px, 0px);
+  }
+  15% {
+    clip: rect(130px, 800px, 131px, 0px);
+  }
+  50% {
+    clip: rect(90px, 800px, 96px, 0px);
+  }
+  75% {
+    clip: rect(125px, 800px, 185px, 0px);
+  }
+  87% {
+    clip: rect(70px, 800px, 100px, 0px);
+  }
+  100% {
+    clip: rect(130px, 800px, 130px, 0px);
+  }
+}
+@keyframes glitch-2 {
+  0% {
+    clip: rect(20px, 800px, 80px, 0px);
+  }
+  15% {
+    clip: rect(100px, 800px, 105px, 0px);
+  }
+  50% {
+    clip: rect(100px, 800px, 95px, 0px);
+  }
+  75% {
+    clip: rect(60px, 800px, 60px, 0px);
+  }
+  87% {
+    clip: rect(145px, 800px, 160px, 0px);
+  }
+  100% {
+    clip: rect(185px, 800px, 185px, 0px);
+  }
+}
