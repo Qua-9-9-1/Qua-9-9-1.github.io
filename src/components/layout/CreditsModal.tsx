@@ -188,6 +188,17 @@ export default function CreditsModal({ isOpen, onClose }: ThemeModalProps) {
                     shadcn/ui
                   </a>
                 </li>
+                <li>
+                  {t.layout.footer.credits.UI._404_by}{' '}
+                  <a
+                    href="https://codepen.io/huyle2607/pen/mmGyVV"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="underline text-primary hover:text-primary"
+                  >
+                    huyle2607
+                  </a>
+                </li>
               </ul>
             </section>
           </div>

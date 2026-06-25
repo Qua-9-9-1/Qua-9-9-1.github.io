@@ -33,6 +33,7 @@ export const layout_en = {
         title: 'Icons & UI',
         icons_by: 'Icons by',
         ui_by: 'UI components by',
+        _404_by: 'Animated 404 text by',
       },
     },
   },
