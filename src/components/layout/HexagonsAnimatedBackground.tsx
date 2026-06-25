@@ -3,6 +3,7 @@ import { useEffect, useRef, useState } from 'react';
 export default function Background() {
   const containerRef = useRef<SVGGElement>(null);
   const [polygons, setPolygons] = useState<{ d: string }[]>([]);
+  const [dimensions, setDimensions] = useState({ width: 900, height: 1200 });
 
   useEffect(() => {
     const rawPaths = [
@@ -28,6 +29,14 @@ export default function Background() {
       'M0 -20L17.3 -10L17.3 10L0 20L-17.3 10L-17.3 -10Z',
     ];
     setPolygons(rawPaths.map((d) => ({ d })));
+
+    const handleResize = () => {
+      setDimensions({ width: window.innerWidth, height: window.innerHeight });
+    };
+
+    handleResize();
+    window.addEventListener('resize', handleResize);
+    return () => window.removeEventListener('resize', handleResize);
   }, []);
 
   useEffect(() => {
@@ -37,15 +46,15 @@ export default function Background() {
     const styles: string[] = [];
 
     polys.forEach((poly, index) => {
-      const spawnX = Math.floor(Math.random() * 800) + 50;
-      const spawnY = Math.floor(Math.random() * 500) + 50;
+      const spawnX = Math.floor(Math.random() * (dimensions.width - 60)) + 30;
+      const spawnY = Math.floor(Math.random() * (dimensions.height - 60)) + 30;
 
-      const moveX1 = Math.floor(Math.random() * 120) - 60;
-      const moveY1 = Math.floor(Math.random() * 120) - 60;
-      const moveX2 = Math.floor(Math.random() * 120) - 60;
-      const moveY2 = Math.floor(Math.random() * 120) - 60;
+      const moveX1 = Math.floor(Math.random() * 100) - 50;
+      const moveY1 = Math.floor(Math.random() * 100) - 50;
+      const moveX2 = Math.floor(Math.random() * 100) - 50;
+      const moveY2 = Math.floor(Math.random() * 100) - 50;
 
-      const duration = Math.random() * 20 + 20;
+      const duration = Math.random() * 25 + 25;
       const animationName = `dynamic-drift-${index}`;
 
       poly.setAttribute('transform', `translate(${spawnX} ${spawnY})`);
@@ -70,15 +79,22 @@ export default function Background() {
     return () => {
       document.head.removeChild(styleElement);
     };
-  }, [polygons]);
+  }, [polygons, dimensions]);
 
   return (
     <svg
       id="visual"
-      viewBox="0 0 900 600"
-      preserveAspectRatio="xMidYMid slice"
+      viewBox={`0 0 ${dimensions.width} ${dimensions.height}`}
       xmlns="http://www.w3.org/2000/svg"
-      className="fixed inset-0 w-screen h-screen -z-50 pointer-events-none select-none bg-background"
+      style={{
+        position: 'fixed',
+        top: 0,
+        left: 0,
+        width: `${dimensions.width}px`,
+        height: `${dimensions.height}px`,
+        zIndex: -10,
+      }}
+      className="pointer-events-none select-none bg-background"
     >
       <g ref={containerRef}>
         {polygons.map((poly, index) => (
@@ -87,7 +103,7 @@ export default function Background() {
               d={poly.d}
               fill="none"
               stroke="var(--primary-main)"
-              opacity="0.3"
+              opacity="0.5"
               strokeWidth="2"
             />
           </g>
