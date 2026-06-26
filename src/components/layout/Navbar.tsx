@@ -41,6 +41,8 @@ export default function Navbar() {
               <AvatarImage
                 src={`https://github.com/${config.github_user}.png`}
                 alt={`@${config.github_user}`}
+                fetchPriority="high"
+                loading="eager"
               />
               <AvatarFallback>Q</AvatarFallback>
             </Avatar>
