@@ -5,7 +5,14 @@ import ProjectTypeBall, { ballStates } from './ProjectTypeBall';
 import Wall from './Wall';
 import { useIsMobile } from '../../hooks/useMediaQuery';
 import { Text } from '@react-three/drei';
-import { useEffect, useRef, useMemo, type ReactNode, Suspense } from 'react';
+import {
+  useEffect,
+  useRef,
+  useMemo,
+  useState,
+  type ReactNode,
+  Suspense,
+} from 'react';
 import { useLanguage } from '../../context/LanguageContext';
 
 interface Props {
@@ -70,15 +77,60 @@ export default function PhysicsFilterScene({ technos, onFilterChange }: Props) {
 
   const { t } = useLanguage();
   const isMobile = useIsMobile();
-  const zoom = isMobile ? 22 : 35;
+  const [windowWidth, setWindowWidth] = useState(window.innerWidth);
+  const [themeColors, setThemeColors] = useState({
+    primary: '#ffffff',
+    secondary: '#0000ff',
+    text: '#000000',
+  });
+
+  useEffect(() => {
+    const extractThemeColors = () => {
+      const rootStyles = getComputedStyle(document.documentElement);
+
+      let primary = rootStyles.getPropertyValue('--primary-main').trim();
+      let secondary = rootStyles.getPropertyValue('--secondary-main').trim();
+      let text = rootStyles.getPropertyValue('--text-theme').trim();
+
+      if (primary && !primary.startsWith('#') && !primary.startsWith('hsl')) {
+        primary = `hsl(${primary})`;
+        secondary = `hsl(${secondary})`;
+        text = `hsl(${text})`;
+      }
+
+      setThemeColors({ primary, secondary, text });
+    };
+
+    const handleResize = () => {
+      setWindowWidth(window.innerWidth);
+      extractThemeColors();
+    };
+
+    extractThemeColors();
+
+    window.addEventListener('resize', handleResize);
+
+    const observer = new MutationObserver(extractThemeColors);
+    observer.observe(document.documentElement, {
+      attributes: true,
+      attributeFilter: ['class', 'data-theme'],
+    });
+
+    return () => {
+      window.removeEventListener('resize', handleResize);
+      observer.disconnect();
+    };
+  }, []);
+
+  const desktopZoom = Math.max(20, Math.min(35, (windowWidth / 1400) * 35));
+  const zoom = isMobile ? 22 : desktopZoom;
+
   const widthX = isMobile ? 5.5 : 12.5;
   const floorWidth = widthX * 2 + 4;
   const floorY = -6;
-  // const spawnRangeX = isMobile ? [-4, -1] : [-10, -2];
   const zoneConfig = isMobile
     ? { ...FILTER_ZONE, x: 0, y: -2, width: 6, height: 4 }
     : FILTER_ZONE;
-  const secondaryColor = '#3b82f6';
 
   const filterZoneWalls: ReactNode = isMobile ? (
     <>
@@ -147,7 +199,7 @@ export default function PhysicsFilterScene({ technos, onFilterChange }: Props) {
           <mesh>
             <planeGeometry args={[zoneConfig.width, zoneConfig.height]} />
             <meshBasicMaterial
-              color={secondaryColor}
+              color={themeColors.secondary}
               transparent
               opacity={0.2}
             />
@@ -155,7 +207,7 @@ export default function PhysicsFilterScene({ technos, onFilterChange }: Props) {
 
           <Text
             fontSize={0.4}
-            color="white"
+            color={themeColors.text}
             textAlign="center"
             maxWidth={zoneConfig.width - 1}
             anchorX="center"
@@ -176,7 +228,7 @@ export default function PhysicsFilterScene({ technos, onFilterChange }: Props) {
             position={[0, floorY, 0]}
             args={[floorWidth, 1, 2]}
             opacity={0.8}
-            color="#475569"
+            color={themeColors.primary}
           />
           <Wall position={[-widthX, 2, 0]} args={[1, 17, 2]} opacity={0.5} />
           <Wall position={[widthX, 2, 0]} args={[1, 17, 2]} opacity={0.5} />
@@ -191,7 +243,7 @@ export default function PhysicsFilterScene({ technos, onFilterChange }: Props) {
             position={[0, 0, 1.5]}
             args={[floorWidth, 20, 0.5]}
             opacity={0.1}
-            color="#f1f5f9"
+            color={themeColors.primary}
           />
 
           {technos.map((tech, index) => (
