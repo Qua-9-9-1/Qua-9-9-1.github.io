@@ -39,7 +39,7 @@ export default function RootLayout() {
       <Background />
       <Toaster />
       <Navbar />
-      <main className="flex-1">
+      <main className="flex-1 flex flex-col items-center justify-center">
         <Outlet />
       </main>
       <Footer />

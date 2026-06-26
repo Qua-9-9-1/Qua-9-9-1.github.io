@@ -31,7 +31,7 @@ export default function Contact() {
   ];
 
   return (
-    <div className="flex flex-col items-center justify-center min-h-[60vh] p-4">
+    <div className="flex flex-col items-center justify-center p-4">
       <Card className="w-full max-w-xl shadow-lg">
         <CardContent className="py-8 px-6 flex flex-col items-center gap-6">
           <CardTitle className="text-3xl font-bold mb-2 text-center">

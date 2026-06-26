@@ -6,7 +6,7 @@ export default function NoContent() {
   const { t } = useLanguage();
 
   return (
-    <div className="flex flex-col items-center justify-center min-h-[100vh] p-4">
+    <div className="flex flex-col items-center justify-center p-4">
       <Card className="w-full max-w-xl shadow-lg">
         <CardContent className="py-8 px-6 flex flex-col items-center gap-6">
           <div className="_404-text" data-text="404">

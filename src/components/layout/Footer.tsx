@@ -42,7 +42,7 @@ export default function Footer() {
   ];
 
   return (
-    <footer className="w-full bg-background border-t border-secondary text-muted-foreground py-6 mt-12">
+    <footer className="w-full bg-background border-t border-secondary text-muted-foreground py-6 mt-8">
       <div className="max-w-4xl mx-auto px-4 flex flex-row md:flex-row items-center justify-between gap-4">
         <div className="text-sm text-center md:text-left">
           © 2026 Quentin Duval
