@@ -52,6 +52,7 @@ export default function Contact() {
                     href={contact.href}
                     target="_blank"
                     rel="noopener noreferrer"
+                    aria-label={contact.label}
                     className="overflow-hidden"
                   >
                     <span className="truncate block">{contact.value}</span>

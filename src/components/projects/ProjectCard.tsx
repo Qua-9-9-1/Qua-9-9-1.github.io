@@ -78,7 +78,11 @@ export default function ProjectCard({ project }: { project: Project }) {
       <CardFooter className="flex flex-col items-center w-full mt-auto">
         <div className="flex flex-wrap justify-center items-center content-center w-full mb-2 h-[4rem] md:h-[5rem] overflow-y-auto">
           {project.topics.map((techno) => (
-            <Badge key={techno} className="m-1 bg-secondary">
+            <Badge
+              key={techno}
+              className="m-1 bg-secondary"
+              aria-label={techno}
+            >
               {techno}
             </Badge>
           ))}
@@ -92,7 +96,10 @@ export default function ProjectCard({ project }: { project: Project }) {
                 rel="noreferrer"
                 className="mb-1 cursor-pointer"
               >
-                <Button className="flex flex-col items-center hover:underline ">
+                <Button
+                  className="flex flex-col items-center hover:underline "
+                  aria-label={t.projects.codeLink}
+                >
                   {t.projects.codeLink}
                 </Button>
               </a>
@@ -104,7 +111,10 @@ export default function ProjectCard({ project }: { project: Project }) {
                 rel="noreferrer"
                 className="mb-1 cursor-pointer"
               >
-                <Button className="flex flex-col items-center hover:underline ">
+                <Button
+                  className="flex flex-col items-center hover:underline "
+                  aria-label={t.projects.homepageLink}
+                >
                   {t.projects.homepageLink}
                 </Button>
               </a>

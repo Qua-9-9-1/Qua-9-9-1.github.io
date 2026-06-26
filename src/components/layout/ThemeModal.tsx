@@ -68,6 +68,7 @@ export default function ThemeModal({ isOpen, onClose }: ThemeModalProps) {
                     onClick={() => setBg(option.value)}
                     title={t.theme.bg[option.value]}
                     style={{ background: bgColor }}
+                    aria-label={t.theme.bg[option.value]}
                     className={`h-8 w-8 rounded-full border transition-all hover:scale-110 focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2
                       ${isActive ? 'border-2 border-foreground ring-2 ring-primary' : 'border-border'}`}
                   />
@@ -86,6 +87,7 @@ export default function ThemeModal({ isOpen, onClose }: ThemeModalProps) {
                   key={d.id}
                   onClick={() => setDuo(d.id)}
                   title={t.theme.duo[d.id as keyof typeof t.theme.duo]}
+                  aria-label={t.theme.duo[d.id as keyof typeof t.theme.duo]}
                   style={{
                     background: `linear-gradient(135deg, ${d.primary} 50%, ${d.secondary} 50%)`,
                   }}

@@ -7,7 +7,7 @@ export default function LoadingContent() {
 
   return (
     <div className="flex flex-col items-center gap-4">
-      <Button variant="outline" disabled size="sm">
+      <Button variant="outline" disabled size="sm" aria-label={t.loading}>
         <Spinner className="size-4 text-primary" />
         {t.loading}
       </Button>

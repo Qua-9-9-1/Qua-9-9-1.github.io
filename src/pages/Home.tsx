@@ -1,12 +1,16 @@
+import React, { Suspense } from 'react';
 import { useLanguage } from '../context/LanguageContext';
 import { Separator } from '../components/ui/separator';
 import PresentationCard from '../components/home/PresentationCard';
 import CompetenciesCarousel from '../components/home/CompetenciesCarousel';
-import HobbiesCarousel from '../components/home/HobbiesCarousel';
 import SmartLink from '../components/ui/smartLink';
+import LoadingContent from '@/components/home/LoadingContent';
 
 export default function Home() {
   const { t } = useLanguage();
+  const HobbiesCarousel = React.lazy(
+    () => import('../components/home/HobbiesCarousel')
+  );
 
   return (
     <div className="w-full text-foreground pb-12">
@@ -47,7 +51,13 @@ export default function Home() {
         <p className="text-center text-muted-foreground mb-8">
           {t.home.hobbies.description}
         </p>
-        <HobbiesCarousel />
+        <Suspense
+          fallback={
+            <div className="w-full min-h-[500px] bg-muted/20 animate-pulse rounded-xl" />
+          }
+        >
+          <HobbiesCarousel />
+        </Suspense>
       </div>
     </div>
   );

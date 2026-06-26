@@ -77,6 +77,8 @@ export default function Scene3D({
   return (
     <Canvas
       style={{ width: '100%', height: '100%' }}
+      dpr={[1, 1.5]}
+      gl={{ powerPreference: 'high-performance', antialias: true }}
       camera={{
         position: cameraPosition,
         fov: fov,

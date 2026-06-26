@@ -198,13 +198,21 @@ export default function PresentationCard() {
                   <div className="w-full h-full mt-4">
                     <Separator className="my-2" />
                     <ButtonGroup className="mt-2 flex justify-center">
-                      <Button asChild variant="secondary">
+                      <Button
+                        asChild
+                        variant="secondary"
+                        aria-label={t.layout.navbar.projects}
+                      >
                         <SmartLink to="/projects">
                           {t.layout.navbar.projects}
                         </SmartLink>
                       </Button>
                       <ButtonGroupSeparator />
-                      <Button asChild variant="secondary">
+                      <Button
+                        asChild
+                        variant="secondary"
+                        aria-label={t.layout.navbar.contact}
+                      >
                         <SmartLink to="/contact">
                           {t.layout.navbar.contact}
                         </SmartLink>

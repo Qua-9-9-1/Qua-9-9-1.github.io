@@ -26,6 +26,8 @@ export const home_en = {
   },
   hobbies: {
     title: 'My Hobbies',
+    next: 'Next',
+    previous: 'Previous',
     description:
       'In my free time, I enjoy various activities that help me relax and stay creative. Here are some of my favorite hobbies:',
     items: [

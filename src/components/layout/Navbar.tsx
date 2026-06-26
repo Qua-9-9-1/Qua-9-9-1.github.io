@@ -54,13 +54,18 @@ export default function Navbar() {
         {!isMobile && (
           <div className="flex-1 flex justify-center select-none">
             <ButtonGroup>
-              <Button asChild variant={isActive('/') ? 'secondary' : 'outline'}>
+              <Button
+                asChild
+                variant={isActive('/') ? 'secondary' : 'outline'}
+                aria-label={t.layout.navbar.home}
+              >
                 <SmartLink to="/">{t.layout.navbar.home}</SmartLink>
               </Button>
               <ButtonGroupSeparator />
               <Button
                 asChild
                 variant={isActive('/projects') ? 'secondary' : 'outline'}
+                aria-label={t.layout.navbar.projects}
               >
                 <SmartLink to="/projects">{t.layout.navbar.projects}</SmartLink>
               </Button>
@@ -68,6 +73,7 @@ export default function Navbar() {
               <Button
                 asChild
                 variant={isActive('/contact') ? 'secondary' : 'outline'}
+                aria-label={t.layout.navbar.contact}
               >
                 <SmartLink to="/contact">{t.layout.navbar.contact}</SmartLink>
               </Button>

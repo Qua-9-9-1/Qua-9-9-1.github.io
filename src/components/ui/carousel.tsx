@@ -3,7 +3,7 @@ import useEmblaCarousel, {
   type UseEmblaCarouselType,
 } from 'embla-carousel-react';
 import { ArrowLeft, ArrowRight } from 'lucide-react';
-
+import { useLanguage } from '../../context/LanguageContext';
 import { cn } from '@/lib/utils';
 import { Button } from '../../components/ui/button';
 
@@ -197,12 +197,14 @@ const CarouselPrevious = React.forwardRef<
   React.ComponentProps<typeof Button>
 >(({ className, variant = 'outline', size = 'icon', ...props }, ref) => {
   const { orientation, scrollPrev, canScrollPrev } = useCarousel();
+  const { t } = useLanguage();
 
   return (
     <Button
       ref={ref}
       variant={variant}
       size={size}
+      aria-label={t.home.hobbies.previous}
       className={cn(
         'absolute  h-8 w-8 rounded-full',
         orientation === 'horizontal'
@@ -226,12 +228,13 @@ const CarouselNext = React.forwardRef<
   React.ComponentProps<typeof Button>
 >(({ className, variant = 'outline', size = 'icon', ...props }, ref) => {
   const { orientation, scrollNext, canScrollNext } = useCarousel();
-
+  const { t } = useLanguage();
   return (
     <Button
       ref={ref}
       variant={variant}
       size={size}
+      aria-label={t.home.hobbies.next}
       className={cn(
         'absolute h-8 w-8 rounded-full',
         orientation === 'horizontal'
