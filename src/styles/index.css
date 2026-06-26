@@ -29,6 +29,9 @@ body,
 #root {
   height: 100%;
   min-height: 100%;
+  width: 100%;
+  overflow-x: hidden;
+  position: relative;
   margin: 0;
   padding: 0;
 }
@@ -114,12 +117,6 @@ body,
   --sidebar-accent-foreground: oklch(0.21 0.034 264.665);
   --sidebar-border: oklch(0.928 0.006 264.531);
   --sidebar-ring: oklch(0.707 0.022 261.325);
-}
-
-body {
-  margin: 0;
-  min-width: 540px;
-  min-height: 100vh;
 }
 
 @theme inline {
