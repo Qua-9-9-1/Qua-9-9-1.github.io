@@ -1,7 +1,7 @@
 import { Canvas, useFrame } from '@react-three/fiber';
 import { OrbitControls } from '@react-three/drei';
 import type { OrbitControls as OrbitControlsImpl } from 'three-stdlib';
-import { useRef } from 'react';
+import { useRef, Suspense } from 'react';
 import Model3D from './3DModel';
 import Shape3D from './3DShape';
 
@@ -86,23 +86,25 @@ export default function Scene3D({
         far: 1000,
       }}
     >
-      <ambientLight intensity={0.95} />
-      <directionalLight position={[2, 2, 2]} />
-      {models?.map((props, i) => (
-        <Model3D key={i} {...props} />
-      ))}
-      {shapes?.map((props, i) => (
-        <Shape3D key={`shape-${i}`} {...props} />
-      ))}
+      <Suspense fallback={null}>
+        <ambientLight intensity={0.95} />
+        <directionalLight position={[2, 2, 2]} />
+        {models?.map((props, i) => (
+          <Model3D key={i} {...props} />
+        ))}
+        {shapes?.map((props, i) => (
+          <Shape3D key={`shape-${i}`} {...props} />
+        ))}
 
-      {debug && <axesHelper args={[100]} />}
-      {(cursor || autoRotate) && (
-        <CameraController
-          autoRotate={autoRotate}
-          rotationSpeed={rotationSpeed}
-          enableControls={cursor}
-        />
-      )}
+        {debug && <axesHelper args={[100]} />}
+        {(cursor || autoRotate) && (
+          <CameraController
+            autoRotate={autoRotate}
+            rotationSpeed={rotationSpeed}
+            enableControls={cursor}
+          />
+        )}
+      </Suspense>
     </Canvas>
   );
 }

@@ -42,7 +42,7 @@ export default function HobbiesCarousel() {
                   autoRotate={true}
                   models={[
                     {
-                      url: '/models/laptop/scene.gltf',
+                      url: '/models/laptop/scene.glb',
                       position: [1.8, -2.0, 1.8],
                       rotation: [0.4, 3.1, 0.2],
                       scale: 3.9,
@@ -70,7 +70,7 @@ export default function HobbiesCarousel() {
                   autoRotate={true}
                   models={[
                     {
-                      url: '/models/controller/scene.gltf',
+                      url: '/models/controller/scene.glb',
                       position: [0, 0, -0.5],
                       rotation: [-11.3, -45.0, 0],
                       scale: 0.08,
@@ -84,7 +84,7 @@ export default function HobbiesCarousel() {
                   autoRotate={true}
                   models={[
                     {
-                      url: '/models/MIDI_keyboard/scene.gltf',
+                      url: '/models/MIDI_keyboard/scene.glb',
                       position: [0, 0, 0],
                       rotation: [-11.3, 11.3, 0],
                       scale: 0.01,
@@ -98,7 +98,7 @@ export default function HobbiesCarousel() {
                   autoRotate={true}
                   models={[
                     {
-                      url: '/models/graphic_tablet/scene.gltf',
+                      url: '/models/graphic_tablet/scene.glb',
                       position: [0, 0, 0],
                       rotation: [11.3, 0, 0],
                       scale: 0.8,
@@ -146,7 +146,7 @@ export default function HobbiesCarousel() {
                   autoRotate={true}
                   models={[
                     {
-                      url: '/models/video_camera/scene.gltf',
+                      url: '/models/video_camera/scene.glb',
                       position: [35, -2, -5],
                       rotation: [0, 0, 0],
                       scale: 10,
