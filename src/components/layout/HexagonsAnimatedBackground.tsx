@@ -10,6 +10,7 @@ interface PolygonInstance {
   driftSpeed: number;
   driftRadius: number;
   opacity: number;
+  strokeWidth: number;
 }
 
 export default function Background() {
@@ -62,6 +63,7 @@ export default function Background() {
           driftSpeed: 0.005 + Math.random() * 0.01,
           driftRadius: 20 + Math.random() * 30,
           opacity: 0.3,
+          strokeWidth: 2,
         };
       });
     };
@@ -117,6 +119,7 @@ export default function Background() {
         let repulsionX = 0;
         let repulsionY = 0;
         let targetOpacity = 0.3;
+        let targetStrokeWidth = 2;
 
         if (distance < repulsionRadius) {
           const force = (repulsionRadius - distance) / repulsionRadius;
@@ -124,6 +127,7 @@ export default function Background() {
           repulsionX = (dx / distance) * force * maxRepulsionForce;
           repulsionY = (dy / distance) * force * maxRepulsionForce;
           targetOpacity = 0.3 + force * 0.3;
+          targetStrokeWidth = 2 + force * 2;
         }
 
         const finalTargetX = targetX + repulsionX;
@@ -132,12 +136,14 @@ export default function Background() {
         poly.currentX += (finalTargetX - poly.currentX) * 0.08;
         poly.currentY += (finalTargetY - poly.currentY) * 0.08;
         poly.opacity += (targetOpacity - poly.opacity) * 0.1;
+        poly.strokeWidth += (targetStrokeWidth - poly.strokeWidth) * 0.1;
 
         node.setAttribute(
           'transform',
           `translate(${poly.currentX} ${poly.currentY})`
         );
         pathNode.style.opacity = poly.opacity.toString();
+        pathNode.style.strokeWidth = poly.strokeWidth.toString();
       });
 
       animationFrameId = requestAnimationFrame(updatePhysics);
@@ -148,35 +154,41 @@ export default function Background() {
   }, [dimensions]);
 
   return (
-    <svg
-      ref={svgRef}
-      id="visual"
-      viewBox={`0 0 ${dimensions.width} ${dimensions.height}`}
-      xmlns="http://www.w3.org/2000/svg"
-      style={{
-        position: 'fixed',
-        top: 0,
-        left: 0,
-        width: `${dimensions.width}px`,
-        height: `${dimensions.height}px`,
-        zIndex: -10,
-      }}
-      className="pointer-events-none select-none bg-background"
-    >
-      <g ref={containerRef}>
-        {rawPaths.map((d, index) => (
-          <g key={index}>
-            <path
-              d={d}
-              fill="none"
-              className="duration-200"
-              stroke="var(--primary-main)"
-              strokeWidth="2"
-              style={{ opacity: 0.2 }}
-            />
-          </g>
-        ))}
-      </g>
-    </svg>
+    <group>
+      <div
+        className="fixed inset-0 -z-10 pointer-events-none"
+        style={{ backgroundColor: 'var(--secondary-main)', opacity: 0.2 }}
+      />
+      <svg
+        ref={svgRef}
+        id="visual"
+        viewBox={`0 0 ${dimensions.width} ${dimensions.height}`}
+        xmlns="http://www.w3.org/2000/svg"
+        style={{
+          position: 'fixed',
+          top: 0,
+          left: 0,
+          width: `${dimensions.width}px`,
+          height: `${dimensions.height}px`,
+          zIndex: -10,
+        }}
+        className="pointer-events-none select-none"
+      >
+        <g ref={containerRef}>
+          {rawPaths.map((d, index) => (
+            <g key={index}>
+              <path
+                d={d}
+                fill="none"
+                className="duration-200"
+                stroke="var(--primary-main)"
+                style={{ opacity: 0.2 }}
+                strokeWidth={2}
+              />
+            </g>
+          ))}
+        </g>
+      </svg>
+    </group>
   );
 }
