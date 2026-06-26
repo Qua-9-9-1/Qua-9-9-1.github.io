@@ -5,7 +5,7 @@ import ProjectTypeBall, { ballStates } from './ProjectTypeBall';
 import Wall from './Wall';
 import { useIsMobile } from '../../hooks/useMediaQuery';
 import { Text } from '@react-three/drei';
-import { useEffect, useRef, useMemo } from 'react';
+import { useEffect, useRef, useMemo, type ReactNode, Suspense } from 'react';
 import { useLanguage } from '../../context/LanguageContext';
 
 interface Props {
@@ -80,7 +80,7 @@ export default function PhysicsFilterScene({ technos, onFilterChange }: Props) {
     : FILTER_ZONE;
   const secondaryColor = '#3b82f6';
 
-  const filterZoneWalls: React.ReactNode = isMobile ? (
+  const filterZoneWalls: ReactNode = isMobile ? (
     <>
       <Wall
         key="mobile-wall-left"
@@ -138,70 +138,76 @@ export default function PhysicsFilterScene({ technos, onFilterChange }: Props) {
 
   return (
     <Canvas dpr={[1, 2]}>
-      <OrthographicCamera makeDefault position={[0, 0, 20]} zoom={zoom} />
-      <ambientLight intensity={0.5} />
-      <pointLight position={[10, 10, 10]} intensity={1} />
-      <Environment preset="park" />
-      <group position={[zoneConfig.x, zoneConfig.y, -0.5]}>
-        <mesh>
-          <planeGeometry args={[zoneConfig.width, zoneConfig.height]} />
-          <meshBasicMaterial color={secondaryColor} transparent opacity={0.2} />
-        </mesh>
+      <Suspense fallback={null}>
+        <OrthographicCamera makeDefault position={[0, 0, 20]} zoom={zoom} />
+        <ambientLight intensity={0.5} />
+        <pointLight position={[10, 10, 10]} intensity={1} />
+        <Environment preset="park" />
+        <group position={[zoneConfig.x, zoneConfig.y, -0.5]}>
+          <mesh>
+            <planeGeometry args={[zoneConfig.width, zoneConfig.height]} />
+            <meshBasicMaterial
+              color={secondaryColor}
+              transparent
+              opacity={0.2}
+            />
+          </mesh>
 
-        <Text
-          fontSize={0.4}
-          color="white"
-          textAlign="center"
-          maxWidth={zoneConfig.width - 1}
-          anchorX="center"
-          anchorY="middle"
-        >
-          {t.projects.ballsInstructions}
-        </Text>
-      </group>
+          <Text
+            fontSize={0.4}
+            color="white"
+            textAlign="center"
+            maxWidth={zoneConfig.width - 1}
+            anchorX="center"
+            anchorY="middle"
+          >
+            {t.projects.ballsInstructions}
+          </Text>
+        </group>
 
-      <Physics gravity={[0, -40, 0]} timeStep={1 / 60}>
-        <Wall
-          position={[0, -6, 0]}
-          args={[26, 1, 2]}
-          opacity={0.8}
-          color="#475569"
-        />
-        <Wall
-          position={[0, floorY, 0]}
-          args={[floorWidth, 1, 2]}
-          opacity={0.8}
-          color="#475569"
-        />
-        <Wall position={[-widthX, 2, 0]} args={[1, 17, 2]} opacity={0.5} />
-        <Wall position={[widthX, 2, 0]} args={[1, 17, 2]} opacity={0.5} />
-        {filterZoneWalls}
-        <Wall
-          position={[0, 0, -1.5]}
-          args={[floorWidth, 20, 0.5]}
-          opacity={0.2}
-          color="#1e293b"
-        />
-        <Wall
-          position={[0, 0, 1.5]}
-          args={[floorWidth, 20, 0.5]}
-          opacity={0.1}
-          color="#f1f5f9"
-        />
-
-        {technos.map((tech, index) => (
-          <ProjectTypeBall
-            key={tech}
-            label={tech}
-            startPosition={initialPositions[index]}
-            spawnRangeX={[-8, -2]}
-            resetY={-10}
-            limits={{ x: 12.5, floor: -6 }}
-            zoneTarget={zoneConfig}
+        <Physics gravity={[0, -40, 0]} timeStep={1 / 60}>
+          <Wall
+            position={[0, -6, 0]}
+            args={[26, 1, 2]}
+            opacity={0.8}
+            color="#475569"
           />
-        ))}
-        <SceneManager onFilterChange={onFilterChange} />
-      </Physics>
+          <Wall
+            position={[0, floorY, 0]}
+            args={[floorWidth, 1, 2]}
+            opacity={0.8}
+            color="#475569"
+          />
+          <Wall position={[-widthX, 2, 0]} args={[1, 17, 2]} opacity={0.5} />
+          <Wall position={[widthX, 2, 0]} args={[1, 17, 2]} opacity={0.5} />
+          {filterZoneWalls}
+          <Wall
+            position={[0, 0, -1.5]}
+            args={[floorWidth, 20, 0.5]}
+            opacity={0.2}
+            color="#1e293b"
+          />
+          <Wall
+            position={[0, 0, 1.5]}
+            args={[floorWidth, 20, 0.5]}
+            opacity={0.1}
+            color="#f1f5f9"
+          />
+
+          {technos.map((tech, index) => (
+            <ProjectTypeBall
+              key={tech}
+              label={tech}
+              startPosition={initialPositions[index]}
+              spawnRangeX={[-8, -2]}
+              resetY={-10}
+              limits={{ x: 12.5, floor: -6 }}
+              zoneTarget={zoneConfig}
+            />
+          ))}
+          <SceneManager onFilterChange={onFilterChange} />
+        </Physics>
+      </Suspense>
     </Canvas>
   );
 }
