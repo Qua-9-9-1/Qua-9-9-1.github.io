@@ -74,7 +74,7 @@ export default function Navbar() {
             </ButtonGroup>
           </div>
         )}
-        <Menubar>
+        <Menubar className="max-w-md">
           {isMobile && (
             <MenubarMenu>
               <MenubarTrigger>
@@ -101,7 +101,7 @@ export default function Navbar() {
             <Separator orientation="vertical" className="mx-2 bg-secondary" />
           </MenubarMenu>
           <MenubarMenu>
-            <div className="flex items-center px-3 py-1">
+            <div className="flex items-center px-2 py-1 shrink-0">
               {!isMobile ? (
                 <>
                   <Switch
