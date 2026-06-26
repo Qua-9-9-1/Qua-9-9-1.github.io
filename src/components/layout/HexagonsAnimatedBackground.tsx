@@ -45,27 +45,32 @@ export default function Background() {
   ];
 
   useEffect(() => {
-    const handleResize = () => {
-      const w = window.innerWidth;
-      const h = window.innerHeight;
-      setDimensions({ width: w, height: h });
+    let resizeTimer: number;
 
-      polygonsRef.current = rawPaths.map((d) => {
-        const anchorX = Math.floor(Math.random() * (w - 100)) + 50;
-        const anchorY = Math.floor(Math.random() * (h - 100)) + 50;
-        return {
-          d,
-          anchorX,
-          anchorY,
-          currentX: anchorX,
-          currentY: anchorY,
-          driftAngle: Math.random() * Math.PI * 2,
-          driftSpeed: 0.005 + Math.random() * 0.01,
-          driftRadius: 20 + Math.random() * 30,
-          opacity: 0.3,
-          strokeWidth: 2,
-        };
-      });
+    const handleResize = () => {
+      clearTimeout(resizeTimer);
+      resizeTimer = window.setTimeout(() => {
+        const w = window.innerWidth;
+        const h = window.innerHeight;
+        setDimensions({ width: w, height: h });
+
+        polygonsRef.current = rawPaths.map((d) => {
+          const anchorX = Math.floor(Math.random() * (w - 100)) + 50;
+          const anchorY = Math.floor(Math.random() * (h - 100)) + 50;
+          return {
+            d,
+            anchorX,
+            anchorY,
+            currentX: anchorX,
+            currentY: anchorY,
+            driftAngle: Math.random() * Math.PI * 2,
+            driftSpeed: 0.005 + Math.random() * 0.01,
+            driftRadius: 20 + Math.random() * 30,
+            opacity: 0.2,
+            strokeWidth: 2,
+          };
+        });
+      }, 200);
     };
 
     handleResize();
@@ -94,11 +99,11 @@ export default function Background() {
 
     const updatePhysics = () => {
       if (!containerRef.current) return;
-      const nodes = containerRef.current.children;
-      const mouse = mouseRef.current;
 
+      const mouse = mouseRef.current;
       const repulsionRadius = 150;
       const maxRepulsionForce = 60;
+      const nodes = containerRef.current.children;
 
       polygonsRef.current.forEach((poly, index) => {
         const node = nodes[index] as SVGElement;
@@ -126,7 +131,7 @@ export default function Background() {
 
           repulsionX = (dx / distance) * force * maxRepulsionForce;
           repulsionY = (dy / distance) * force * maxRepulsionForce;
-          targetOpacity = 0.3 + force * 0.3;
+          targetOpacity = 0.2 + force * 0.4;
           targetStrokeWidth = 2 + force * 2;
         }
 
@@ -154,7 +159,7 @@ export default function Background() {
   }, [dimensions]);
 
   return (
-    <group>
+    <>
       <div
         className="fixed inset-0 -z-10 pointer-events-none"
         style={{ backgroundColor: 'var(--secondary-main)', opacity: 0.2 }}
@@ -180,7 +185,6 @@ export default function Background() {
               <path
                 d={d}
                 fill="none"
-                className="duration-200"
                 stroke="var(--primary-main)"
                 style={{ opacity: 0.2 }}
                 strokeWidth={2}
@@ -189,6 +193,6 @@ export default function Background() {
           ))}
         </g>
       </svg>
-    </group>
+    </>
   );
 }
