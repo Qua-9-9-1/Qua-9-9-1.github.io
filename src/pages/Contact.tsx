@@ -47,13 +47,14 @@ export default function Contact() {
                   <Badge variant="secondary">{contact.badge}</Badge>
                   <span className="font-medium">{contact.label}</span>
                 </div>
-                <Button asChild variant="link" className="text-base">
+                <Button asChild variant="link" className="w-full">
                   <a
                     href={contact.href}
                     target="_blank"
                     rel="noopener noreferrer"
+                    className="overflow-hidden"
                   >
-                    {contact.value}
+                    <span className="truncate block">{contact.value}</span>
                   </a>
                 </Button>
               </div>
