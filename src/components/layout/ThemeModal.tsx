@@ -45,7 +45,7 @@ export default function ThemeModal({ isOpen, onClose }: ThemeModalProps) {
                   setMode(checked ? 'dark' : 'light')
                 }
               />
-              <p className="text-secondary flex-row gap-1 flex items-center">
+              <p className="flex-row gap-1 flex items-center">
                 {theme.mode === 'dark' ? <Moon /> : <Sun />}
                 {' - '}
                 {theme.mode === 'dark' ? t.theme.darkLabel : t.theme.lightLabel}
