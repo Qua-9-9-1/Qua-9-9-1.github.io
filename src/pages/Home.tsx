@@ -4,7 +4,6 @@ import { Separator } from '../components/ui/separator';
 import PresentationCard from '../components/home/PresentationCard';
 import CompetenciesCarousel from '../components/home/CompetenciesCarousel';
 import SmartLink from '../components/ui/smartLink';
-import LoadingContent from '@/components/home/LoadingContent';
 
 export default function Home() {
   const { t } = useLanguage();
