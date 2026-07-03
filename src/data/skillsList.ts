@@ -42,6 +42,7 @@ export const skills: Record<string, Skill[]> = {
     { name: 'Supabase', negative: false },
   ],
   Tools: [
+    { name: 'Cmake', negative: false },
     { name: 'Git', negative: false },
     { name: 'GitHub', negative: true },
     { name: 'GitLab', negative: false },
@@ -59,6 +60,8 @@ export const skills: Record<string, Skill[]> = {
     { name: 'Raspberry Pi', negative: false },
     { name: 'Godot', negative: false },
     { name: 'OpenGL', negative: false },
+    { name: 'OpenCV', negative: false },
+    { name: 'SDL2', negative: true },
     { name: 'Three.js', negative: true },
     { name: 'Tone.js', negative: false },
     { name: 'KDE', negative: false },
