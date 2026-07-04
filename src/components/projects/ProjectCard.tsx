@@ -48,45 +48,37 @@ export default function ProjectCard({ project }: { project: Project }) {
   return (
     <Card className="flex flex-col h-full">
       <CardHeader className="space-y-2">
-        <CardTitle className="text-primary min-h-[1.75rem] text-xl font-semibold">
-          {project.name}
+        {/* L'en-tête utilise Flexbox pour séparer le titre et le badge */}
+        <CardTitle className="text-primary min-h-[1.75rem] text-xl font-semibold flex items-center justify-between gap-3">
+          <span className="truncate">{project.name}</span>
+          <Badge
+            className={
+              'shrink-0 ' + getStatusBackgroundColor(project.status)
+            }
+          >
+            {getStatusLabel(project.status)}
+          </Badge>
         </CardTitle>
         <CardDescription className="text-secondary overflow-hidden min-h-[3rem] text-lg">
           {project.description}
         </CardDescription>
       </CardHeader>
-      <CardContent className="flex flex-col">
+      
+      <CardContent className="flex flex-col pb-0">
         <img
           src={project.imageUrl}
           alt={project.name}
-          className="rounded-md mb-4 w-full h-40 sm:h-48 md:h-56 object-cover"
+          className="rounded-md w-full h-40 sm:h-48 md:h-56 object-cover"
           onError={(e) => {
             (e.target as HTMLImageElement).src =
               'https://placehold.co/600x400?text=No+Image';
           }}
         />
-        <div className="min-h-[2rem] flex items-center">
-          <Badge
-            className={
-              'center allign-middle ' + getStatusBackgroundColor(project.status)
-            }
-          >
-            {getStatusLabel(project.status)}
-          </Badge>
-        </div>
+        {/* L'ancien emplacement du badge de statut a été supprimé ici */}
       </CardContent>
-      <CardFooter className="flex flex-col items-center w-full mt-auto">
-        <div className="flex flex-wrap justify-center items-center content-center w-full mb-2 h-[4rem] md:h-[5rem] overflow-y-auto">
-          {project.topics.map((techno) => (
-            <Badge
-              key={techno}
-              className="m-1 bg-secondary"
-              aria-label={techno}
-            >
-              {techno}
-            </Badge>
-          ))}
-        </div>
+
+      <CardFooter className="flex flex-col items-center w-full mt-auto pt-4">
+        {/* La section des topics a été totalement supprimée ici */}
         <div className="min-h-[3rem] flex items-center">
           <ButtonGroup>
             {project.url && (
@@ -97,7 +89,7 @@ export default function ProjectCard({ project }: { project: Project }) {
                 className="mb-1 cursor-pointer"
               >
                 <Button
-                  className="flex flex-col items-center hover:underline "
+                  className="flex flex-col items-center hover:underline"
                   aria-label={t.projects.codeLink}
                 >
                   {t.projects.codeLink}
@@ -112,7 +104,7 @@ export default function ProjectCard({ project }: { project: Project }) {
                 className="mb-1 cursor-pointer"
               >
                 <Button
-                  className="flex flex-col items-center hover:underline "
+                  className="flex flex-col items-center hover:underline"
                   aria-label={t.projects.homepageLink}
                 >
                   {t.projects.homepageLink}
