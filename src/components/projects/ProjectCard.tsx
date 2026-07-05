@@ -11,9 +11,11 @@ import {
 import { Badge } from '../ui/badge';
 import { Button } from '../ui/button';
 import { ButtonGroup } from '../ui/button-group';
+import { useState } from 'react';
 
 export default function ProjectCard({ project }: { project: Project }) {
   const { t } = useLanguage();
+  const [imgIndex, setImgIndex] = useState<number>(0);
 
   const getStatusBackgroundColor = (status: Project['status']): string => {
     switch (status) {
@@ -48,13 +50,10 @@ export default function ProjectCard({ project }: { project: Project }) {
   return (
     <Card className="flex flex-col h-full">
       <CardHeader className="space-y-2">
-        {/* L'en-tête utilise Flexbox pour séparer le titre et le badge */}
         <CardTitle className="text-primary min-h-[1.75rem] text-xl font-semibold flex items-center justify-between gap-3">
           <span className="truncate">{project.name}</span>
           <Badge
-            className={
-              'shrink-0 ' + getStatusBackgroundColor(project.status)
-            }
+            className={'shrink-0 ' + getStatusBackgroundColor(project.status)}
           >
             {getStatusLabel(project.status)}
           </Badge>
@@ -63,22 +62,28 @@ export default function ProjectCard({ project }: { project: Project }) {
           {project.description}
         </CardDescription>
       </CardHeader>
-      
+
       <CardContent className="flex flex-col pb-0">
         <img
-          src={project.imageUrl}
+          src={
+            project.imageUrls && project.imageUrls.length > 0
+              ? project.imageUrls[imgIndex]
+              : (project as any).imageUrl || ''
+          }
           alt={project.name}
           className="rounded-md w-full h-40 sm:h-48 md:h-56 object-cover"
           onError={(e) => {
-            (e.target as HTMLImageElement).src =
-              'https://placehold.co/600x400?text=No+Image';
+            if (project.imageUrls && imgIndex < project.imageUrls.length - 1) {
+              setImgIndex(imgIndex + 1);
+            } else {
+              (e.target as HTMLImageElement).src =
+                'https://placehold.co/600x400?text=No+Image';
+            }
           }}
         />
-        {/* L'ancien emplacement du badge de statut a été supprimé ici */}
       </CardContent>
 
       <CardFooter className="flex flex-col items-center w-full mt-auto pt-4">
-        {/* La section des topics a été totalement supprimée ici */}
         <div className="min-h-[3rem] flex items-center">
           <ButtonGroup>
             {project.url && (

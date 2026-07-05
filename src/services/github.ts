@@ -38,7 +38,12 @@ export const fetchGitHubProjects = async (): Promise<Project[]> => {
         status = 'stopped';
       }
 
-      const imageUrl = `https://raw.githubusercontent.com/${USERNAME}/${repo.name}/${repo.default_branch}/cover.png`;
+      const baseUrl = `https://raw.githubusercontent.com/${USERNAME}/${repo.name}/${repo.default_branch}`;
+      const imageUrls = [
+        `${baseUrl}/cover.avif`,
+        `${baseUrl}/cover.webp`,
+        `${baseUrl}/cover.png`,
+      ];
 
       return {
         id: repo.id,
@@ -56,7 +61,7 @@ export const fetchGitHubProjects = async (): Promise<Project[]> => {
             t !== 'unknown'
         ),
         status,
-        imageUrl,
+        imageUrls,
       };
     })
     .sort((b, a) => a.id - b.id);

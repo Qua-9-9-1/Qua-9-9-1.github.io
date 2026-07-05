@@ -13,5 +13,5 @@ export interface Project {
   homepageUrl?: string;
   topics: string[];
   status: ProjectStatus;
-  imageUrl: string;
+  imageUrls: string[];
 }
