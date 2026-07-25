@@ -4,7 +4,7 @@ export const ExternalProject: Project[] = [
   {
     name: 'Nodl',
     description: 'Web application for making visual designs',
-    imageUrl: './projects/nodl.webp',
+    imageUrls: ['./projects/nodl.webp'],
     homepageUrl: 'https://nodl.dev/',
     topics: [
       'typescript',
