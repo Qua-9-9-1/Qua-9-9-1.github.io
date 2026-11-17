@@ -1,6 +1,6 @@
-:root {
+:root[data-bg='gray'] {
   --radius: 0.625rem;
-  --background: oklch(1 0 0);
+  --background: oklch(0.955 0.006 264);
   --foreground: oklch(0.13 0.028 261.692);
   --card: oklch(1 0 0);
   --card-foreground: oklch(0.13 0.028 261.692);
@@ -33,7 +33,7 @@
   --sidebar-ring: oklch(0.707 0.022 261.325);
 }
 
-.dark {
+:root[data-bg='gray'].dark {
   --background: oklch(0.13 0.028 261.692);
   --foreground: oklch(0.985 0.002 247.839);
   --card: oklch(0.21 0.034 264.665);

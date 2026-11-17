@@ -1,4 +1,4 @@
-import { createContext, useContext, useState } from 'react';
+import { createContext, useContext, useEffect, useMemo, useState } from 'react';
 import type { ReactNode } from 'react';
 import { fr } from '../locales/fr';
 import { en } from '../locales/en';
@@ -16,22 +16,31 @@ const LanguageContext = createContext<LanguageContextType | undefined>(
   undefined
 );
 
-export const LanguageProvider = ({ children }: { children: ReactNode }) => {
-  const getDefaultLanguage = (): Language => {
-    const navLang = navigator.language || navigator.languages[0] || 'en';
-    return navLang.startsWith('en') ? 'en' : 'fr';
-  };
+const getDefaultLanguage = (): Language => {
+  const navLang = navigator.language || navigator.languages?.[0] || 'en';
+  return navLang.startsWith('en') ? 'en' : 'fr';
+};
 
-  const [language, setLanguage] = useState<Language>(getDefaultLanguage());
-  const t = language === 'fr' ? fr : en;
+export const LanguageProvider = ({ children }: { children: ReactNode }) => {
+  const [language, setLanguage] = useState<Language>(getDefaultLanguage);
+
+  useEffect(() => {
+    document.documentElement.lang = language;
+  }, [language]);
+
+  const value = useMemo(
+    () => ({ language, setLanguage, t: language === 'fr' ? fr : en }),
+    [language]
+  );
 
   return (
-    <LanguageContext.Provider value={{ language, setLanguage, t }}>
+    <LanguageContext.Provider value={value}>
       {children}
     </LanguageContext.Provider>
   );
 };
 
+// eslint-disable-next-line react-refresh/only-export-components
 export const useLanguage = () => {
   const context = useContext(LanguageContext);
 

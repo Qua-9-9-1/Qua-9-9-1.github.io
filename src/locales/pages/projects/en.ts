@@ -5,7 +5,7 @@ export const projects_en = {
   ballsInstructions: 'Drag the balls here to filter projects by category',
   categories: {
     all: 'All projects',
-    filter: 'Projects that contains:',
+    filter: 'Projects containing:',
     lowlevel: 'Low-level',
     highlevel: 'High-level',
     devops: 'DevOps',

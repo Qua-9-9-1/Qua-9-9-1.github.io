@@ -1,17 +1,14 @@
-body {
-  font-family: 'Fjalla One', sans-serif;
-}
-.wrap {
-  text-align: center;
-}
+/* Scoped: this used to set `body { font-family }`, changing the font of the
+   whole site once the 404 chunk had been loaded. */
 ._404-text {
-  font-size: 190px;
-  font-weight: 700;
+  font-size: clamp(96px, 28vw, 190px);
+  font-weight: 800;
+  line-height: 1;
   text-align: center;
   position: relative;
-  letter-spacing: 15px;
+  letter-spacing: 0.08em;
   display: inline-block;
-  color: var(--primary-main);
+  color: var(--primary-ink);
   &:before {
     content: attr(data-text);
     position: absolute;

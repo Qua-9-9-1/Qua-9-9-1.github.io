@@ -4,10 +4,61 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta name="description" content="Quentin Duval's portfolio" />
-    <link rel="preconnect" href="https://api.github.com" />
-    <link rel="preconnect" href="https://gist.githubusercontent.com" />
+    <meta name="color-scheme" content="light dark" />
+    <link rel="preconnect" href="https://api.github.com" crossorigin />
+    <link rel="preconnect" href="https://gist.githubusercontent.com" crossorigin />
+    <link rel="preconnect" href="https://avatars.githubusercontent.com" />
+    <link rel="dns-prefetch" href="https://github.com" />
+    <link rel="dns-prefetch" href="https://raw.githubusercontent.com" />
+    <!-- Draco decoder used by some of the 3D models -->
+    <link rel="dns-prefetch" href="https://www.gstatic.com" />
     <link rel="icon" type="image/svg+xml" href="/logo.svg" />
     <title>Quentin D</title>
+    <script>
+      // Picks and applies the theme before the first paint (no flash).
+      // - an explicit visitor choice (localStorage) wins;
+      // - otherwise the theme of this visit (sessionStorage) is kept on reload;
+      // - otherwise a random preset matching the OS light/dark preference.
+      // Keep the storage keys in sync with src/context/ThemeContext.tsx.
+      // The data below is injected at build time from src/data/themeOptions.ts.
+      (function () {
+        var D = /*__THEME_BOOT_DATA__*/ null;
+        if (!D) return;
+        var r = document.documentElement;
+        function read(store, key) {
+          try {
+            var t = JSON.parse(store.getItem(key));
+            return t && D.vars[t.duoId] && t.bg && t.mode ? t : null;
+          } catch (e) {
+            return null;
+          }
+        }
+        var t = read(localStorage, 'portfolio-theme-choice');
+        if (!t) t = read(sessionStorage, 'portfolio-theme-session');
+        if (!t) {
+          var dark =
+            window.matchMedia &&
+            window.matchMedia('(prefers-color-scheme: dark)').matches;
+          var pool = D.presets.filter(function (p) {
+            return p.mode === (dark ? 'dark' : 'light');
+          });
+          t = pool[Math.floor(Math.random() * pool.length)] || D.presets[0];
+          t = { mode: t.mode, bg: t.bg, duoId: t.duoId };
+          try {
+            sessionStorage.setItem('portfolio-theme-session', JSON.stringify(t));
+          } catch (e) {}
+        }
+        r.setAttribute('data-theme', t.mode);
+        r.setAttribute('data-bg', t.bg);
+        if (t.mode === 'dark') r.classList.add('dark');
+        r.style.colorScheme = t.mode;
+        var vars = D.vars[t.duoId][t.mode];
+        for (var k in vars) r.style.setProperty(k, vars[k]);
+        try {
+          if ((navigator.language || 'en').indexOf('en') !== 0) r.lang = 'fr';
+        } catch (e) {}
+      })();
+    </script>
   </head>
   <body>
     <div id="root"></div>

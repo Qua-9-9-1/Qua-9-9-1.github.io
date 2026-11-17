@@ -5,6 +5,7 @@ import { Separator } from '../ui/separator';
 import { useLanguage } from '../../context/LanguageContext';
 import type { Skill } from '../../data/skillsList';
 import { shuffleArray } from '../../utils/shuffleArray';
+import { useMemo } from 'react';
 import type React from 'react';
 import { FileBraces, Globe, Container, Wrench, Cpu } from 'lucide-react';
 import { useIsMobile } from '../../hooks/useMediaQuery';
@@ -25,10 +26,14 @@ function SkillSlider({
   const { t } = useLanguage();
 
   return (
-    <div className="items-center px-1 py-2 shadow-sm">
-      <h3 className="text-center font-bold mb-4 text-muted-foreground flex justify-center items-center">
+    <div className="items-center px-1 py-2">
+      <h3 className="mb-4 flex items-center justify-center gap-2 text-xs font-semibold uppercase tracking-widest text-muted-foreground">
+        {icon && (
+          <span className="inline-flex text-primary [&_svg]:size-4">
+            {icon}
+          </span>
+        )}
         {label}
-        {icon && <span className="inline-block ml-2">{icon}</span>}
       </h3>
 
       <InfiniteScroll
@@ -44,6 +49,11 @@ function SkillSlider({
               <img
                 src={getTechImage(skill.name)}
                 alt={skill.name + ' logo'}
+                width={48}
+                height={48}
+                loading="lazy"
+                decoding="async"
+                draggable={false}
                 className={
                   'object-contain object-center' +
                   (isMobile ? ' w-6 h-6' : ' w-12 h-12') +
@@ -51,17 +61,12 @@ function SkillSlider({
                 }
               />
               <span className="font-medium px-1">{skill.name}</span>
-              {!isMobile && (
-                <span className="absolute left-1/2 -translate-x-1/2 top-full mt-2 px-2 py-1 rounded bg-primary text-primary-foreground text-xs opacity-0 pointer-events-none transition-opacity duration-200 group-hover:opacity-100 z-2 shadow">
-                  check on web
-                </span>
-              )}
             </>
           );
           return isMobile ? (
             <div
               key={index}
-              className="carousel-item flex items-center px-3 py-1 border rounded-full bg-surface text-foreground shadow-sm transition-colors duration-200 focus:outline focus:ring-2  relative"
+              className="carousel-item flex items-center px-3 py-1 border rounded-full bg-card text-foreground shadow-sm transition-colors duration-200 focus-visible:ring-2 focus-visible:ring-ring relative"
               tabIndex={0}
               data-active={undefined}
               style={{}}
@@ -71,7 +76,7 @@ function SkillSlider({
           ) : (
             <a
               key={index}
-              className="carousel-item group flex items-center px-3 py-1 border rounded-full bg-surface text-foreground shadow-sm transition-colors duration-200 hover:border-primary relative cursor-pointer"
+              className="carousel-item group flex items-center px-3 py-1 border rounded-full bg-card text-foreground shadow-sm transition-colors duration-200 hover:border-primary/60 hover:bg-accent relative cursor-pointer"
               tabIndex={0}
               href={googleUrl}
               target="_blank"
@@ -91,41 +96,54 @@ function SkillSlider({
 
 export default function CompetenciesCarousel() {
   const { t } = useLanguage();
+  // Shuffle once per mount: shuffling during render re-ordered every list
+  // (and re-measured the marquees) on each re-render, e.g. when the remote
+  // config arrived or the language changed.
+  const shuffled = useMemo(
+    () => ({
+      Programming: shuffleArray(skills.Programming),
+      Web: shuffleArray(skills.Web),
+      DevOps: shuffleArray(skills.DevOps),
+      Tools: shuffleArray(skills.Tools),
+      Hardware_And_Graphics: shuffleArray(skills.Hardware_And_Graphics),
+    }),
+    []
+  );
 
   return (
-    <section className="max-w-7xl mx-auto px-4 py-8 bg-background shadow-sm rounded-lg">
+    <section className="mx-auto max-w-7xl rounded-xl border bg-card/80 px-2 py-6 shadow-sm sm:px-4">
       <SkillSlider
         label={t.home.skills.categories.programming}
         icon={<FileBraces />}
-        skills={shuffleArray(skills.Programming)}
+        skills={shuffled.Programming}
         reverse={false}
       />
-      <Separator className="my-8 bg-secondary" />
+      <Separator className="my-6" />
       <SkillSlider
         label={t.home.skills.categories.web}
         icon={<Globe />}
-        skills={shuffleArray(skills.Web)}
+        skills={shuffled.Web}
         reverse={true}
       />
-      <Separator className="my-8 bg-secondary" />
+      <Separator className="my-6" />
       <SkillSlider
         label={t.home.skills.categories.devops}
         icon={<Container />}
-        skills={shuffleArray(skills.DevOps)}
+        skills={shuffled.DevOps}
         reverse={false}
       />
-      <Separator className="my-8 bg-secondary" />
+      <Separator className="my-6" />
       <SkillSlider
         label={t.home.skills.categories.tools}
         icon={<Wrench />}
-        skills={shuffleArray(skills.Tools)}
+        skills={shuffled.Tools}
         reverse={true}
       />
-      <Separator className="my-8 bg-secondary" />
+      <Separator className="my-6" />
       <SkillSlider
         label={t.home.skills.categories.hardware_and_graphics}
         icon={<Cpu />}
-        skills={shuffleArray(skills.Hardware_And_Graphics)}
+        skills={shuffled.Hardware_And_Graphics}
         reverse={false}
       />
     </section>

@@ -14,7 +14,8 @@ export interface Config {
 
 export const loadingConfig: Config = {
   website_status: 'Available',
-  github_user: '...',
+  // Known up-front so the avatar can start loading before the config arrives.
+  github_user: 'Qua-9-9-1',
   username: 'Quentin',
   pro_title: { fr: 'Chargement...', en: 'Loading...' },
   work: { status: 'Loading...', from: '', to: '', details: { fr: '', en: '' } },

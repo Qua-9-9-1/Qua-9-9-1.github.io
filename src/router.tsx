@@ -2,10 +2,18 @@ import { lazy, Suspense } from 'react';
 import { createHashRouter } from 'react-router-dom';
 import RootLayout from './components/layout/RootLayout';
 import Home from './pages/Home';
+import LoadingContent from './components/home/LoadingContent';
+import { loadContact, loadNoContent, loadProjects } from './lib/routePreload';
 
-const Projects = lazy(() => import('./pages/Projects'));
-const Contact = lazy(() => import('./pages/Contact'));
-const NoContent = lazy(() => import('./pages/NoContent'));
+const Projects = lazy(loadProjects);
+const Contact = lazy(loadContact);
+const NoContent = lazy(loadNoContent);
+
+const pageFallback = (
+  <div className="flex w-full flex-1 items-center justify-center py-24">
+    <LoadingContent />
+  </div>
+);
 
 export const router = createHashRouter([
   {
@@ -19,7 +27,7 @@ export const router = createHashRouter([
       {
         path: 'projects',
         element: (
-          <Suspense fallback={<div />}>
+          <Suspense fallback={pageFallback}>
             <Projects />
           </Suspense>
         ),
@@ -27,7 +35,7 @@ export const router = createHashRouter([
       {
         path: 'contact',
         element: (
-          <Suspense fallback={<div />}>
+          <Suspense fallback={pageFallback}>
             <Contact />
           </Suspense>
         ),
@@ -35,7 +43,7 @@ export const router = createHashRouter([
       {
         path: '*',
         element: (
-          <Suspense fallback={<div />}>
+          <Suspense fallback={pageFallback}>
             <NoContent />
           </Suspense>
         ),

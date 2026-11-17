@@ -1,10 +1,9 @@
 import { Canvas, useFrame } from '@react-three/fiber';
 import { Physics } from '@react-three/rapier';
-import { OrthographicCamera, Environment } from '@react-three/drei';
+import { OrthographicCamera, Text } from '@react-three/drei';
 import ProjectTypeBall, { ballStates } from './ProjectTypeBall';
 import Wall from './Wall';
 import { useIsMobile } from '../../hooks/useMediaQuery';
-import { Text } from '@react-three/drei';
 import {
   useEffect,
   useRef,
@@ -101,9 +100,13 @@ export default function PhysicsFilterScene({ technos, onFilterChange }: Props) {
       setThemeColors({ primary, secondary, text });
     };
 
+    let resizeTimer = 0;
     const handleResize = () => {
-      setWindowWidth(window.innerWidth);
-      extractThemeColors();
+      clearTimeout(resizeTimer);
+      resizeTimer = window.setTimeout(
+        () => setWindowWidth(window.innerWidth),
+        150
+      );
     };
 
     extractThemeColors();
@@ -113,10 +116,12 @@ export default function PhysicsFilterScene({ technos, onFilterChange }: Props) {
     const observer = new MutationObserver(extractThemeColors);
     observer.observe(document.documentElement, {
       attributes: true,
-      attributeFilter: ['class', 'data-theme'],
+      // 'style' carries the --primary-main / --secondary-main duo colours.
+      attributeFilter: ['class', 'data-theme', 'data-bg', 'style'],
     });
 
     return () => {
+      clearTimeout(resizeTimer);
       window.removeEventListener('resize', handleResize);
       observer.disconnect();
     };
@@ -189,12 +194,15 @@ export default function PhysicsFilterScene({ technos, onFilterChange }: Props) {
   );
 
   return (
-    <Canvas dpr={[1, 2]}>
+    <Canvas dpr={[1, 1.5]} gl={{ powerPreference: 'high-performance' }}>
       <Suspense fallback={null}>
         <OrthographicCamera makeDefault position={[0, 0, 20]} zoom={zoom} />
         <ambientLight intensity={0.5} />
         <pointLight position={[10, 10, 10]} intensity={1} />
-        <Environment preset="park" />
+        {/* Local lights instead of <Environment preset="park" />, which downloaded
+            an HDR from a CDN and kept the whole scene blank until it arrived. */}
+        <hemisphereLight args={['#ffffff', '#666677', 1.1]} />
+        <directionalLight position={[-6, 8, 10]} intensity={1.2} />
         <group position={[zoneConfig.x, zoneConfig.y, -0.5]}>
           <mesh>
             <planeGeometry args={[zoneConfig.width, zoneConfig.height]} />

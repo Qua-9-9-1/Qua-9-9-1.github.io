@@ -1,6 +1,6 @@
-:root {
+:root[data-bg='zinc'] {
   --radius: 0.625rem;
-  --background: oklch(1 0 0);
+  --background: oklch(0.97 0.006 286);
   --foreground: oklch(0.141 0.005 285.823);
   --card: oklch(1 0 0);
   --card-foreground: oklch(0.141 0.005 285.823);
@@ -33,7 +33,7 @@
   --sidebar-ring: oklch(0.705 0.015 286.067);
 }
 
-.dark {
+:root[data-bg='zinc'].dark {
   --background: oklch(0.141 0.005 285.823);
   --foreground: oklch(0.985 0 0);
   --card: oklch(0.21 0.006 285.885);

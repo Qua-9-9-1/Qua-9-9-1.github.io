@@ -7,7 +7,8 @@ interface GitHubRepo {
   name: string;
   description: string;
   html_url: string;
-  homepage_url: string;
+  homepage?: string | null;
+  homepage_url?: string;
   topics: string[];
   updated_at: string;
   default_branch: string;
@@ -50,7 +51,8 @@ export const fetchGitHubProjects = async (): Promise<Project[]> => {
         name: repo.name.replace(/_/g, ' '),
         description: repo.description,
         url: repo.html_url,
-        homepageUrl: repo.homepage_url,
+        // The REST API field is `homepage`.
+        homepageUrl: repo.homepage || repo.homepage_url || undefined,
         topics: repo.topics.filter(
           (t) =>
             t !== 'portfolio' &&

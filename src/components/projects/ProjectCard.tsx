@@ -10,27 +10,28 @@ import {
 } from '../ui/card';
 import { Badge } from '../ui/badge';
 import { Button } from '../ui/button';
-import { ButtonGroup } from '../ui/button-group';
 import { useState } from 'react';
+import { ExternalLink, Github } from 'lucide-react';
+import { cn } from '../../lib/utils';
+
+// Soft, tinted status badges: readable in light and dark (the previous solid
+// yellow/green fills with white text were ~1.5–2.5:1).
+const STATUS_STYLE: Record<Project['status'], string> = {
+  completed:
+    'bg-emerald-500/15 text-emerald-800 border-emerald-600/30 dark:text-emerald-300 dark:border-emerald-400/30',
+  wip: 'bg-amber-400/20 text-amber-900 border-amber-600/30 dark:text-amber-200 dark:border-amber-300/30',
+  archived:
+    'bg-orange-500/15 text-orange-900 border-orange-600/30 dark:text-orange-200 dark:border-orange-300/30',
+  stopped:
+    'bg-red-500/15 text-red-800 border-red-600/30 dark:text-red-300 dark:border-red-400/30',
+  unknown:
+    'bg-muted text-muted-foreground border-border dark:text-muted-foreground',
+};
 
 export default function ProjectCard({ project }: { project: Project }) {
   const { t } = useLanguage();
   const [imgIndex, setImgIndex] = useState<number>(0);
-
-  const getStatusBackgroundColor = (status: Project['status']): string => {
-    switch (status) {
-      case 'completed':
-        return 'bg-green-500';
-      case 'wip':
-        return 'bg-yellow-400';
-      case 'archived':
-        return 'bg-orange-400';
-      case 'stopped':
-        return 'bg-red-400';
-      default:
-        return 'bg-gray-400';
-    }
-  };
+  const [imgFailed, setImgFailed] = useState(false);
 
   const getStatusLabel = (status: Project['status']): string => {
     switch (status) {
@@ -47,77 +48,96 @@ export default function ProjectCard({ project }: { project: Project }) {
     }
   };
 
+  const imageSrc =
+    project.imageUrls && project.imageUrls.length > 0
+      ? project.imageUrls[imgIndex]
+      : (project as Project & { imageUrl?: string }).imageUrl || '';
+
   return (
-    <Card className="flex flex-col h-full">
-      <CardHeader className="space-y-2">
-        <CardTitle className="text-primary min-h-[1.75rem] text-xl font-semibold flex items-center justify-between gap-3">
-          <span className="truncate">{project.name}</span>
+    <Card className="group flex flex-col h-full overflow-hidden transition-all duration-300 hover:-translate-y-1 hover:shadow-xl hover:shadow-primary/10 hover:border-primary/40">
+      <CardHeader className="space-y-3 pb-4">
+        <div className="flex items-start justify-between gap-3">
+          <CardTitle
+            className="text-xl font-semibold leading-tight text-primary truncate"
+            title={project.name}
+          >
+            {project.name}
+          </CardTitle>
           <Badge
-            className={'shrink-0 ' + getStatusBackgroundColor(project.status)}
+            variant="outline"
+            className={cn(
+              'shrink-0 whitespace-nowrap',
+              STATUS_STYLE[project.status] ?? STATUS_STYLE.unknown
+            )}
           >
             {getStatusLabel(project.status)}
           </Badge>
-        </CardTitle>
-        <CardDescription className="text-secondary overflow-hidden min-h-[3rem] text-lg">
+        </div>
+        <CardDescription className="text-sm leading-relaxed text-muted-foreground line-clamp-3 min-h-[3.9rem]">
           {project.description}
         </CardDescription>
       </CardHeader>
 
-      <CardContent className="flex flex-col pb-0">
-        <img
-          src={
-            project.imageUrls && project.imageUrls.length > 0
-              ? project.imageUrls[imgIndex]
-              : (project as any).imageUrl || ''
-          }
-          alt={project.name}
-          className="rounded-md w-full h-40 sm:h-48 md:h-56 object-cover"
-          onError={(e) => {
-            if (project.imageUrls && imgIndex < project.imageUrls.length - 1) {
-              setImgIndex(imgIndex + 1);
-            } else {
-              (e.target as HTMLImageElement).src =
-                'https://placehold.co/600x400?text=No+Image';
-            }
-          }}
-        />
+      <CardContent className="pb-0">
+        <div className="relative aspect-video overflow-hidden rounded-lg border bg-muted">
+          {!imageSrc || imgFailed ? (
+            // Local placeholder (no third-party request, matches the theme).
+            <div className="absolute inset-0 flex items-center justify-center bg-gradient-to-br from-brand/25 via-muted to-brand-2/25">
+              <span className="text-5xl font-black tracking-tight text-primary/70 select-none">
+                {project.name.slice(0, 2).toUpperCase()}
+              </span>
+            </div>
+          ) : (
+            <img
+              src={imageSrc}
+              alt={project.name}
+              loading="lazy"
+              decoding="async"
+              width={600}
+              height={338}
+              className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-105"
+              onError={() => {
+                if (
+                  project.imageUrls &&
+                  imgIndex < project.imageUrls.length - 1
+                ) {
+                  setImgIndex(imgIndex + 1);
+                } else {
+                  setImgFailed(true);
+                }
+              }}
+            />
+          )}
+        </div>
       </CardContent>
 
-      <CardFooter className="flex flex-col items-center w-full mt-auto pt-4">
-        <div className="min-h-[3rem] flex items-center">
-          <ButtonGroup>
-            {project.url && (
-              <a
-                href={project.url}
-                target="_blank"
-                rel="noreferrer"
-                className="mb-1 cursor-pointer"
-              >
-                <Button
-                  className="flex flex-col items-center hover:underline"
-                  aria-label={t.projects.codeLink}
-                >
-                  {t.projects.codeLink}
-                </Button>
-              </a>
-            )}
-            {project.homepageUrl && (
-              <a
-                href={project.homepageUrl}
-                target="_blank"
-                rel="noreferrer"
-                className="mb-1 cursor-pointer"
-              >
-                <Button
-                  className="flex flex-col items-center hover:underline"
-                  aria-label={t.projects.homepageLink}
-                >
-                  {t.projects.homepageLink}
-                </Button>
-              </a>
-            )}
-          </ButtonGroup>
-        </div>
+      <CardFooter className="mt-auto flex flex-wrap justify-center gap-2 pt-5">
+        {project.url && (
+          <Button asChild variant="outline" size="sm">
+            <a
+              href={project.url}
+              target="_blank"
+              rel="noreferrer"
+              aria-label={`${t.projects.codeLink} – ${project.name}`}
+            >
+              <Github />
+              {t.projects.codeLink}
+            </a>
+          </Button>
+        )}
+        {project.homepageUrl && (
+          <Button asChild variant="primary" size="sm">
+            <a
+              href={project.homepageUrl}
+              target="_blank"
+              rel="noreferrer"
+              aria-label={`${t.projects.homepageLink} – ${project.name}`}
+            >
+              <ExternalLink />
+              {t.projects.homepageLink}
+            </a>
+          </Button>
+        )}
       </CardFooter>
     </Card>
   );

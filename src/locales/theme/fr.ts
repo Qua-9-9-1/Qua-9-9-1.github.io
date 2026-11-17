@@ -20,9 +20,22 @@ export const theme_fr = {
     laser: 'Laser',
     mocha: 'Moka',
     gray: 'Gris',
+    synthwave: 'Synthwave',
+    aurora: 'Aurore',
+    sunset: 'Crépuscule',
   },
+  random: 'Surprenez-moi',
+  randomActive:
+    'Un thème aléatoire est choisi à chaque visite. Choisissez-en un ci-dessous pour le garder.',
+  randomHint:
+    'Votre choix est enregistré. Cliquez sur « Surprenez-moi » pour revenir à un thème aléatoire à chaque visite.',
   presets: {
     label: 'Préréglages',
+    Synthwave: 'Synthwave',
+    Aurora: 'Aurore',
+    Sunset: 'Crépuscule',
+    Lagoon: 'Lagon',
+    Sakura: 'Sakura',
     Developer: 'Développeur',
     Minimalist: 'Minimaliste',
     Midnight: 'Minuit',

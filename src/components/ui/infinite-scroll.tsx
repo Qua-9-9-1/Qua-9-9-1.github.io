@@ -22,16 +22,27 @@ export default function InfiniteScroll({
   const [activeIndex, setActiveIndex] = useState<number | null>(null);
   const containerRef = useRef<HTMLDivElement>(null);
 
+  // Measure the track with a ResizeObserver: no forced layout on every render,
+  // and the speed is corrected once lazy images have loaded.
   useEffect(() => {
-    if (!containerRef.current) return;
+    const content = containerRef.current?.firstElementChild as
+      | HTMLElement
+      | null
+      | undefined;
+    if (!content) return;
 
-    const content = containerRef.current.querySelector('div');
-    if (content) {
-      const width = (content as HTMLElement).offsetWidth;
-      const seconds = width / pxPerSec;
-      setDuration(`${seconds}s`);
-    }
-  }, [children, speed, pxPerSec]);
+    const update = (width: number) => {
+      if (width > 0) setDuration(`${(width / pxPerSec).toFixed(2)}s`);
+    };
+    update(content.offsetWidth);
+
+    if (typeof ResizeObserver === 'undefined') return;
+    const observer = new ResizeObserver(([entry]) =>
+      update(entry.contentRect.width)
+    );
+    observer.observe(content);
+    return () => observer.disconnect();
+  }, [pxPerSec]);
 
   const handleMouseOver = (e: React.MouseEvent) => {
     if (pauseOnHover) {
@@ -104,9 +115,7 @@ export default function InfiniteScroll({
   });
 
   return (
-    <div className="relative w-full overflow-hidden bg-background select-none">
-      <div className="absolute left-0 top-0 z-2 h-full w-20 bg-gradient-to-r from-background to-transparent pointer-events-none" />
-      <div className="absolute right-0 top-0 z-2 h-full w-20 bg-gradient-to-l from-background to-transparent pointer-events-none" />
+    <div className="relative w-full overflow-hidden select-none [mask-image:linear-gradient(to_right,transparent,black_8%,black_92%,transparent)]">
       <div
         ref={containerRef}
         className={`flex w-max min-w-full`}
@@ -117,6 +126,7 @@ export default function InfiniteScroll({
           animationIterationCount: 'infinite',
           animationDirection: direction ? 'normal' : 'reverse',
           animationPlayState: paused ? 'paused' : 'running',
+          willChange: 'transform',
         }}
         onMouseOver={handleMouseOver}
         onMouseOut={handleMouseOut}

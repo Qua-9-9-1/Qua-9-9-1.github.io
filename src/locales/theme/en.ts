@@ -20,9 +20,22 @@ export const theme_en = {
     laser: 'Laser',
     mocha: 'Mocha',
     gray: 'Gray',
+    synthwave: 'Synthwave',
+    aurora: 'Aurora',
+    sunset: 'Sunset',
   },
+  random: 'Surprise me',
+  randomActive:
+    'A random theme is picked on each visit. Choose one below to keep it.',
+  randomHint:
+    'Your choice is saved. Click "Surprise me" to go back to a random theme on each visit.',
   presets: {
     label: 'Presets',
+    Synthwave: 'Synthwave',
+    Aurora: 'Aurora',
+    Sunset: 'Sunset',
+    Lagoon: 'Lagoon',
+    Sakura: 'Sakura',
     Developer: 'Developer',
     Minimalist: 'Minimalist',
     Midnight: 'Midnight',

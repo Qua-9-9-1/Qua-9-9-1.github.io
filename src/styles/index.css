@@ -1,4 +1,11 @@
 @import 'tailwindcss';
+/* Background themes are bundled (scoped by html[data-bg]) instead of being
+   injected at runtime: no extra request and no flash of unstyled theme. */
+@import './themes/neutral.css';
+@import './themes/stone.css';
+@import './themes/zinc.css';
+@import './themes/gray.css';
+@import './themes/slate.css';
 
 @custom-variant dark (&:is(.dark *));
 
@@ -36,27 +43,41 @@ body,
   padding: 0;
 }
 
-.text-primary {
-  color: var(--primary-main);
-}
-.text-secondary {
-  color: var(--secondary-main);
-}
-
-.bg-primary {
-  background-color: var(--primary-main);
+body {
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
 }
 
-.bg-secondary {
-  background-color: var(--secondary-main);
+/* Theme-aware surfaces derived from the colour duo (set by ThemeContext /
+   the boot script in index.html). `.dark` repeated for specificity parity
+   with the per-background theme files. */
+:root[data-bg],
+:root[data-bg].dark {
+  --accent: color-mix(in oklch, var(--primary-main) 14%, var(--card));
+  --accent-foreground: var(--foreground);
+  --ring: var(--primary-ink);
 }
 
-.border-primary {
-  border-color: var(--primary-main);
+::selection {
+  background: color-mix(in oklch, var(--primary-main) 35%, transparent);
+  color: var(--foreground);
 }
 
-.border-secondary {
-  border-color: var(--secondary-main);
+:focus-visible {
+  outline-color: var(--primary-ink);
+}
+
+/* Gradient text in the theme colours (contrast-safe inks). */
+.text-gradient-brand {
+  background-image: linear-gradient(
+    100deg,
+    var(--primary-ink) 10%,
+    var(--secondary-ink) 90%
+  );
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
 }
 
 ::-webkit-scrollbar {
@@ -86,6 +107,13 @@ body,
     color 0.3s ease,
     border-color 0.3s ease;
   --radius: 0.625rem;
+  /* Fallback duo (overridden at runtime, see getThemeVars). */
+  --primary-main: #1d8cf8;
+  --secondary-main: #0a5da5;
+  --primary-ink: #0a6ed1;
+  --secondary-ink: #0a5da5;
+  --on-primary: #ffffff;
+  --on-secondary: #ffffff;
   --background: oklch(1 0 0);
   --foreground: oklch(0.13 0.028 261.692);
   --card: oklch(1 0 0);
@@ -133,10 +161,15 @@ body,
   --color-card-foreground: var(--card-foreground);
   --color-popover: var(--popover);
   --color-popover-foreground: var(--popover-foreground);
-  --color-primary: var(--primary);
-  --color-primary-foreground: var(--primary-foreground);
-  --color-secondary: var(--secondary);
-  --color-secondary-foreground: var(--secondary-foreground);
+  /* primary / secondary = theme duo, contrast-corrected for text & fills
+     (≥ 4.5:1 on cards), with a readable foreground on top of them. */
+  --color-primary: var(--primary-ink);
+  --color-primary-foreground: var(--on-primary);
+  --color-secondary: var(--secondary-ink);
+  --color-secondary-foreground: var(--on-secondary);
+  /* brand / brand-2 = raw duo colours, for decoration only. */
+  --color-brand: var(--primary-main);
+  --color-brand-2: var(--secondary-main);
   --color-muted: var(--muted);
   --color-muted-foreground: var(--muted-foreground);
   --color-accent: var(--accent);
@@ -215,6 +248,17 @@ body,
   }
   to {
     transform: translateX(0);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
   }
 }
 

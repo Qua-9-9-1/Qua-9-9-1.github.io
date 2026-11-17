@@ -1,8 +1,6 @@
 import { useLanguage } from '../context/LanguageContext';
 import { Card, CardContent, CardTitle } from '../components/ui/card';
-import { Badge } from '../components/ui/badge';
-import { Button } from '../components/ui/button';
-import { Mail, Linkedin, Github } from 'lucide-react';
+import { Mail, Linkedin, Github, ArrowUpRight } from 'lucide-react';
 import { useRemoteConfig } from '../hooks/useRemoteConfig';
 
 export default function Contact() {
@@ -14,53 +12,55 @@ export default function Contact() {
       label: 'Email',
       value: 'quentduva@gmail.com',
       href: 'mailto:quentduva@gmail.com',
-      badge: <Mail />,
+      icon: <Mail />,
     },
     {
       label: 'LinkedIn',
       value: 'linkedin.com/in/quentin-duval-1a16a0186',
       href: 'https://www.linkedin.com/in/quentin-duval-1a16a0186/',
-      badge: <Linkedin />,
+      icon: <Linkedin />,
     },
     {
       label: 'GitHub',
       value: `github.com/${config.github_user}`,
       href: `https://github.com/${config.github_user}`,
-      badge: <Github />,
+      icon: <Github />,
     },
   ];
 
   return (
-    <div className="flex flex-col items-center justify-center p-4">
-      <Card className="w-full max-w-xl shadow-lg">
-        <CardContent className="py-8 px-6 flex flex-col items-center gap-6">
-          <CardTitle className="text-3xl font-bold mb-2 text-center">
+    <div className="flex w-full flex-col items-center justify-center p-4 py-12">
+      <Card className="w-full max-w-xl shadow-xl overflow-hidden">
+        <div className="h-1.5 bg-gradient-to-r from-brand to-brand-2" />
+        <CardContent className="py-10 px-6 sm:px-8 flex flex-col items-center gap-8">
+          <CardTitle className="text-3xl font-extrabold tracking-tight text-center text-gradient-brand py-1">
             {t.contact.title}
           </CardTitle>
-          <div className="flex flex-col gap-4 w-full">
+          <ul className="flex flex-col gap-3 w-full">
             {contacts.map((contact) => (
-              <div
-                key={contact.label}
-                className="flex flex-row items-center justify-between bg-muted/40 rounded-lg px-4 py-3 shadow-sm"
-              >
-                <div className="flex items-center gap-3">
-                  <Badge variant="secondary">{contact.badge}</Badge>
-                  <span className="font-medium">{contact.label}</span>
-                </div>
-                <Button asChild variant="link" className="w-full">
-                  <a
-                    href={contact.href}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    aria-label={contact.label}
-                    className="overflow-hidden"
-                  >
-                    <span className="truncate block">{contact.value}</span>
-                  </a>
-                </Button>
-              </div>
+              <li key={contact.label}>
+                <a
+                  href={contact.href}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="group flex items-center gap-4 rounded-xl border bg-muted/40 px-4 py-3 transition-all hover:-translate-y-0.5 hover:border-primary/50 hover:bg-accent hover:shadow-md"
+                >
+                  <span className="flex size-10 shrink-0 items-center justify-center rounded-full bg-primary/15 text-primary [&_svg]:size-5">
+                    {contact.icon}
+                  </span>
+                  <span className="flex min-w-0 flex-col">
+                    <span className="text-sm font-semibold">
+                      {contact.label}
+                    </span>
+                    <span className="truncate text-sm text-muted-foreground group-hover:text-foreground">
+                      {contact.value}
+                    </span>
+                  </span>
+                  <ArrowUpRight className="ml-auto size-4 shrink-0 text-muted-foreground transition-transform group-hover:-translate-y-0.5 group-hover:translate-x-0.5 group-hover:text-primary" />
+                </a>
+              </li>
             ))}
-          </div>
+          </ul>
         </CardContent>
       </Card>
     </div>

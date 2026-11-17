@@ -1,4 +1,5 @@
 import * as React from 'react';
+import { useGLTF } from '@react-three/drei';
 import { useLanguage } from '../../context/LanguageContext';
 import {
   Carousel,
@@ -9,17 +10,125 @@ import {
   type CarouselApi,
 } from '../ui/carousel';
 import { Card, CardContent } from '../ui/card';
-import Scene3D from '../canvas/3DScene';
+import Scene3D, { type Scene3DProps } from '../canvas/3DScene';
 import { useIsMobile } from '../../hooks/useMediaQuery';
+import { useInView } from '../../hooks/useInView';
 import { cn } from '../../lib/utils';
 import { FormatedText } from '../ui/formatedText';
 import LoadingContent from './LoadingContent';
 
-interface HobbyScene {
-  label: string;
-  description: string;
-  getScene: () => React.ReactNode;
+// Static scene descriptions (index = hobby index in the translations).
+const HOBBY_SCENES: Scene3DProps[] = [
+  // Development
+  {
+    models: [
+      {
+        url: '/models/laptop/scene.glb',
+        position: [1.8, -2.0, 1.8],
+        rotation: [0.4, 3.1, 0.2],
+        scale: 3.9,
+      },
+    ],
+  },
+  // Electronics
+  {
+    models: [
+      {
+        url: '/models/multimeter/scene.glb',
+        position: [0, 0, 0],
+        rotation: [67.5, 3.3, 0],
+        scale: 0.25,
+      },
+    ],
+  },
+  // Gaming & Retro Gaming
+  {
+    models: [
+      {
+        url: '/models/controller/scene.glb',
+        position: [0, 0, -0.5],
+        rotation: [-11.3, -45.0, 0],
+        scale: 0.08,
+      },
+    ],
+  },
+  // Music
+  {
+    models: [
+      {
+        url: '/models/MIDI_keyboard/scene.glb',
+        position: [0, 0, 0],
+        rotation: [-11.3, 11.3, 0],
+        scale: 0.01,
+      },
+    ],
+  },
+  // Drawing and design
+  {
+    models: [
+      {
+        url: '/models/graphic_tablet/scene.glb',
+        position: [0, 0, 0],
+        rotation: [11.3, 0, 0],
+        scale: 0.8,
+      },
+    ],
+  },
+  // 3D (dev) and shaders
+  {
+    models: [
+      {
+        url: '/models/nodl/logo.glb',
+        position: [0.9, 1.05, 0],
+        rotation: [0.67, 0, 0.2],
+        scale: 0.5,
+      },
+    ],
+    shapes: [
+      {
+        type: 'cone',
+        position: [-1.1, 0.6, -0.6],
+        rotation: [0.1, 0, 0.5],
+        scale: 1.5,
+        color: '#ff8f00',
+        wireframe: true,
+        size: 1,
+      },
+      {
+        type: 'torus',
+        position: [0, -1, 1],
+        rotation: [1.5, 0.92, 0],
+        scale: 1.2,
+        wireframe: false,
+        size: 1,
+        fragmentShaderUrl: '/shaders/frag/psychedelic.glsl',
+      },
+    ],
+  },
+  // Videos
+  {
+    models: [
+      {
+        url: '/models/video_camera/scene.glb',
+        position: [35, -2, -5],
+        rotation: [0, 0, 0],
+        scale: 10,
+      },
+    ],
+  },
+];
+
+const wrap = (i: number, n: number) => ((i % n) + n) % n;
+
+function preloadScene(index: number) {
+  HOBBY_SCENES[index]?.models?.forEach((m) => useGLTF.preload(m.url));
 }
+
+const sceneFallback = (
+  <div className="w-full h-full flex items-center justify-center">
+    <LoadingContent />
+  </div>
+);
 
 export default function HobbiesCarousel() {
   const { t } = useLanguage();
@@ -27,190 +136,67 @@ export default function HobbiesCarousel() {
   const [api, setApi] = React.useState<CarouselApi>();
   const [current, setCurrent] = React.useState(0);
   const [count, setCount] = React.useState(0);
-  const [loadedScenes, setLoadedScenes] = React.useState<Set<number>>(
-    new Set([0])
-  );
+  // Pause the render loop when the carousel is scrolled out of view.
+  const [rootRef, inView] = useInView<HTMLDivElement>();
 
-  const hobbiesWithScenes: HobbyScene[] = React.useMemo(
-    () =>
-      t.home.hobbies.items.map((hobby, index) => {
-        const getScene = () => {
-          switch (index) {
-            case 0: // Development
-              return (
-                <Scene3D
-                  autoRotate={true}
-                  models={[
-                    {
-                      url: '/models/laptop/scene.glb',
-                      position: [1.8, -2.0, 1.8],
-                      rotation: [0.4, 3.1, 0.2],
-                      scale: 3.9,
-                    },
-                  ]}
-                />
-              );
-            case 1: // Electronics
-              return (
-                <Scene3D
-                  autoRotate={true}
-                  models={[
-                    {
-                      url: '/models/multimeter/scene.glb',
-                      position: [0, 0, 0],
-                      rotation: [67.5, 3.3, 0],
-                      scale: 0.25,
-                    },
-                  ]}
-                />
-              );
-            case 2: // Gaming & Retro Gaming
-              return (
-                <Scene3D
-                  autoRotate={true}
-                  models={[
-                    {
-                      url: '/models/controller/scene.glb',
-                      position: [0, 0, -0.5],
-                      rotation: [-11.3, -45.0, 0],
-                      scale: 0.08,
-                    },
-                  ]}
-                />
-              );
-            case 3: // Music
-              return (
-                <Scene3D
-                  autoRotate={true}
-                  models={[
-                    {
-                      url: '/models/MIDI_keyboard/scene.glb',
-                      position: [0, 0, 0],
-                      rotation: [-11.3, 11.3, 0],
-                      scale: 0.01,
-                    },
-                  ]}
-                />
-              );
-            case 4: // Drawing and design
-              return (
-                <Scene3D
-                  autoRotate={true}
-                  models={[
-                    {
-                      url: '/models/graphic_tablet/scene.glb',
-                      position: [0, 0, 0],
-                      rotation: [11.3, 0, 0],
-                      scale: 0.8,
-                    },
-                  ]}
-                />
-              );
-            case 5: // 3D (dev) and shaders
-              return (
-                <Scene3D
-                  autoRotate={true}
-                  models={[
-                    {
-                      url: '/models/nodl/logo.glb',
-                      position: [0.9, 1.05, 0],
-                      rotation: [0.67, 0, 0.2],
-                      scale: 0.5,
-                    },
-                  ]}
-                  shapes={[
-                    {
-                      type: 'cone',
-                      position: [-1.1, 0.6, -0.6],
-                      rotation: [0.1, 0, 0.5],
-                      scale: 1.5,
-                      color: '#ff8f00',
-                      wireframe: true,
-                      size: 1,
-                    },
-                    {
-                      type: 'torus',
-                      position: [0, -1, 1],
-                      rotation: [1.5, 0.92, 0],
-                      scale: 1.2,
-                      wireframe: false,
-                      size: 1,
-                      fragmentShaderUrl: '/shaders/frag/psychedelic.glsl',
-                    },
-                  ]}
-                />
-              );
-            case 6: // Videos
-              return (
-                <Scene3D
-                  autoRotate={true}
-                  models={[
-                    {
-                      url: '/models/video_camera/scene.glb',
-                      position: [35, -2, -5],
-                      rotation: [0, 0, 0],
-                      scale: 10,
-                    },
-                  ]}
-                />
-              );
-            default:
-              return <></>;
-          }
-        };
-
-        return {
-          label: hobby.label,
-          description: hobby.description,
-          getScene,
-        };
-      }),
-    [t.home.hobbies.items]
-  );
+  const items = t.home.hobbies.items;
+  const total = items.length;
 
   React.useEffect(() => {
-    if (!api) {
-      return;
-    }
+    if (!api) return;
+    const onSelect = () => setCurrent(api.selectedScrollSnap());
     setCount(api.scrollSnapList().length);
-    setCurrent(api.selectedScrollSnap());
+    onSelect();
+    api.on('select', onSelect);
+    api.on('reInit', onSelect);
+    return () => {
+      api.off('select', onSelect);
+      api.off('reInit', onSelect);
+    };
+  }, [api]);
 
-    api.on('select', () => {
-      const selected = api.selectedScrollSnap();
-      setCurrent(selected);
-
-      setLoadedScenes((prev) => {
-        const newSet = new Set(prev);
-        newSet.add(selected);
-        if (selected > 0) newSet.add(selected - 1);
-        if (selected < count - 1) newSet.add(selected + 1);
-        return newSet;
-      });
-    });
-  }, [api, count]);
-
+  // Warm the GLTF cache for the slides around the current one.
   React.useEffect(() => {
-    setLoadedScenes(new Set([0, 1]));
-  }, []);
+    preloadScene(wrap(current + 1, total));
+    preloadScene(wrap(current - 1, total));
+  }, [current, total]);
+
+  // Only the current slide and its two neighbours own a WebGL context (max 3
+  // instead of up to 7 canvases all rendering at 60 fps). Neighbours render
+  // on demand (a single frame) so they look right while swiping.
+  const isMounted = (index: number) =>
+    index === current ||
+    index === wrap(current + 1, total) ||
+    index === wrap(current - 1, total);
+
+  const renderScene = (index: number) => {
+    const scene = HOBBY_SCENES[index];
+    if (!scene) return null;
+    if (!isMounted(index)) return sceneFallback;
+    return (
+      <Scene3D
+        {...scene}
+        autoRotate
+        frameloop={index === current && inView ? 'always' : 'demand'}
+      />
+    );
+  };
 
   return (
-    <div className={cn('mx-auto', isMobile ? 'max-w-sm' : 'max-w-5xl')}>
+    <div
+      ref={rootRef}
+      className={cn('mx-auto', isMobile ? 'max-w-sm' : 'max-w-5xl')}
+    >
       <Carousel setApi={setApi} className="w-full" opts={{ loop: true }}>
         <CarouselContent>
-          {hobbiesWithScenes.map((hobby, index) => (
+          {items.map((hobby, index) => (
             <CarouselItem key={index}>
               <Card>
                 <CardContent className={cn('p-6', isMobile ? '' : 'p-8')}>
                   {isMobile ? (
                     <div className="flex flex-col space-y-4">
                       <div className="aspect-square rounded-lg overflow-hidden bg-muted/30">
-                        {loadedScenes.has(index) ? (
-                          hobby.getScene()
-                        ) : (
-                          <div className="w-full h-full flex items-center justify-center">
-                            <LoadingContent />
-                          </div>
-                        )}
+                        {renderScene(index)}
                       </div>
                       <h4 className="text-xl font-bold text-center text-primary">
                         {hobby.label}
@@ -230,13 +216,7 @@ export default function HobbiesCarousel() {
                         </p>
                       </div>
                       <div className="aspect-square rounded-2xl overflow-hidden bg-muted/30 shadow-lg">
-                        {loadedScenes.has(index) ? (
-                          hobby.getScene()
-                        ) : (
-                          <div className="w-full h-full flex items-center justify-center">
-                            <LoadingContent />
-                          </div>
-                        )}
+                        {renderScene(index)}
                       </div>
                     </div>
                   )}
@@ -254,6 +234,7 @@ export default function HobbiesCarousel() {
           <button
             key={index}
             onClick={() => api?.scrollTo(index)}
+            aria-label={`${index + 1} / ${count}`}
             className={cn(
               'w-2.5 h-2.5 rounded-full transition-all duration-300',
               current === index
