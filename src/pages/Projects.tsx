@@ -4,7 +4,7 @@ import { useLanguage } from '../context/LanguageContext';
 import ProjectList from '../components/projects/ProjectList';
 import LoadingContent from '../components/home/LoadingContent';
 import PhysicsFilterScene from '../components/projects/PhysicsFilterScene';
-import { TOPIC_TO_CATEGORY } from '../data/topicCategories';
+import { TOPIC_TO_CATEGORY, getCategoryColor } from '../data/topicCategories';
 
 export default function ProjectsPage() {
   const { projects, loading, error } = useProjects();
@@ -20,7 +20,7 @@ export default function ProjectsPage() {
         if (cat) categories.add(cat);
       })
     );
-    return Array.from(categories);
+    return Array.from(categories).sort();
   }, [projects]);
 
   const filteredProjects = useMemo(() => {
@@ -41,15 +41,22 @@ export default function ProjectsPage() {
     );
 
   return (
-    <div className="flex w-full flex-col">
-      <div style={{ touchAction: 'none' }} className="h-[40vh] w-full relative">
+    <div className="mx-auto flex w-full max-w-[1600px] flex-col p-4 sm:px-6">
+      <div
+        style={{ touchAction: 'none' }}
+        className="relative mb-8 h-[clamp(280px,42vh,460px)] w-full overflow-hidden rounded-2xl border bg-card/50 shadow-sm backdrop-blur-[2px]"
+      >
+        <div
+          aria-hidden="true"
+          className="pointer-events-none absolute inset-x-0 top-0 h-1 bg-gradient-to-r from-brand to-brand-2"
+        />
         <PhysicsFilterScene
           technos={allCategories}
           onFilterChange={setSelectedTechnos}
         />
       </div>
 
-      <div className="mx-auto w-full max-w-[1600px] p-4 sm:px-6">
+      <div className="w-full">
         <div className="mb-6 flex flex-wrap items-center gap-x-3 gap-y-2">
           <h2 className="text-2xl font-bold tracking-tight">
             {selectedTechnos.length === 0
@@ -59,8 +66,17 @@ export default function ProjectsPage() {
           {selectedTechnos.map((cat) => (
             <span
               key={cat}
-              className="rounded-full bg-primary/15 px-3 py-1 text-sm font-medium text-primary"
+              className="inline-flex items-center gap-2 rounded-full border px-3 py-1 text-sm font-medium"
+              style={{
+                borderColor: `color-mix(in oklch, ${getCategoryColor(cat)} 45%, transparent)`,
+                background: `color-mix(in oklch, ${getCategoryColor(cat)} 14%, transparent)`,
+              }}
             >
+              <span
+                aria-hidden="true"
+                className="size-2.5 rounded-full"
+                style={{ background: getCategoryColor(cat) }}
+              />
               {t.projects.categories[cat as keyof typeof t.projects.categories]}
             </span>
           ))}

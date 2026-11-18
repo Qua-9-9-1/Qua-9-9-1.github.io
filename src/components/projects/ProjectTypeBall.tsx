@@ -1,50 +1,59 @@
-import { useRef, useState, useMemo } from 'react';
-import { useFrame, useThree, type ThreeEvent } from '@react-three/fiber';
+import { useEffect, useRef, useState } from 'react';
+import { useFrame, type ThreeEvent } from '@react-three/fiber';
 import { RigidBody, RapierRigidBody, BallCollider } from '@react-three/rapier';
 import { Text } from '@react-three/drei';
-import { useLanguage } from '../../context/LanguageContext';
-import { useIsMobile } from '../../hooks/useMediaQuery';
-import type { Mesh } from 'three';
+import type { Mesh, MeshPhysicalMaterial } from 'three';
 import type { PointerEvent } from 'react';
+import { ballStates } from './ballStates';
 
-export const ballStates = new Map<string, boolean>();
+export interface Bounds {
+  minX: number;
+  maxX: number;
+  minY: number;
+  maxY: number;
+}
 
 interface BallProps {
+  category: string;
   label: string;
+  color: string;
+  radius: number;
   startPosition: [number, number, number];
-  spawnRangeX: number[];
-  resetY?: number;
-  limits: { x: number; floor: number };
-  zoneTarget: { x: number; y: number; width: number; height: number };
+  /** Visible play area: dragging is clamped to it, escaping balls respawn. */
+  bounds: Bounds;
+  /** Where escaped balls come back (x range at the top of the pool). */
+  spawnRangeX: [number, number];
+  zone: Bounds;
 }
 
 export default function ProjectTypeBall({
+  category,
   label,
+  color,
+  radius,
   startPosition,
+  bounds,
   spawnRangeX,
-  resetY = -10,
-  limits,
-  zoneTarget,
+  zone,
 }: BallProps) {
-  const { t } = useLanguage();
-  const isMobile = useIsMobile();
   const rigidBody = useRef<RapierRigidBody>(null);
-  const [isDragging, setIsDragging] = useState(false);
-  const { viewport } = useThree();
-  const RADIUS = isMobile ? 0.55 : 0.85;
   const textRef = useRef<Mesh>(null);
+  const materialRef = useRef<MeshPhysicalMaterial>(null);
+  const [isDragging, setIsDragging] = useState(false);
 
-  const color = useMemo(
-    () =>
-      '#' +
-      Math.floor(Math.abs(Math.sin(label.length + 10) * 16777215)).toString(16),
-    [label]
+  useEffect(() => () => void ballStates.delete(category), [category]);
+  useEffect(
+    () => () => {
+      document.body.style.cursor = '';
+    },
+    []
   );
 
   const onPointerDown = (e: ThreeEvent<PointerEvent>) => {
     e.stopPropagation();
     (e.target as Element).setPointerCapture(e.pointerId);
     setIsDragging(true);
+    document.body.style.cursor = 'grabbing';
     rigidBody.current?.setBodyType(2, true);
     rigidBody.current?.wakeUp();
   };
@@ -53,6 +62,7 @@ export default function ProjectTypeBall({
     e.stopPropagation();
     (e.target as Element).releasePointerCapture(e.pointerId);
     setIsDragging(false);
+    document.body.style.cursor = 'grab';
 
     if (rigidBody.current) {
       const vel = rigidBody.current.linvel();
@@ -65,60 +75,56 @@ export default function ProjectTypeBall({
     }
   };
 
-  useFrame(({ pointer }) => {
-    if (!rigidBody.current) return;
+  useFrame(({ pointer, size, camera }, delta) => {
+    const body = rigidBody.current;
+    if (!body) return;
 
-    if (rigidBody.current && textRef.current) {
-      const pos = rigidBody.current.translation();
-      textRef.current.position.set(pos.x, pos.y, pos.z + RADIUS + 0.05);
+    const pos = body.translation();
+    textRef.current?.position.set(pos.x, pos.y, pos.z + radius + 0.05);
+
+    const inside =
+      pos.x > zone.minX &&
+      pos.x < zone.maxX &&
+      pos.y > zone.minY &&
+      pos.y < zone.maxY;
+    ballStates.set(category, inside);
+
+    // Selected balls glow softly.
+    const mat = materialRef.current;
+    if (mat) {
+      const target = inside ? 0.45 : 0;
+      mat.emissiveIntensity +=
+        (target - mat.emissiveIntensity) * Math.min(1, delta * 8);
     }
 
-    const currentPos = rigidBody.current.translation();
-    const minX = zoneTarget.x - zoneTarget.width / 2;
-    const maxX = zoneTarget.x + zoneTarget.width / 2;
-    const minY = zoneTarget.y - zoneTarget.height / 2;
-    const maxY = zoneTarget.y + zoneTarget.height / 2;
-
-    const isInsideZone =
-      currentPos.x > minX &&
-      currentPos.x < maxX &&
-      currentPos.y > minY &&
-      currentPos.y < maxY;
-
-    ballStates.set(label, isInsideZone);
-
     if (isDragging) {
-      let targetX = (pointer.x * viewport.width) / 2;
-      let targetY = (pointer.y * viewport.height) / 2;
-      const maxX = limits.x - RADIUS;
-      const minFloor = limits.floor + RADIUS;
-
-      targetX = Math.max(-maxX, Math.min(maxX, targetX));
-      targetY = Math.max(minFloor, targetY);
-      rigidBody.current.setNextKinematicTranslation({
-        x: targetX,
-        y: targetY,
+      // Pointer → world for the orthographic camera centred on 0,0. (The
+      // `viewport` state was stale after the camera zoom changed, which made
+      // the ball lag far behind the cursor.)
+      const x = (pointer.x * size.width) / (2 * camera.zoom);
+      const y = (pointer.y * size.height) / (2 * camera.zoom);
+      body.setNextKinematicTranslation({
+        x: Math.max(bounds.minX + radius, Math.min(bounds.maxX - radius, x)),
+        y: Math.max(bounds.minY + radius, Math.min(bounds.maxY - radius, y)),
         z: 0,
       });
-    } else {
-      if (currentPos.y < resetY || Math.abs(currentPos.x) > limits.x + 20) {
-        const newX =
-          spawnRangeX[0] + Math.random() * (spawnRangeX[1] - spawnRangeX[0]);
+      return;
+    }
 
-        rigidBody.current.setTranslation(
-          { x: newX, y: 5 + Math.random() * 5, z: 0 },
-          true
-        );
-        rigidBody.current.setLinvel({ x: 0, y: 0, z: 0 }, true);
-        rigidBody.current.setAngvel({ x: 0, y: 0, z: 0 }, true);
-      }
-
-      if (Math.abs(currentPos.z) > 20) {
-        rigidBody.current.setTranslation(
-          { x: currentPos.x, y: currentPos.y, z: 0 },
-          true
-        );
-      }
+    // Escaped (thrown hard, or the layout shrank): drop it back in the pool.
+    const margin = radius * 3;
+    if (
+      pos.y < bounds.minY - margin ||
+      pos.y > bounds.maxY + margin ||
+      pos.x < bounds.minX - margin ||
+      pos.x > bounds.maxX + margin ||
+      Math.abs(pos.z) > 5
+    ) {
+      const x =
+        spawnRangeX[0] + Math.random() * (spawnRangeX[1] - spawnRangeX[0]);
+      body.setTranslation({ x, y: bounds.maxY - radius * 1.5, z: 0 }, true);
+      body.setLinvel({ x: 0, y: 0, z: 0 }, true);
+      body.setAngvel({ x: 0, y: 0, z: 0 }, true);
     }
   });
 
@@ -128,33 +134,57 @@ export default function ProjectTypeBall({
         ref={rigidBody}
         position={startPosition}
         colliders={false}
-        restitution={0.2}
-        friction={0.8}
+        restitution={0.35}
+        friction={0.6}
         enabledTranslations={[true, true, false]}
         enabledRotations={[false, false, true]}
-        ccd={true}
-        linearDamping={0.5}
-        angularDamping={0.5}
+        ccd
+        linearDamping={0.4}
+        angularDamping={0.6}
       >
-        <BallCollider args={[RADIUS]} />
-        <mesh onPointerDown={onPointerDown} onPointerUp={onPointerUp}>
-          <sphereGeometry args={[RADIUS, 24, 24]} />
-          <meshStandardMaterial color={color} roughness={0.3} metalness={0.2} />
+        <BallCollider args={[radius]} />
+        <mesh
+          onPointerDown={onPointerDown}
+          onPointerUp={onPointerUp}
+          onPointerOver={() => {
+            if (!isDragging) document.body.style.cursor = 'grab';
+          }}
+          onPointerOut={() => {
+            if (!isDragging) document.body.style.cursor = '';
+          }}
+        >
+          <sphereGeometry args={[radius, 40, 40]} />
+          <meshPhysicalMaterial
+            ref={materialRef}
+            color={color}
+            emissive={color}
+            emissiveIntensity={0}
+            roughness={0.35}
+            metalness={0.05}
+            clearcoat={1}
+            clearcoatRoughness={0.15}
+          />
         </mesh>
       </RigidBody>
 
       <Text
         ref={textRef}
-        fontSize={0.3}
-        color="white"
+        position={startPosition}
+        // Let clicks on the label reach the ball underneath.
+        raycast={() => null}
+        fontSize={radius * 0.38}
+        color="#ffffff"
         fontWeight="bold"
-        maxWidth={RADIUS * 2}
-        outlineWidth={0.025}
+        maxWidth={radius * 1.8}
+        lineHeight={1}
+        outlineWidth={radius * 0.035}
+        outlineColor="#000000"
+        outlineOpacity={0.45}
         anchorX="center"
         anchorY="middle"
         textAlign="center"
       >
-        {t.projects.categories[label as keyof typeof t.projects.categories]}
+        {label}
       </Text>
     </group>
   );
